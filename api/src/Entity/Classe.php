@@ -26,12 +26,12 @@ class Classe
     #[Groups('write')]
     private ?string $libelle = null;
 
-    #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'etudiant')]
-    private Collection $etudiants;
+    #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'classe')]
+    private Collection $inscriptions;
 
     public function __construct()
     {
-        $this->etudiants = new ArrayCollection();
+        $this->inscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,25 +52,25 @@ class Classe
     }
 
     /**
-     * @return Collection<int, Etudiant>
+     * @return Collection<int, Inscription>
      */
-    public function getEtudiants(?AnneeScolaire $annee_scolaire = null): Collection
+    public function getInscriptions(?AnneeScolaire $annee_scolaire = null): Collection
     {
-        return $this->etudiants;
+        return $this->inscriptions;
     }
 
-    public function addEtudiant(Etudiant $etudiant): static
+    public function addInscriptions(Inscription $inscription): static
     {
-        if (!$this->etudiants->contains($etudiant)) {
-            $this->etudiants->add($etudiant);
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions->add($inscription);
         }
 
         return $this;
     }
 
-    public function removeEtudiant(Etudiant $etudiant): static
+    public function removeInscriptions(Inscription $inscription): static
     {
-        $this->etudiants->removeElement($etudiant);
+        $this->inscriptions->removeElement($inscription);
 
         return $this;
     }

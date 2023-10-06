@@ -51,9 +51,8 @@ class Etudiant
     #[Groups('write')]
     private ?string $email = null;
 
-    #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'classe')]
-    private Collection $classes;
-
+    #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'etudiant')]
+    private Collection $inscriptions;
     public function __construct()
     {
         $this->classes = new ArrayCollection();
@@ -125,28 +124,25 @@ class Etudiant
     }
 
     /**
-     * @return Collection<int, Classe>
+     * @return Collection<int, Inscription>
      */
-    public function getClasses(): Collection
+    public function getInscriptions(?AnneeScolaire $annee_scolaire = null): Collection
     {
-        return $this->classes;
+        return $this->inscriptions;
     }
 
-    public function addClass(Classe $class): static
+    public function addInscriptions(Inscription $inscription): static
     {
-        if (!$this->classes->contains($class)) {
-            $this->classes->add($class);
-            $class->addEtudiant($this);
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions->add($inscription);
         }
 
         return $this;
     }
 
-    public function removeClass(Classe $class): static
+    public function removeInscriptions(Inscription $inscription): static
     {
-        if ($this->classes->removeElement($class)) {
-            $class->removeEtudiant($this);
-        }
+        $this->inscriptions->removeElement($inscription);
 
         return $this;
     }
