@@ -10,11 +10,7 @@ use App\State\InscriptionProcessor;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InscriptionRepository::class)]
-#[ApiResource(operations: [
-    new Post(processor: InscriptionProcessor::class, description: 'Inscrire un élève dans une classe'),
-    new Get(description: 'Recupérer une inscription')
-])
-]
+#[ApiResource(operations: [new Post(processor: InscriptionProcessor::class), new Get])]
 class Inscription
 {
     #[ORM\Id]
@@ -33,20 +29,6 @@ class Inscription
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: 'annee_scolaire_id', nullable: false)]
     private ?AnneeScolaire $annee_scolaire = null;
-
-    private bool $alreadyExists = false;
-
-    public function setAlreadyExists(bool $value): static
-    {
-        $this->alreadyExists = $value;
-
-        return $this;
-    }
-
-    public function getAlreadyExists(bool $value): bool
-    {
-        return $this->alreadyExists;
-    }
 
     public function getId(): ?int
     {

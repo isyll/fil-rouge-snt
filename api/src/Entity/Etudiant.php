@@ -3,6 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\EtudiantRepository;
 use App\Validator\Constraints\TelephoneFormat;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,7 +20,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: EtudiantRepository::class)]
 #[UniqueEntity('email', message: "L'adresse email existe déjà")]
 #[UniqueEntity('telephone', message: "Le numéro de téléphone existe déjà")]
-#[ApiResource()]
+#[ApiResource(
+    operations: [new Get, new GetCollection, new Put, new Post],
+    denormalizationContext: ['groups' => ['write']],
+    normalizationContext: ['groups' => ['read']]
+)]
 class Etudiant
 {
     #[ORM\Id]
