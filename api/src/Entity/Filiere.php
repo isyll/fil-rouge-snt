@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\FiliereRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -25,6 +27,14 @@ class Filiere
     #[ORM\Column]
     #[Assert\NotNull(message: 'Le nombre de semestres est manquant')]
     private ?int $semestres = null;
+
+    #[ORM\OneToMany(mappedBy: 'filiere', targetEntity: Classe::class)]
+    private Collection $classes;
+
+    public function __construct()
+    {
+        $this->classes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,6 +61,36 @@ class Filiere
     public function setSemestres(int $semestres): static
     {
         $this->semestres = $semestres;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Classe>
+     */
+    public function getClasses(): Collection
+    {
+        return $this->classes;
+    }
+
+    public function addClass(Classe $class): static
+    {
+        if (!$this->classes->contains($class)) {
+            $this->classes->add($class);
+            $class->setFiliere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClass(Classe $class): static
+    {
+        if ($this->classes->removeElement($class)) {
+            // set the owning side to null (unless already changed)
+            if ($class->getFiliere() === $this) {
+                $class->setFiliere(null);
+            }
+        }
 
         return $this;
     }

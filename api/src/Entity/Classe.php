@@ -29,6 +29,14 @@ class Classe
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'classe')]
     private Collection $inscriptions;
 
+    #[ORM\ManyToOne(inversedBy: 'classes')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Niveau $niveau = null;
+
+    #[ORM\ManyToOne(inversedBy: 'classes')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Filiere $filiere = null;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
@@ -71,6 +79,30 @@ class Classe
     public function removeInscriptions(Inscription $inscription): static
     {
         $this->inscriptions->removeElement($inscription);
+
+        return $this;
+    }
+
+    public function getNiveau(): ?Niveau
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?Niveau $niveau): static
+    {
+        $this->niveau = $niveau;
+
+        return $this;
+    }
+
+    public function getFiliere(): ?Filiere
+    {
+        return $this->filiere;
+    }
+
+    public function setFiliere(?Filiere $filiere): static
+    {
+        $this->filiere = $filiere;
 
         return $this;
     }
