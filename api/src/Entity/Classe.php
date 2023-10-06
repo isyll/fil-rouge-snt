@@ -13,7 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClasseRepository::class)]
 #[UniqueEntity('libelle', message: 'Le libellé existe déjà')]
-#[ApiResource(denormalizationContext: ['groups' => ['write']])]
+#[ApiResource(
+    denormalizationContext: ['groups' => ['write']],
+    normalizationContext: ['groups' => ['read']]
+)]
 class Classe
 {
     #[ORM\Id]
@@ -23,7 +26,7 @@ class Classe
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotNull(message: 'Le libellé est manquant')]
-    #[Groups('write')]
+    #[Groups(['write', 'read'])]
     private ?string $libelle = null;
 
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'classe')]
@@ -31,10 +34,12 @@ class Classe
 
     #[ORM\ManyToOne(inversedBy: 'classes')]
     #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['write', 'read'])]
     private ?Niveau $niveau = null;
 
     #[ORM\ManyToOne(inversedBy: 'classes')]
     #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['write', 'read'])]
     private ?Filiere $filiere = null;
 
     public function __construct()
