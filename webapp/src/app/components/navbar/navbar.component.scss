@@ -10,13 +10,28 @@ i.icon {
       position: absolute;
       top: 0;
       left: 0;
-      width: 280px;
+      width: 300px;
       display: none;
       z-index: 1000;
+      .search-btn {
+        border-bottom-left-radius: 3px;
+        border-top-left-radius: 3px;
+        background-color: white;
+        width: 40px;
+        border: none;
+        cursor: pointer;
+        padding: 16px;
+        .icon {
+          color: var(--bs-primary);
+        }
+      }
+      input.form-control {
+        font-size: large;
+        height: 67px;
+        border: none;
+        box-shadow: none;
+      }
     }
-  }
-  input.form-control {
-    height: 67px;
   }
   .btn {
     padding: 16px;
