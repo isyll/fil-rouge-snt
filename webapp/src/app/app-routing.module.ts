@@ -5,12 +5,21 @@ import { ContentLayoutComponent } from './components/content-layout/content-layo
 const routes: Routes = [
   {
     path: '',
-    component: ContentLayoutComponent
-  }
+    component: ContentLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/accueil/accueil.module').then(
+            (m) => m.AccueilModule
+          ),
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

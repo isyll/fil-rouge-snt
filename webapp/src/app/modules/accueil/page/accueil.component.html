@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-between">
+  <accueil-info-card
+    *ngFor="let item of infoCardsBg"
+    [bg]="item.color"
+    [icon]="item.icon"
+    [data]="item.data"
+    [title]="item.title"
+    [lastTitle]="item.last.title"
+    [lastData]="item.last.data"
+  ></accueil-info-card>
+</div>
+<div
+  class="alert alert-info d-flex w-auto m-3 pb-0"
+  style="gap: 10px; margin: 10px; font-size: 1.2em"
+  role="alert"
+>
+  <i class="bi bi-info-circle-fill"></i>
+  <div class="p-0">
+    <strong>Bienvenue sur l'interface d'administration</strong>
+    <p>
+      Votre compte a été vérifié vous pouvez accéder au fonctionnalités
+      d'administration
+    </p>
+  </div>
+</div>
