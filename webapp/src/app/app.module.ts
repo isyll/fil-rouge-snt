@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { ContentLayoutComponent } from './components/content-layout/content-layout.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ApiModule } from './core/openapi';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    ApiModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

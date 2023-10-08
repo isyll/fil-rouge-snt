@@ -1,1 +1,7 @@
-<p>annees-scolaires works!</p>
+<ng-container *ngIf="anneesScolaires">
+  <annee-card
+    *ngFor="let item of anneesScolaires.hydramember; let i = index"
+    [bg]="colors[i % anneesScolaires.hydramember.length]"
+    [libelle]="item.libelle"
+  ></annee-card>
+</ng-container>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {
   InfoCardService,
   InfoData,
-} from '../../../data/services/info-card.service';
+} from '../../../core/services/info-card.service';
 
 @Component({
   selector: 'page-accueil',

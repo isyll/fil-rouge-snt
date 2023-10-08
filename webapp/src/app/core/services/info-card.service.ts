@@ -16,13 +16,19 @@ export interface InfoData {
   providedIn: 'root',
 })
 export class InfoCardService {
+  private colors = ['#5453ac', '#A6A8DB', '#F98D97', '#6C8DF7'];
+
   constructor() {}
+
+  getColors(): string[] {
+    return this.colors;
+  }
 
   getDatas(): InfoData[] {
     return [
       {
         id: 1,
-        color: '#5453ac',
+        color: this.colors[0],
         icon: 'bi bi-person icon',
         title: "Nombre d'élèves",
         data: '14',
@@ -33,7 +39,7 @@ export class InfoCardService {
       },
       {
         id: 1,
-        color: '#A6A8DB',
+        color: this.colors[1],
         icon: 'bi bi-duffle icon',
         title: "Nombre d'employés",
         data: '2',
@@ -44,7 +50,7 @@ export class InfoCardService {
       },
       {
         id: 1,
-        color: '#F98D97',
+        color: this.colors[2],
         icon: 'bi bi-arrow-repeat icon',
         title: 'Revenues',
         data: '272344',
@@ -55,7 +61,7 @@ export class InfoCardService {
       },
       {
         id: 1,
-        color: '#6C8DF7',
+        color: this.colors[2],
         icon: 'bi bi-currency-exchange icon',
         title: 'Profit',
         data: '272344',
