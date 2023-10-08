@@ -14,6 +14,13 @@ const routes: Routes = [
             (m) => m.AccueilModule
           ),
       },
+      {
+        path: 'annees-scolaires',
+        loadChildren: () =>
+          import('./modules/annees-scolaires/annees-scolaires.module').then(
+            (m) => m.AnneesScolairesModule
+          ),
+      },
     ],
   },
 ];

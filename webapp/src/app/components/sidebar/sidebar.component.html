@@ -37,25 +37,43 @@
     <hr />
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
+        <a
+          href="#"
+          class="nav-link"
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
           <i class="bi bi-house-door sidebar-item-icon"></i>
           Accueil
         </a>
       </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
+      <li class="nav-item">
+        <a href="#" class="nav-link">
           <i class="bi bi-duffle sidebar-item-icon"></i>
           Mes cours
         </a>
       </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
+      <li class="nav-item">
+        <a href="#" class="nav-link">
           <i class="bi bi-people sidebar-item-icon"></i>
           Mes élèves
         </a>
       </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
+      <li class="nav-item">
+        <a
+          href="#"
+          class="nav-link"
+          routerLink="/annees-scolaires"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="bi bi-file-earmark sidebar-item-icon"></i>
+          Années scolaires
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">
           <i class="bi bi-file-earmark sidebar-item-icon"></i>
           Demandes
         </a>
