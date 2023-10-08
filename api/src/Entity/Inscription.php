@@ -8,9 +8,13 @@ use ApiPlatform\Metadata\Post;
 use App\Repository\InscriptionRepository;
 use App\State\InscriptionProcessor;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: InscriptionRepository::class)]
-#[ApiResource(operations: [new Post(processor: InscriptionProcessor::class), new Get])]
+#[ApiResource(
+    operations: [new Post(processor: InscriptionProcessor::class), new Get],
+    normalizationContext: ['groups' => ['read']]
+)]
 class Inscription
 {
     #[ORM\Id]
@@ -20,14 +24,17 @@ class Inscription
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: 'classe_id', nullable: false)]
+    #[Groups(['read'])]
     private ?Classe $classe = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: 'etudiant_id', nullable: false)]
+    #[Groups(['read'])]
     private ?Etudiant $etudiant = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: 'annee_scolaire_id', nullable: false)]
+    #[Groups(['read'])]
     private ?AnneeScolaire $annee_scolaire = null;
 
     public function getId(): ?int

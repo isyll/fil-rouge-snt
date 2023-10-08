@@ -17,7 +17,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FiliereRepository::class)]
 #[UniqueEntity('libelle', message: 'Le libellé existe déjà')]
-#[ApiResource(operations: [new Get, new GetCollection, new Put, new Post])]
+#[ApiResource(
+    operations: [new Get, new GetCollection, new Put, new Post],
+    denormalizationContext: ['groups' => ['write']],
+    normalizationContext: ['groups' => ['read']]
+)]
 class Filiere
 {
     #[ORM\Id]
@@ -27,13 +31,16 @@ class Filiere
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotNull(message: 'Le libellé est manquant')]
+    #[Groups(['write', 'read'])]
     private ?string $libelle = null;
 
     #[ORM\Column]
     #[Assert\NotNull(message: 'Le nombre de semestres est manquant')]
+    #[Groups(['write', 'read'])]
     private ?int $semestres = null;
 
     #[ORM\OneToMany(mappedBy: 'filiere', targetEntity: Classe::class)]
+    #[Groups(['read'])]
     private Collection $classes;
 
     public function __construct()

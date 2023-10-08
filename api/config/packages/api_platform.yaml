@@ -18,4 +18,4 @@ api_platform:
         # Validation exception
         ApiPlatform\Validator\Exception\ValidationException: !php/const Symfony\Component\HttpFoundation\Response::HTTP_UNPROCESSABLE_ENTITY
         # Custom mapping
-        App\Exception\ExistingInscriptionException: 409 # Here is the handler for our custom exception
+        App\Exception\ExistingInscriptionException: 409
