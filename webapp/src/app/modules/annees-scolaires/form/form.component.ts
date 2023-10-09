@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { anneeScolaireExistenceValidator } from '../../../core/validators/anneeScolaire-existence.validator';
 import { AnneeScolaireService } from '../../../core/openapi';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-form',
@@ -18,7 +19,10 @@ export class FormComponent {
     annee1: ['', Validators.pattern(/^[0-9]{4}$/)],
   });
   annee2: number | string = '';
-  anneeAlreadyExists: boolean = false;
+  anneeAlreadyExists = false;
+  submitPending = false;
+  submitOk = false;
+  unknownError = false;
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +33,9 @@ export class FormComponent {
       this.annee2 = '';
       if (this.form.get('annee1')?.valid) {
         this.annee2 = parseInt(String(newValue)) + 1;
-        this.form.get('libelle')?.setValue(newValue + '-' + this.annee2);
+        this.annee2 = !isNaN(this.annee2) ? this.annee2 : '';
+        if (newValue)
+          this.form.get('libelle')?.setValue(newValue + '-' + this.annee2);
       }
     });
 
@@ -42,5 +48,25 @@ export class FormComponent {
     });
   }
 
-  onSubmit() {}
+  onSubmit() {
+    const value = this.form.get('libelle')?.value;
+    this.submitPending = true;
+    if (value)
+      this.anneeScolaireService
+        .apiAnneeScolairesPost({ libelle: value })
+        .pipe(
+          catchError((error) => {
+            this.submitPending = this.submitOk = false;
+            this.unknownError = true;
+            return throwError(() => null);
+          })
+        )
+        .subscribe(() => {
+          setTimeout(() => {
+            this.form.reset();
+            this.submitPending = false;
+            this.submitOk = true;
+          }, 500);
+        });
+  }
 }

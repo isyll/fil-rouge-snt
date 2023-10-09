@@ -1,6 +1,28 @@
 div.input-group {
-  input, .input-group-text {
+  input,
+  .input-group-text {
     padding: 10px;
     font-size: large;
+  }
+}
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.6);
+  div {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    span {
+      width: 50px;
+      height: 50px;
+      font-size: 125%;
+      color: white;
+    }
   }
 }
