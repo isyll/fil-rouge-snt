@@ -1,7 +1,17 @@
 <ng-container *ngIf="anneesScolaires">
-  <annee-card
-    *ngFor="let item of anneesScolaires.hydramember; let i = index"
-    [bg]="colors[i % anneesScolaires.hydramember.length]"
-    [libelle]="item.libelle"
-  ></annee-card>
+  <div class="d-flex">
+    <annee-card
+      *ngFor="let item of anneesScolaires['hydra:member']; let i = index"
+      [bg]="colors[i % anneesScolaires['hydra:member'].length]"
+      [libelle]="item.libelle"
+    ></annee-card>
+    <a routerLink="creer-annee">
+      <div class="card text-light shadow rounded-4">
+        <div class="card-title text-dark d-flex">
+          <i class="bi bi-plus-lg icon"></i>
+          <h5>Nouvelle année</h5>
+        </div>
+      </div>
+    </a>
+  </div>
 </ng-container>

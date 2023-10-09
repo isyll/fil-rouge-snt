@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AnneeScolaireService } from '../../../core/openapi';
-import { ApiAnneeScolairesGetCollection200Response } from '../../../core/openapi';
 import { InfoCardService } from '../../../core/services/info-card.service';
 
 @Component({
@@ -9,7 +8,7 @@ import { InfoCardService } from '../../../core/services/info-card.service';
   styleUrls: ['./annees-scolaires.component.scss'],
 })
 export class AnneesScolairesComponent implements OnInit {
-  anneesScolaires!: ApiAnneeScolairesGetCollection200Response;
+  anneesScolaires!: any;
   dataCompleted: boolean = false;
   colors!: string[];
 
@@ -21,7 +20,7 @@ export class AnneesScolairesComponent implements OnInit {
   ngOnInit(): void {
     this.colors = this.infoCardService.getColors();
 
-    this.service.apiAnneeScolairesGetCollection().subscribe((response) => {
+    this.service.apiAnneeScolairesGetCollection().subscribe((response: any) => {
       console.log(response);
       this.anneesScolaires = response;
       this.dataCompleted = true;

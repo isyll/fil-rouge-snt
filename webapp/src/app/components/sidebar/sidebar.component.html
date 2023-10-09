@@ -2,7 +2,7 @@
   <div
     class="bg-primary p-2 px-3 text-white sidebar-header d-flex justify-content-between align-items-center"
   >
-    <a class="navbar-brand active fs-3" href="#">Sylla-App </a>
+    <a class="navbar-brand active fs-3" href="#">{{ appName }} </a>
     <button class="btn btn-link text-white">
       <i class="fs-2 bi bi-list"></i>
     </button>
@@ -10,15 +10,16 @@
   <div
     class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary sidebar-content"
   >
-    <div class="dropdown">
+    <div dropdown>
       <a
+        dropdownToggle
         href="#"
         class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
         <img
-          src="https://github.com/mdo.png"
+          src="assets/user.png"
           alt=""
           width="32"
           height="32"
@@ -26,12 +27,14 @@
         />
         <strong>Ibrahima Sylla</strong>
       </a>
-      <ul class="dropdown-menu text-small shadow">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
+      <ul class="dropdown-menu text-small shadow" *dropdownMenu role="menu">
+        <li role="menuitem">
+          <a class="dropdown-item" href="#">New project...</a>
+        </li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Settings</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Profile</a></li>
+        <li role="menuitem"><hr class="dropdown-divider" /></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Sign out</a></li>
       </ul>
     </div>
     <hr />
@@ -66,7 +69,6 @@
           class="nav-link"
           routerLink="/annees-scolaires"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
         >
           <i class="bi bi-file-earmark sidebar-item-icon"></i>
           Années scolaires
