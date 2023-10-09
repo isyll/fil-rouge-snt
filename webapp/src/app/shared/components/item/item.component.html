@@ -1,0 +1,16 @@
+<div class="wrapper d-flex justify-content-center align-items-center">
+  <div
+    class="head rounded-circle d-flex justify-content-center align-items-center"
+    [style.background-color]="bg"
+  >
+    <i class="{{ icon }} fs-1"></i>
+  </div>
+  <div class="body rounded-pill text-white" [style.background-color]="bg">
+    <div
+      class="mt-2 d-flex justify-content-center flex-column align-items-center fs-4"
+    >
+      <strong>{{ title }}</strong>
+      <p>{{ body }}</p>
+    </div>
+  </div>
+</div>

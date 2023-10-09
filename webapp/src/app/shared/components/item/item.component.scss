@@ -1,0 +1,21 @@
+.wrapper {
+  width: 375px;
+  transform: scale(0.8);
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  &:hover {
+    transform: scale(0.84);
+  }
+  .head {
+    width: 106px;
+    height: 106px;
+    box-shadow: 2px 0px 10px;
+    z-index: 2;
+  }
+  .body {
+    width: 325px;
+    height: 85px;
+    z-index: 1;
+    transform: translateX(-50px);
+  }
+}
