@@ -1,9 +1,16 @@
-<div *ngIf="anneesScolaires" class="d-flex">
-  <annee-card
+<div *ngIf="anneesScolaires" class="p-3 row">
+  <ng-container
     *ngFor="let item of anneesScolaires['hydra:member']; let i = index"
-    [bg]="colors[i % colors.length]"
-    [libelle]="item.libelle"
-  ></annee-card>
+  >
+    <a [routerLink]="item['@id']" class="text-reset text-decoration-none col-4">
+      <app-item
+        [bg]="colors[i % colors.length]"
+        [title]="item.libelle"
+        [body]="'55 élèves'"
+        icon="bi-ubuntu bi"
+      ></app-item>
+    </a>
+  </ng-container>
   <a routerLink="creer-annee">
     <div class="card text-light shadow rounded-4">
       <div class="card-title text-dark d-flex">
@@ -13,3 +20,4 @@
     </div>
   </a>
 </div>
+<app-loading *ngIf="requestPending"></app-loading>

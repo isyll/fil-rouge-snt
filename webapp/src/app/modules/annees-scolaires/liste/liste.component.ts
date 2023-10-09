@@ -9,7 +9,7 @@ import { InfoCardService } from '../../../core/services/info-card.service';
 })
 export class AnneesScolairesComponent implements OnInit {
   anneesScolaires!: any;
-  dataCompleted: boolean = false;
+  requestPending = false;
   colors!: string[];
 
   constructor(
@@ -19,11 +19,13 @@ export class AnneesScolairesComponent implements OnInit {
 
   ngOnInit(): void {
     this.colors = this.infoCardService.getColors();
+    this.requestPending = true;
 
     this.service.apiAnneeScolairesGetCollection().subscribe((response: any) => {
-      console.log(response);
-      this.anneesScolaires = response;
-      this.dataCompleted = true;
+      setTimeout(() => {
+        this.anneesScolaires = response;
+        this.requestPending = false;
+      }, 500);
     });
   }
 }
