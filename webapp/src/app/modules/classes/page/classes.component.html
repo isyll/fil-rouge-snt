@@ -1,1 +1,40 @@
-<p>classes works!</p>
+<div class="p-5 col-6">
+  <table class="table table-hover">
+    <thead class="table-primary">
+      <tr>
+        <th scope="col">Libellé</th>
+        <th scope="col">Filière</th>
+        <th scope="col">Niveau</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="data">
+        <tr *ngFor="let item of data['hydra:member']">
+          <td>{{ item.libelle }}</td>
+          <td>
+            <span *ngIf="item['filiere']">{{ item["filiere"].libelle }} </span>
+            <span *ngIf="!item['filiere']" class="text-danger fst-italic"
+              >Aucun
+            </span>
+          </td>
+          <td>
+            <span *ngIf="item['niveau']">
+              {{ item["niveau"].libelle }}
+            </span>
+            <span *ngIf="!item['niveau']" class="text-danger fst-italic">
+              Aucun
+            </span>
+          </td>
+          <td>
+            <a [routerLink]="item['@id']" class="text-reset">
+              <button class="btn btn-link text-reset">
+                <i class="bi bi-eye-fill fs-5"></i>
+              </button>
+            </a>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,26 @@
+<div class="p-5 col-8">
+  <ng-container *ngIf="data">
+    <table class="table" *ngIf="!notFound">
+      <tr>
+        <td>Libellé :</td>
+        <td>{{ data["libelle"] }}</td>
+      </tr>
+      <tr>
+        <td>Filière :</td>
+        <td>{{ data["filiere"]?.libelle ?? 'Aucun' }}</td>
+      </tr>
+      <tr>
+        <td>Niveau :</td>
+        <td>{{ data["niveau"]?.libelle ?? 'Aucun' }}</td>
+      </tr>
+    </table>
+  </ng-container>
+
+  <div
+    *ngIf="notFound"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    <strong> Classe non trouvée </strong>
+  </div>
+</div>
