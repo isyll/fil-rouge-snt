@@ -21,6 +21,27 @@ const routes: Routes = [
             (m) => m.AnneesScolairesModule
           ),
       },
+      {
+        path: 'classes',
+        loadChildren: () =>
+          import('./modules/classes/classes.module').then(
+            (m) => m.ClassesModule
+          ),
+      },
+      {
+        path: 'filieres',
+        loadChildren: () =>
+          import('./modules/filieres/filieres.module').then(
+            (m) => m.FilieresModule
+          ),
+      },
+      {
+        path: 'niveaux',
+        loadChildren: () =>
+          import('./modules/niveaux/niveaux.module').then(
+            (m) => m.NiveauxModule
+          ),
+      },
     ],
   },
 ];
