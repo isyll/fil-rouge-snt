@@ -1,17 +1,15 @@
-<ng-container *ngIf="anneesScolaires">
-  <div class="d-flex">
-    <annee-card
-      *ngFor="let item of anneesScolaires['hydra:member']; let i = index"
-      [bg]="colors[i % colors.length]"
-      [libelle]="item.libelle"
-    ></annee-card>
-    <a routerLink="creer-annee">
-      <div class="card text-light shadow rounded-4">
-        <div class="card-title text-dark d-flex">
-          <i class="bi bi-plus-lg icon"></i>
-          <h5>Nouvelle année</h5>
-        </div>
+<div *ngIf="anneesScolaires" class="d-flex">
+  <annee-card
+    *ngFor="let item of anneesScolaires['hydra:member']; let i = index"
+    [bg]="colors[i % colors.length]"
+    [libelle]="item.libelle"
+  ></annee-card>
+  <a routerLink="creer-annee">
+    <div class="card text-light shadow rounded-4">
+      <div class="card-title text-dark d-flex">
+        <i class="bi bi-plus-lg icon"></i>
+        <h5>Nouvelle année</h5>
       </div>
-    </a>
-  </div>
-</ng-container>
+    </div>
+  </a>
+</div>
