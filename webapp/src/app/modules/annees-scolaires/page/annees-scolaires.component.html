@@ -2,7 +2,7 @@
   <div class="d-flex">
     <annee-card
       *ngFor="let item of anneesScolaires['hydra:member']; let i = index"
-      [bg]="colors[i % anneesScolaires['hydra:member'].length]"
+      [bg]="colors[i % colors.length]"
       [libelle]="item.libelle"
     ></annee-card>
     <a routerLink="creer-annee">
