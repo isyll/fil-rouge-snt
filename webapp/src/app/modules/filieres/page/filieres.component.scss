@@ -1,9 +1,13 @@
 table {
   tbody {
     button {
+      visibility: hidden;
       &:hover i {
-        color: var(--bs-danger)
+        color: var(--bs-danger);
       }
+    }
+    tr:hover button {
+      visibility: visible;
     }
   }
 }
