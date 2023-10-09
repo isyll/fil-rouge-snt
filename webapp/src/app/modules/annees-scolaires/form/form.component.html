@@ -48,8 +48,4 @@
     {{ submitOk ? "Année créée avec succès" : "" }}
   </div>
 </form>
-<div class="overlay" *ngIf="submitPending">
-  <div class="">
-    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-  </div>
-</div>
+<app-loading *ngIf="submitPending"></app-loading>
