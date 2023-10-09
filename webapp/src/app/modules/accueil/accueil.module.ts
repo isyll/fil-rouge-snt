@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AccueilComponent } from './page/accueil.component';
+import { AccueilComponent } from './infos/infos.component';
 import { AccueilRoutingModule } from './accueil-routing.module';
 import { InfoCardComponent } from './info-card/info-card.component';
 import { BsModalService } from 'ngx-bootstrap/modal';

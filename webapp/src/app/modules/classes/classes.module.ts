@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClassesComponent } from './page/classes.component';
+import { ClassesComponent } from './liste/liste.component';
 import { ClassesRoutingModule } from './classes-routing.module';
 import { DetailsComponent } from './details/details.component';
 

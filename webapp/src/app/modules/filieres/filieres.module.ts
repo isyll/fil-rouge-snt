@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FilieresComponent } from './page/filieres.component';
+import { FilieresComponent } from './liste/liste.component';
 import { FilieresRoutingModule } from './filieres-routing.module';
 import { DetailsComponent } from './details/details.component';
 

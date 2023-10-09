@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ClasseService } from 'src/app/core/openapi';
 
 @Component({
-  selector: 'app-classes',
-  templateUrl: './classes.component.html',
-  styleUrls: ['./classes.component.scss'],
+  selector: 'liste-classes',
+  templateUrl: './liste.component.html',
+  styleUrls: ['./liste.component.scss'],
 })
 export class ClassesComponent implements OnInit {
   data: any;

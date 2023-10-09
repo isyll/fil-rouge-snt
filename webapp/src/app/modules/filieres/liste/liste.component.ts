@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FiliereService } from 'src/app/core/openapi';
 
 @Component({
-  selector: 'page-filieres',
-  templateUrl: './filieres.component.html',
-  styleUrls: ['./filieres.component.scss'],
+  selector: 'liste-filieres',
+  templateUrl: './liste.component.html',
+  styleUrls: ['./liste.component.scss'],
 })
 export class FilieresComponent implements OnInit {
   data: any;

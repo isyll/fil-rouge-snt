@@ -5,9 +5,9 @@ import {
 } from '../../../core/services/info-card.service';
 
 @Component({
-  selector: 'page-accueil',
-  templateUrl: './accueil.component.html',
-  styleUrls: ['./accueil.component.scss'],
+  selector: 'accueil-infos',
+  templateUrl: './infos.component.html',
+  styleUrls: ['./infos.component.scss'],
 })
 export class AccueilComponent {
   infoCards!: InfoData[];

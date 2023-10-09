@@ -3,9 +3,9 @@ import { AnneeScolaireService } from '../../../core/openapi';
 import { InfoCardService } from '../../../core/services/info-card.service';
 
 @Component({
-  selector: 'app-annees-scolaires',
-  templateUrl: './annees-scolaires.component.html',
-  styleUrls: ['./annees-scolaires.component.scss'],
+  selector: 'liste-annees-scolaires',
+  templateUrl: './liste.component.html',
+  styleUrls: ['./liste.component.scss'],
 })
 export class AnneesScolairesComponent implements OnInit {
   anneesScolaires!: any;

@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { NiveauService } from 'src/app/core/openapi';
 
 @Component({
-  selector: 'page-niveaux',
-  templateUrl: './niveaux.component.html',
-  styleUrls: ['./niveaux.component.scss'],
+  selector: 'liste-niveaux',
+  templateUrl: './liste.component.html',
+  styleUrls: ['./liste.component.scss'],
 })
 export class NiveauxComponent {
   data: any;

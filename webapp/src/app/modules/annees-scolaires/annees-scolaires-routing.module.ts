@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AnneesScolairesComponent } from './page/annees-scolaires.component';
+import { AnneesScolairesComponent } from './liste/liste.component';
 import { FormComponent } from './form/form.component';
 
 const routes: Routes = [
