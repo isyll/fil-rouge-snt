@@ -1,0 +1,9 @@
+table {
+  tbody {
+    button {
+      &:hover i {
+        color: var(--bs-danger)
+      }
+    }
+  }
+}
