@@ -8,12 +8,16 @@ import { NiveauService } from 'src/app/core/openapi';
 })
 export class NiveauxComponent {
   data: any;
+  requestPending = false;
 
   constructor(private niveauService: NiveauService) {}
 
   ngOnInit(): void {
+    this.requestPending = true;
+
     this.niveauService.apiNiveauxGetCollection().subscribe((response: any) => {
       this.data = response;
+      this.requestPending = false;
     });
   }
 }

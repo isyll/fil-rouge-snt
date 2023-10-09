@@ -8,13 +8,16 @@ import { ClasseService } from 'src/app/core/openapi';
 })
 export class ClassesComponent implements OnInit {
   data: any;
+  requestPending = false;
 
   constructor(private classeService: ClasseService) {}
 
   ngOnInit(): void {
-    this.classeService.apiClassesGetCollection().subscribe((response: any) => {
+    this.requestPending = true;
 
+    this.classeService.apiClassesGetCollection().subscribe((response: any) => {
       this.data = response;
+      this.requestPending = false;
     });
   }
 }

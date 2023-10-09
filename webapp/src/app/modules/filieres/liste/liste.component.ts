@@ -8,14 +8,18 @@ import { FiliereService } from 'src/app/core/openapi';
 })
 export class FilieresComponent implements OnInit {
   data: any;
+  requestPending: boolean = false;
 
   constructor(private filiereService: FiliereService) {}
 
   ngOnInit(): void {
+    this.requestPending = true;
+
     this.filiereService
       .apiFilieresGetCollection()
       .subscribe((response: any) => {
         this.data = response;
+        this.requestPending = false;
       });
   }
 }

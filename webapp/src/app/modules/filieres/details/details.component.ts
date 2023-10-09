@@ -11,6 +11,7 @@ import { FiliereService } from 'src/app/core/openapi';
 export class DetailsComponent implements OnInit {
   data: any;
   notFound = false;
+  requestPending = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,6 +19,8 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.requestPending = true;
+
     this.route.params.subscribe((params) => {
       this.filiereService
         .apiFilieresIdGet(params['id'])
@@ -26,11 +29,13 @@ export class DetailsComponent implements OnInit {
             if (error.status !== 0) {
               this.notFound = true;
             }
+            this.requestPending = false;
             return throwError(() => null);
           })
         )
         .subscribe((response: any) => {
           this.data = response;
+          this.requestPending = false;
         });
     });
   }
