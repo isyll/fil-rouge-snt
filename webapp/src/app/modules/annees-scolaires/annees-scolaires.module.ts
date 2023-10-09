@@ -6,9 +6,10 @@ import { AnneeCardComponent } from './annee-card/annee-card.component';
 import { FormComponent } from './form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
-  declarations: [AnneesScolairesComponent, AnneeCardComponent, FormComponent],
+  declarations: [AnneesScolairesComponent, AnneeCardComponent, FormComponent, DetailsComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

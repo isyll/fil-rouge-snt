@@ -15,7 +15,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'annees-scolaires',
+        path: 'annee_scolaires',
         loadChildren: () =>
           import('./modules/annees-scolaires/annees-scolaires.module').then(
             (m) => m.AnneesScolairesModule

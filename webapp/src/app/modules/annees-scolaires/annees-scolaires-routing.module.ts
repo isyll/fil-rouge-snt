@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnneesScolairesComponent } from './liste/liste.component';
 import { FormComponent } from './form/form.component';
+import { DetailsComponent } from './details/details.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'creer-annee',
     component: FormComponent,
+  },
+  {
+    path: ':id',
+    component: DetailsComponent,
   },
 ];
 
