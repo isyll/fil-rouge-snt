@@ -15,7 +15,6 @@ export class FilieresComponent implements OnInit {
     this.filiereService
       .apiFilieresGetCollection()
       .subscribe((response: any) => {
-        console.log(response);
         this.data = response;
       });
   }
