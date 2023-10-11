@@ -3,7 +3,7 @@
   <ng-container *ngIf="items">
     <div
       *ngFor="let item of items"
-      class="item d-inline-block border border-1 p-1 rounded-3"
+      class="item d-inline-block border border-1 p-1 rounded-3 mx-2"
       [ngClass]="{ disabled: item.state === false }"
     >
       <div class="d-flex justify-content-center align-items-center p-2">
