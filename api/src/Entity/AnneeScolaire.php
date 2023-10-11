@@ -11,6 +11,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Repository\AnneeScolaireRepository;
 use App\Validator\Constraints\AnneeScolaireFormat;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -20,7 +21,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: AnneeScolaireRepository::class)]
 #[UniqueEntity('libelle', message: 'Le libellé est manquant')]
 #[ApiResource(
-    operations: [new Get, new GetCollection, new Put, new Post],
+    operations: [
+        new Get(
+            normalizationContext: ['groups' => 'item:read']
+        ),
+        new GetCollection,
+        new Put,
+        new Post,
+    ],
     denormalizationContext: ['groups' => ['write']],
     normalizationContext: ['groups' => ['read']]
 )]
@@ -35,11 +43,21 @@ class AnneeScolaire
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotNull(message: 'Le libellé est manquant')]
     #[AnneeScolaireFormat]
-    #[Groups(['write', 'read'])]
+    #[Groups(['write', 'read', 'item:read'])]
     private ?string $libelle = null;
 
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'annee_scolaire')]
+    #[Groups(['item:read'])]
     private Collection $inscriptions;
+
+    #[ORM\OneToMany(mappedBy: 'annee_scolaire', targetEntity: Ouverture::class)]
+    #[Groups(['item:read'])]
+    private Collection $ouvertures;
+
+    public function __construct()
+    {
+        $this->ouvertures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -78,6 +96,36 @@ class AnneeScolaire
     public function removeInscriptions(Inscription $inscription): static
     {
         $this->inscriptions->removeElement($inscription);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ouverture>
+     */
+    public function getOuvertures(): Collection
+    {
+        return $this->ouvertures;
+    }
+
+    public function addOuverture(Ouverture $ouverture): static
+    {
+        if (!$this->ouvertures->contains($ouverture)) {
+            $this->ouvertures->add($ouverture);
+            $ouverture->setAnneeScolaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOuverture(Ouverture $ouverture): static
+    {
+        if ($this->ouvertures->removeElement($ouverture)) {
+            // set the owning side to null (unless already changed)
+            if ($ouverture->getAnneeScolaire() === $this) {
+                $ouverture->setAnneeScolaire(null);
+            }
+        }
 
         return $this;
     }

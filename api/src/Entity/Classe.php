@@ -47,9 +47,13 @@ class Classe
     #[Groups(['write', 'read'])]
     private ?Filiere $filiere = null;
 
+    #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Ouverture::class)]
+    private Collection $ouvertures;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
+        $this->ouvertures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -113,6 +117,36 @@ class Classe
     public function setFiliere(?Filiere $filiere): static
     {
         $this->filiere = $filiere;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ouverture>
+     */
+    public function getOuvertures(): Collection
+    {
+        return $this->ouvertures;
+    }
+
+    public function addOuverture(Ouverture $ouverture): static
+    {
+        if (!$this->ouvertures->contains($ouverture)) {
+            $this->ouvertures->add($ouverture);
+            $ouverture->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOuverture(Ouverture $ouverture): static
+    {
+        if ($this->ouvertures->removeElement($ouverture)) {
+            // set the owning side to null (unless already changed)
+            if ($ouverture->getClasse() === $this) {
+                $ouverture->setClasse(null);
+            }
+        }
 
         return $this;
     }
