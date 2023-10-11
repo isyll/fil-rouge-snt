@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use App\Repository\OuvertureRepository;
@@ -18,8 +19,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
         processor: OuvertureProcessor::class,
         normalizationContext: ['groups' => 'write']
     ),
+    new Delete,
     new Get(normalizationContext: ['groups' => 'read'])
-])]
+]
+)]
 #[ApiFilter(SearchFilter::class, properties: ['annee_scolaire' => 'exact'])]
 #[ORM\UniqueConstraint(fields: ['classe', 'annee_scolaire'])]
 class Ouverture
