@@ -1,0 +1,28 @@
+.wrapper {
+  .item {
+    font-size: large;
+    div {
+      cursor: pointer;
+      gap: 8px;
+      label {
+        cursor: pointer;
+        user-select: none;
+        color: var(--bs-dark);
+      }
+      input {
+        cursor: pointer;
+        &:checked {
+          background-color: var(--bs-dark);
+        }
+        &:focus {
+          border-color: lightgray;
+        }
+      }
+    }
+  }
+}
+
+.disabled {
+  background-color: #eee;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}

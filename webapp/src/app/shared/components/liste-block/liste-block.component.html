@@ -1,0 +1,20 @@
+<div class="wrapper border border-2 p-2 rounded-3">
+  <h6>{{ title }}</h6>
+  <ng-container *ngIf="items">
+    <div
+      *ngFor="let item of items"
+      class="item d-inline-block border border-1 p-1 rounded-3"
+      [ngClass]="{ disabled: item.state === false }"
+    >
+      <div class="d-flex justify-content-center align-items-center p-2">
+        <label for="{{ item.id }}">{{ item.content | uppercase }}</label>
+        <input
+          type="checkbox"
+          class="form-check-input shadow-none"
+          id="{{ item.id }}"
+          (change)="onItemClick($event, item.id)"
+        />
+      </div>
+    </div>
+  </ng-container>
+</div>
