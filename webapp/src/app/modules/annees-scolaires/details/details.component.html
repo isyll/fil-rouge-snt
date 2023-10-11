@@ -1,1 +1,13 @@
-<p>details works!</p>
+<div class="p-5 col-8">
+  <ng-container *ngIf="data">
+  </ng-container>
+
+  <div
+    *ngIf="notFound"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    <strong> Filière non trouvée </strong>
+  </div>
+</div>
+<app-loading *ngIf="requestPending"></app-loading>
