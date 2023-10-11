@@ -16,8 +16,8 @@ export class ListeBlockComponent {
 
   onItemClick(event: Event, id: string) {
     const target = event.target as HTMLInputElement;
-    if (target.checked) this.items.find((item) => item.id === id)!.state = false;
-    else this.items.find((item) => item.id === id)!.state = true;
+    if (target.checked) this.items.find((item) => item.id === id)!.state = true;
+    else this.items.find((item) => item.id === id)!.state = false;
 
     this.itemChange.emit({ value: target.checked, id: id });
   }

@@ -66,6 +66,7 @@ export class DetailsComponent implements OnInit {
           temp.push({
             id: response['classe']['@id'],
             content: response['classe']['libelle'],
+            state: true
           });
         });
     });

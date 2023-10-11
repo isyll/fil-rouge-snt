@@ -4,7 +4,7 @@
     <div
       *ngFor="let item of items"
       class="item d-inline-block border border-1 p-1 rounded-3 mx-2"
-      [ngClass]="{ disabled: item.state === false }"
+      [ngClass]="{ checked: item.state === true }"
     >
       <div class="d-flex justify-content-center align-items-center p-2">
         <label for="{{ item.id }}">{{ item.content | uppercase }}</label>
@@ -13,6 +13,7 @@
           class="form-check-input shadow-none"
           id="{{ item.id }}"
           (change)="onItemClick($event, item.id)"
+          [defaultChecked]="item.state === true"
         />
       </div>
     </div>
