@@ -19,6 +19,10 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
+import { AnneeScolaireItemRead } from '../model/anneeScolaireItemRead';
+// @ts-ignore
+import { AnneeScolaireJsonldItemRead } from '../model/anneeScolaireJsonldItemRead';
+// @ts-ignore
 import { AnneeScolaireJsonldRead } from '../model/anneeScolaireJsonldRead';
 // @ts-ignore
 import { AnneeScolaireJsonldWrite } from '../model/anneeScolaireJsonldWrite';
@@ -183,9 +187,9 @@ export class AnneeScolaireService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiAnneeScolairesIdGet(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<AnneeScolaireJsonldRead>;
-    public apiAnneeScolairesIdGet(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpResponse<AnneeScolaireJsonldRead>>;
-    public apiAnneeScolairesIdGet(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpEvent<AnneeScolaireJsonldRead>>;
+    public apiAnneeScolairesIdGet(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<AnneeScolaireJsonldItemRead>;
+    public apiAnneeScolairesIdGet(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpResponse<AnneeScolaireJsonldItemRead>>;
+    public apiAnneeScolairesIdGet(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpEvent<AnneeScolaireJsonldItemRead>>;
     public apiAnneeScolairesIdGet(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling apiAnneeScolairesIdGet.');
@@ -225,7 +229,7 @@ export class AnneeScolaireService {
         }
 
         let localVarPath = `/annee_scolaires/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<AnneeScolaireJsonldRead>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<AnneeScolaireJsonldItemRead>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

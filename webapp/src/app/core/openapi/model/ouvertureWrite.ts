@@ -9,17 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
+import { ClasseWrite } from './classeWrite';
+import { AnneeScolaireWrite } from './anneeScolaireWrite';
 
 
 /**
  * 
  */
-export interface FiliereJsonldWrite { 
-    context?: AnneeScolaireJsonldItemReadContext;
-    readonly id?: string;
-    readonly type?: string;
-    libelle: string;
-    semestres: number;
+export interface OuvertureWrite { 
+    classe?: ClasseWrite;
+    annee_scolaire?: AnneeScolaireWrite;
 }
 

@@ -9,8 +9,8 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AnneeScolaireJsonldReadContext } from './anneeScolaireJsonldReadContext';
 import { ClasseJsonldRead } from './classeJsonldRead';
+import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
 import { AnneeScolaireJsonldRead } from './anneeScolaireJsonldRead';
 
 
@@ -18,7 +18,7 @@ import { AnneeScolaireJsonldRead } from './anneeScolaireJsonldRead';
  * 
  */
 export interface InscriptionJsonldRead { 
-    context?: AnneeScolaireJsonldReadContext;
+    context?: AnneeScolaireJsonldItemReadContext;
     readonly id?: string;
     readonly type?: string;
     classe?: ClasseJsonldRead;

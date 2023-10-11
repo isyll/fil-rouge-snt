@@ -11,12 +11,16 @@
  */
 import { FiliereJsonldWrite } from './filiereJsonldWrite';
 import { NiveauJsonldWrite } from './niveauJsonldWrite';
+import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
 
 
 /**
  * 
  */
 export interface ClasseJsonldWrite { 
+    context?: AnneeScolaireJsonldItemReadContext;
+    readonly id?: string;
+    readonly type?: string;
     libelle: string;
     niveau?: NiveauJsonldWrite | null;
     filiere?: FiliereJsonldWrite | null;

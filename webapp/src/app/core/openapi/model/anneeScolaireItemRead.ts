@@ -9,12 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AnneeScolaireJsonldReadContextOneOf } from './anneeScolaireJsonldReadContextOneOf';
 
 
 /**
- * @type AnneeScolaireJsonldReadContext
- * @export
+ * 
  */
-export type AnneeScolaireJsonldReadContext = AnneeScolaireJsonldReadContextOneOf | string;
+export interface AnneeScolaireItemRead { 
+    libelle: string;
+    inscriptions?: Array<string>;
+    ouvertures?: Array<string>;
+}
 

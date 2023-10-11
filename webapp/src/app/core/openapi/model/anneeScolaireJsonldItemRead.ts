@@ -15,11 +15,12 @@ import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemRea
 /**
  * 
  */
-export interface FiliereJsonldWrite { 
+export interface AnneeScolaireJsonldItemRead { 
     context?: AnneeScolaireJsonldItemReadContext;
     readonly id?: string;
     readonly type?: string;
     libelle: string;
-    semestres: number;
+    inscriptions?: Array<string>;
+    ouvertures?: Array<string>;
 }
 

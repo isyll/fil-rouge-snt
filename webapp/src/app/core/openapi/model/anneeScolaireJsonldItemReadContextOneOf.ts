@@ -11,14 +11,14 @@
  */
 
 
-export interface AnneeScolaireJsonldReadContextOneOf { 
+export interface AnneeScolaireJsonldItemReadContextOneOf { 
   [key: string]: any | any;
 
 
     vocab: string;
-    hydra: AnneeScolaireJsonldReadContextOneOf.HydraEnum;
+    hydra: AnneeScolaireJsonldItemReadContextOneOf.HydraEnum;
 }
-export namespace AnneeScolaireJsonldReadContextOneOf {
+export namespace AnneeScolaireJsonldItemReadContextOneOf {
     export type HydraEnum = 'http://www.w3.org/ns/hydra/core#';
     export const HydraEnum = {
         HttpWwwW3OrgNsHydraCore: 'http://www.w3.org/ns/hydra/core#' as HydraEnum
