@@ -40,9 +40,34 @@ class OuvertureRepository extends ServiceEntityRepository
         ;
     }
 
+
+    public function findOneOuverture(Ouverture $value): Ouverture | null
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.annee_scolaire', 'a')
+            ->join('o.classe', 'c')
+            ->andWhere('a.id = :anneeScolaire')
+            ->andWhere('c.id = :classe')
+            ->setParameters([
+                'anneeScolaire' => $value->getAnneeScolaire(),
+                'classe' => $value->getClasse(),
+            ])
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     public function save(Ouverture $ouverture, $flush = false)
     {
         $this->getEntityManager()->persist($ouverture);
+
+        if ($flush)
+            $this->getEntityManager()->flush();
+    }
+
+    public function remove(Ouverture $ouverture, $flush = false)
+    {
+        $this->getEntityManager()->remove($ouverture);
 
         if ($flush)
             $this->getEntityManager()->flush();
