@@ -39,12 +39,12 @@ class Classe
 
     #[ORM\ManyToOne(inversedBy: 'classes')]
     #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['write', 'read'])]
+    #[Groups(['read'])]
     private ?Niveau $niveau = null;
 
     #[ORM\ManyToOne(inversedBy: 'classes')]
     #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['write', 'read'])]
+    #[Groups(['read'])]
     private ?Filiere $filiere = null;
 
     #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Ouverture::class)]
