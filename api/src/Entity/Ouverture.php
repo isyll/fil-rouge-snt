@@ -8,15 +8,20 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use App\Repository\OuvertureRepository;
+use App\State\OuvertureProcessor;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: OuvertureRepository::class)]
 #[ApiResource(operations: [
-    new Post(normalizationContext: ['groups' => 'write']),
+    new Post(
+        processor: OuvertureProcessor::class,
+        normalizationContext: ['groups' => 'write']
+    ),
     new Get(normalizationContext: ['groups' => 'read'])
 ])]
 #[ApiFilter(SearchFilter::class, properties: ['annee_scolaire' => 'exact'])]
+#[ORM\UniqueConstraint(fields: ['classe', 'annee_scolaire'])]
 class Ouverture
 {
     #[ORM\Id]

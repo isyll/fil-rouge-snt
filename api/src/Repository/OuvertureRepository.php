@@ -21,6 +21,33 @@ class OuvertureRepository extends ServiceEntityRepository
         parent::__construct($registry, Ouverture::class);
     }
 
+    /**
+    * @return Ouverture[] Returns an array of Ouverture objects
+    */
+    public function findOuverture(Ouverture $value): array
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.annee_scolaire', 'a')
+            ->join('o.classe', 'c')
+            ->andWhere('a.id = :anneeScolaire')
+            ->andWhere('c.id = :classe')
+            ->setParameters([
+                'anneeScolaire' => $value->getAnneeScolaire(),
+                'classe' => $value->getClasse(),
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function save(Ouverture $ouverture, $flush = false)
+    {
+        $this->getEntityManager()->persist($ouverture);
+
+        if ($flush)
+            $this->getEntityManager()->flush();
+    }
+
 //    /**
 //     * @return Ouverture[] Returns an array of Ouverture objects
 //     */
