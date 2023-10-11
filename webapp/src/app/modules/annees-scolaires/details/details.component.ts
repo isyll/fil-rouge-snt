@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { catchError, throwError } from 'rxjs';
-import { AnneeScolaireService, OuvertureService } from 'src/app/core/openapi';
+import { catchError, forkJoin, throwError } from 'rxjs';
+import {
+  AnneeScolaireService,
+  ClasseService,
+  OuvertureService,
+} from 'src/app/core/openapi';
 import { ListeBlockItem } from 'src/app/shared/interfaces/ListeBlockItem';
+import { extractId } from 'src/app/shared/helpers/utils';
 
 @Component({
   selector: 'details-annee-scolaire',
@@ -14,19 +19,30 @@ export class DetailsComponent implements OnInit {
   notFound = false;
   requestPending = false;
   ouvertures!: ListeBlockItem[];
-  title = '';
+  classes!: ListeBlockItem[];
+  touched = false;
+  classesOuvertes!: string[];
 
   constructor(
     private route: ActivatedRoute,
     private anneeScolaireService: AnneeScolaireService,
-    private ouvertureService: OuvertureService
+    private ouvertureService: OuvertureService,
+    private classeService: ClasseService
   ) {}
 
   ngOnInit(): void {
     this.loadAnneeScolaire();
   }
 
-  onMoveClasse({ value, id }: { value: boolean; id: string }) {
+  moveClasse({ value, id }: { value: boolean; id: string }) {
+    if (value) {
+      if (!this.findClasseOuverte(id)) this.classesOuvertes.push(id);
+    } else {
+      this.classesOuvertes = this.classesOuvertes.filter((co) => co != id);
+    }
+    console.log(this.classesOuvertes);
+
+    this.touchIfClassesOuvertesChanges();
   }
 
   private loadAnneeScolaire() {
@@ -47,29 +63,53 @@ export class DetailsComponent implements OnInit {
         .subscribe((response: any) => {
           this.requestPending = false;
           this.data = response;
-          this.title = `Classes ouvertes pour l'année ${this.data.libelle}`;
           this.ouvertures = this.data['ouvertures'].map((ouv: any) => {
-            return { id: ouv, content: '' };
+            return { id: extractId(ouv), content: '' };
           });
-          this.loadClasses();
+          this.loadClassesOuvertes();
         });
     });
   }
 
-  private loadClasses() {
-    const temp: ListeBlockItem[] = [];
-    this.ouvertures.forEach((ouv) => {
-      const id = ouv.id.split('/').slice(-1)[0];
-      this.ouvertureService
-        .apiOuverturesIdGet(id)
-        .subscribe((response: any) => {
-          temp.push({
-            id: response['classe']['@id'],
-            content: response['classe']['libelle'],
-            state: true
-          });
-        });
+  private loadClassesOuvertes() {
+    const obs$ = this.ouvertures.map((ouv) =>
+      this.ouvertureService.apiOuverturesIdGet(ouv.id)
+    );
+
+    forkJoin(obs$).subscribe((response: any[]) => {
+      this.ouvertures = response.map<ListeBlockItem>((r) => {
+        const classeId = extractId(r['classe']['@id']);
+        return { id: classeId, content: r['classe']['libelle'], state: true };
+      });
+      this.classesOuvertes = this.ouvertures.map((ouv) => ouv.id);
+      this.loadClasses();
     });
-    this.ouvertures = temp;
+  }
+
+  private loadClasses() {
+    this.classeService.apiClassesGetCollection().subscribe((response: any) => {
+      const data = response['hydra:member'] as Array<any>;
+      this.classes = data
+        .map<ListeBlockItem>((classe: any) => {
+          return { id: extractId(classe['@id']), content: classe.libelle };
+        })
+        .filter(
+          (classe) => !this.ouvertures.some((ouv) => ouv.id == classe.id)
+        );
+    });
+  }
+
+  private touchIfClassesOuvertesChanges() {
+    this.touched =
+      this.classesOuvertes.some(
+        (co) => !this.ouvertures.some((ouv) => ouv.id == co)
+      ) ||
+      this.ouvertures.some(
+        (ouv) => !this.classesOuvertes.some((co) => ouv.id == co)
+      );
+  }
+
+  private findClasseOuverte(id: string) {
+    return this.classesOuvertes.find((co) => co == id);
   }
 }
