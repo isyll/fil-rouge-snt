@@ -1,13 +1,17 @@
 <div class="p-5 col-8">
   <ng-container *ngIf="data">
+    <app-liste-block
+      [title]="title"
+      [items]="ouvertures"
+      (onItemStateChange)="onMoveClasse($event)"
+    ></app-liste-block>
   </ng-container>
-
   <div
     *ngIf="notFound"
     class="alert alert-danger alert-dismissible fade show"
     role="alert"
   >
-    <strong> Filière non trouvée </strong>
+    <strong> Année scolaire non trouvée </strong>
   </div>
 </div>
 <app-loading *ngIf="requestPending"></app-loading>
