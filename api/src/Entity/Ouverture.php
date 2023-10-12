@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         processor: OuvertureProcessor::class,
         normalizationContext: ['groups' => 'write']
     ),
-    new Delete,
+    new Delete(normalizationContext: ['groups' => 'read']),
     new Get(normalizationContext: ['groups' => 'read'])
 ]
 )]
