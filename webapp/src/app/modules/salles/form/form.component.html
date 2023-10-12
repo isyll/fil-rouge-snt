@@ -1,0 +1,78 @@
+<form class="row p-3" [formGroup]="form" (submit)="onSubmit()">
+  <div class="form-group col-4">
+    <label for="nom">Nom<span class="text-danger">*</span></label>
+    <input
+      id="nom"
+      type="text"
+      class="form-control"
+      formControlName="nom"
+      [ngClass]="{
+        'is-invalid': form.get('nom')?.value !== '' && form.get('nom')?.invalid
+      }"
+    />
+  </div>
+  <div class="w-100"></div>
+  <div class="form-group col-4">
+    <label for="numero">Numéro<span class="text-danger">*</span></label>
+    <input
+      id="numero"
+      type="text"
+      class="form-control"
+      formControlName="numero"
+      [ngClass]="{
+        'is-invalid':
+          form.get('numero')?.value !== '' && form.get('numero')?.invalid
+      }"
+    />
+  </div>
+  <div class="w-100"></div>
+
+  <div class="form-group col-4">
+    <label for="places">Nbre de places<span class="text-danger">*</span></label>
+    <input
+      id="places"
+      type="text"
+      class="form-control"
+      formControlName="places"
+      [ngClass]="{
+        'is-invalid':
+          form.get('places')?.value !== '' && form.get('places')?.invalid
+      }"
+    />
+  </div>
+  <div class="w-100"></div>
+
+  <div class="p-3">
+    <button class="btn btn-primary p-2" type="submit" [disabled]="!form.valid">
+      Créer
+    </button>
+  </div>
+  <div
+    *ngIf="unknownError"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    <strong> Une erreur inconnue est survenue </strong>
+  </div>
+  <div
+    *ngIf="submitOk"
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+  >
+    salle créé avec succès
+  </div>
+  <div
+    *ngIf="nomAlreadyExists || numeroAlreadyExists"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    {{
+      nomAlreadyExists
+        ? "Le nom de la salle existe déjà"
+        : numeroAlreadyExists
+        ? "Le numéro de salle existe déjà"
+        : ""
+    }}
+  </div>
+</form>
+<app-loading *ngIf="submitPending"></app-loading>

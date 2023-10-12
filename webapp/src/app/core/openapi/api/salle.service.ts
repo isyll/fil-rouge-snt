@@ -103,18 +103,42 @@ export class SalleService {
      * Retrieves the collection of Salle resources.
      * Retrieves the collection of Salle resources.
      * @param page The collection page number
+     * @param nom 
+     * @param nom2 
+     * @param numero 
+     * @param numero2 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiSallesGetCollection(page?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<ApiSallesGetCollection200Response>;
-    public apiSallesGetCollection(page?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpResponse<ApiSallesGetCollection200Response>>;
-    public apiSallesGetCollection(page?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpEvent<ApiSallesGetCollection200Response>>;
-    public apiSallesGetCollection(page?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<any> {
+    public apiSallesGetCollection(page?: number, nom?: string, nom2?: Array<string>, numero?: string, numero2?: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<ApiSallesGetCollection200Response>;
+    public apiSallesGetCollection(page?: number, nom?: string, nom2?: Array<string>, numero?: string, numero2?: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpResponse<ApiSallesGetCollection200Response>>;
+    public apiSallesGetCollection(page?: number, nom?: string, nom2?: Array<string>, numero?: string, numero2?: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpEvent<ApiSallesGetCollection200Response>>;
+    public apiSallesGetCollection(page?: number, nom?: string, nom2?: Array<string>, numero?: string, numero2?: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (page !== undefined && page !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>page, 'page');
+        }
+        if (nom !== undefined && nom !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>nom, 'nom');
+        }
+        if (nom2) {
+            nom2.forEach((element) => {
+                localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+                  <any>element, 'nom[]');
+            })
+        }
+        if (numero !== undefined && numero !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>numero, 'numero');
+        }
+        if (numero2) {
+            numero2.forEach((element) => {
+                localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+                  <any>element, 'numero[]');
+            })
         }
 
         let localVarHeaders = this.defaultHeaders;
