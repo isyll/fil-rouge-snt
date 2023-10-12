@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { anneeScolaireExistenceValidator } from '../../../core/validators/anneeScolaire-existence.validator';
+import { anneeScolaireExistenceValidator } from '../../../core/validators';
 import { AnneeScolaireService } from '../../../core/openapi';
 import { catchError, throwError } from 'rxjs';
 

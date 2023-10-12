@@ -1,0 +1,42 @@
+<form class="row p-3" [formGroup]="form" (submit)="onSubmit()">
+  <div class="form-group col-3">
+    <label for="libelle">Libellé<span class="text-danger">*</span></label>
+    <input
+      id="libelle"
+      type="text"
+      class="form-control"
+      formControlName="libelle"
+    />
+    <div class="text-warning">(2 caractères minimum)</div>
+  </div>
+  <div class="w-100"></div>
+
+  <div class="p-3">
+    <button class="btn btn-primary p-2" type="submit" [disabled]="!form.valid">
+      Créer
+    </button>
+  </div>
+  <div
+    *ngIf="alreadyExists || unknownError"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    <strong>
+      {{
+        alreadyExists
+          ? "Cette classe existe déjà"
+          : unknownError
+          ? "Une erreur inconnue est survenue"
+          : ""
+      }}
+    </strong>
+  </div>
+  <div
+    *ngIf="submitOk"
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+  >
+    {{ submitOk ? "Classe créée avec succès" : "" }}
+  </div>
+</form>
+<app-loading *ngIf="submitPending"></app-loading>
