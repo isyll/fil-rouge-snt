@@ -46,9 +46,10 @@ i.icon {
   }
 }
 a.active {
+
   button {
-    border-bottom: 3px solid white;
-    font-weight: bold;
+    color: var(--bs-primary) !important;
+    background-color: white;
   }
 }
 .overlay {
