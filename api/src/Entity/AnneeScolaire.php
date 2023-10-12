@@ -54,9 +54,13 @@ class AnneeScolaire
     #[Groups(['item:read'])]
     private Collection $ouvertures;
 
+    #[ORM\OneToMany(mappedBy: 'annee_scolaire', targetEntity: Cours::class)]
+    private Collection $cours;
+
     public function __construct()
     {
         $this->ouvertures = new ArrayCollection();
+        $this->cours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,6 +128,36 @@ class AnneeScolaire
             // set the owning side to null (unless already changed)
             if ($ouverture->getAnneeScolaire() === $this) {
                 $ouverture->setAnneeScolaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
+    {
+        return $this->cours;
+    }
+
+    public function addCour(Cours $cour): static
+    {
+        if (!$this->cours->contains($cour)) {
+            $this->cours->add($cour);
+            $cour->setAnneeScolaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Cours $cour): static
+    {
+        if ($this->cours->removeElement($cour)) {
+            // set the owning side to null (unless already changed)
+            if ($cour->getAnneeScolaire() === $this) {
+                $cour->setAnneeScolaire(null);
             }
         }
 
