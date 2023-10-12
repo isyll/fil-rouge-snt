@@ -18,10 +18,10 @@ export class DetailsComponent implements OnInit {
   data: any;
   notFound = false;
   requestPending = false;
-  ouvertures!: ListeBlockItem[];
+  ouvertures!: any[];
   classes!: ListeBlockItem[];
   touched = false;
-  classesOuvertes!: string[];
+  classesOuvertes: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -31,21 +31,57 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadAnneeScolaire();
+    this.loadData();
   }
 
-  moveClasse({ value, id }: { value: boolean; id: string }) {
+  moveClasse({ value, id }: { value: boolean; id: string }): void {
     if (value) {
-      if (!this.findClasseOuverte(id)) this.classesOuvertes.push(id);
+      if (!this.classesOuvertes.find((co) => co == id))
+        this.classesOuvertes.push(id);
     } else {
       this.classesOuvertes = this.classesOuvertes.filter((co) => co != id);
     }
-    console.log(this.classesOuvertes);
-
     this.touchIfClassesOuvertesChanges();
   }
 
-  private loadAnneeScolaire() {
+  save(): void {
+    const ouvertures = (this.data['ouvertures'] as Array<string>).map(
+      (ouverture) => extractId(ouverture)
+    );
+    const newClasses = this.classesOuvertes
+        .filter((co) => !this.ouvertures.some((ouv) => ouv.id == co))
+        .map((co) =>
+          this.ouvertureService.apiOuverturesPost({
+            anneeScolaire: this.data['@id'],
+            classe: '/classes/' + co,
+          })
+        ),
+      oldClasses = ouvertures
+        .filter(
+          (ouverture) =>
+            !this.ouvertures
+              .filter((ouv) => this.classesOuvertes.some((co) => co == ouv.id))
+              .some((ouv) => ouv.ouvId == ouverture)
+        )
+        .map((ouverture) =>
+          this.ouvertureService.apiOuverturesIdDelete(ouverture)
+        );
+
+    this.requestPending = true;
+    forkJoin([...newClasses, ...oldClasses])
+      .pipe(
+        catchError((error) => {
+          this.requestPending = false;
+          return throwError(() => null);
+        })
+      )
+      .subscribe((response) => {
+        this.requestPending = false;
+        this.loadData();
+      });
+  }
+
+  private loadData(): void {
     this.requestPending = true;
 
     this.route.params.subscribe((params) => {
@@ -53,9 +89,7 @@ export class DetailsComponent implements OnInit {
         .apiAnneeScolairesIdGet(params['id'])
         .pipe(
           catchError((error) => {
-            if (error.status !== 0) {
-              this.notFound = true;
-            }
+            if (error.status !== 0) this.notFound = true;
             this.requestPending = false;
             return throwError(() => null);
           })
@@ -63,6 +97,7 @@ export class DetailsComponent implements OnInit {
         .subscribe((response: any) => {
           this.requestPending = false;
           this.data = response;
+
           this.ouvertures = this.data['ouvertures'].map((ouv: any) => {
             return { id: extractId(ouv), content: '' };
           });
@@ -71,22 +106,30 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  private loadClassesOuvertes() {
+  private loadClassesOuvertes(): void {
     const obs$ = this.ouvertures.map((ouv) =>
       this.ouvertureService.apiOuverturesIdGet(ouv.id)
     );
 
     forkJoin(obs$).subscribe((response: any[]) => {
-      this.ouvertures = response.map<ListeBlockItem>((r) => {
+      this.ouvertures = response.map((r, index) => {
         const classeId = extractId(r['classe']['@id']);
-        return { id: classeId, content: r['classe']['libelle'], state: true };
+        return {
+          id: classeId,
+          content: r['classe']['libelle'],
+          state: true,
+          ouvId: this.ouvertures[index].id,
+        };
       });
+
       this.classesOuvertes = this.ouvertures.map((ouv) => ouv.id);
       this.loadClasses();
     });
+
+    if (obs$.length === 0) this.loadClasses();
   }
 
-  private loadClasses() {
+  private loadClasses(): void {
     this.classeService.apiClassesGetCollection().subscribe((response: any) => {
       const data = response['hydra:member'] as Array<any>;
       this.classes = data
@@ -99,7 +142,7 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  private touchIfClassesOuvertesChanges() {
+  private touchIfClassesOuvertesChanges(): void {
     this.touched =
       this.classesOuvertes.some(
         (co) => !this.ouvertures.some((ouv) => ouv.id == co)
@@ -107,9 +150,5 @@ export class DetailsComponent implements OnInit {
       this.ouvertures.some(
         (ouv) => !this.classesOuvertes.some((co) => ouv.id == co)
       );
-  }
-
-  private findClasseOuverte(id: string) {
-    return this.classesOuvertes.find((co) => co == id);
   }
 }

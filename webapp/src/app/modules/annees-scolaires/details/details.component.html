@@ -5,14 +5,14 @@
   </strong>
 </h4>
 <div class="p-3 col-8">
-  <ng-container *ngIf="data">
+  <ng-container *ngIf="classesOuvertes?.length">
     <app-liste-block
       title="Décochez une classe pour la fermer pour cette année"
       [items]="ouvertures"
       (onItemStateChange)="moveClasse($event)"
     ></app-liste-block>
   </ng-container>
-  <div class="p-2"></div>
+  <div class="p-3"></div>
   <ng-container *ngIf="classes">
     <app-liste-block
       title="Cochez une classe pour l'ouvrir dans cette année"
@@ -20,8 +20,8 @@
       (onItemStateChange)="moveClasse($event)"
     ></app-liste-block>
   </ng-container>
-  <div class="p-2 text-end">
-    <button class="btn btn-primary" [disabled]="!touched">Valider</button>
+  <div class="p-2 text-end" *ngIf="ouvertures?.length || classes?.length">
+    <button class="btn btn-primary" [disabled]="!touched" (click)="save()">Valider</button>
   </div>
   <div
     *ngIf="notFound"
@@ -29,6 +29,14 @@
     role="alert"
   >
     <strong> Année scolaire non trouvée </strong>
+  </div>
+
+  <div
+    *ngIf="!ouvertures?.length"
+    class="alert alert-info alert-dismissible fade show"
+    role="alert"
+  >
+    <strong> Aucune classe ouverte dans cette année </strong>
   </div>
 </div>
 <app-loading *ngIf="requestPending"></app-loading>

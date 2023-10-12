@@ -9,8 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { NiveauWrite } from './niveauWrite';
-import { FiliereWrite } from './filiereWrite';
 
 
 /**
@@ -18,7 +16,5 @@ import { FiliereWrite } from './filiereWrite';
  */
 export interface ClasseWrite { 
     libelle: string;
-    niveau?: NiveauWrite | null;
-    filiere?: FiliereWrite | null;
 }
 

@@ -9,8 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { FiliereJsonldWrite } from './filiereJsonldWrite';
-import { NiveauJsonldWrite } from './niveauJsonldWrite';
 import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
 
 
@@ -22,7 +20,5 @@ export interface ClasseJsonldWrite {
     readonly id?: string;
     readonly type?: string;
     libelle: string;
-    niveau?: NiveauJsonldWrite | null;
-    filiere?: FiliereJsonldWrite | null;
 }
 
