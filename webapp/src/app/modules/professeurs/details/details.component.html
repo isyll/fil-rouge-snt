@@ -1,0 +1,30 @@
+<div class="p-5 col-8">
+  <ng-container *ngIf="data">
+    <table class="table" *ngIf="!notFound">
+      <tr>
+        <td>Prénom :</td>
+        <td>{{ data["prenom"] }}</td>
+      </tr>
+      <tr>
+        <td>Nom :</td>
+        <td>{{ data["nom"] }}</td>
+      </tr>
+      <tr>
+        <td>Spécialité :</td>
+        <td>{{ data["specialite"] }}</td>
+      </tr>
+      <tr>
+        <td>Grade :</td>
+        <td>{{ data["grade"] }}</td>
+      </tr>
+    </table>
+  </ng-container>
+
+  <div
+    *ngIf="notFound"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    <strong> Professeur non trouvée </strong>
+  </div>
+</div>
