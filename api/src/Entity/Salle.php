@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -18,6 +20,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     normalizationContext: ['groups' => 'read'],
     denormalizationContext: ['groups' => 'write'],
 )]
+#[ApiFilter(SearchFilter::class, properties: ['nom' => 'exact', 'numero' => 'exact'])]
 class Salle
 {
     #[ORM\Id]
