@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { forkJoin } from 'rxjs';
-import { AnneeScolaireService, ModuleService } from 'src/app/core/openapi';
+import { catchError, forkJoin, throwError } from 'rxjs';
+import {
+  AnneeScolaireService,
+  CoursJsonld,
+  CoursService,
+  ModuleService,
+} from 'src/app/core/openapi';
 
 @Component({
   selector: 'app-planifier-cours',
@@ -13,20 +18,22 @@ export class PlanifierCoursComponent implements OnInit {
   modules!: any[];
   requestPending = false;
   unknownError = false;
+  alreadyExistsError = '';
   submitOk = false;
   submitPending = false;
 
   form = this.fb.group({
     heures: [null, [Validators.required, Validators.pattern(/^[0-9]+$/)]],
     semestre: [null, [Validators.required, Validators.pattern(/^[0-9]+$/)]],
-    annee_scolaire: [null, [Validators.required]],
+    anneeScolaire: [null, [Validators.required]],
     module: [null, [Validators.required]],
   });
 
   constructor(
     private fb: FormBuilder,
     private anneeScolaireService: AnneeScolaireService,
-    private moduleService: ModuleService
+    private moduleService: ModuleService,
+    private coursService: CoursService
   ) {}
 
   ngOnInit(): void {
@@ -34,29 +41,33 @@ export class PlanifierCoursComponent implements OnInit {
   }
 
   onSubmit() {
-    const data = this.form.value;
-    console.log(data);
-    return;
+    const data = this.form.value as CoursJsonld;
+    data.heures = parseInt(String(data.heures));
+    data.semestre = parseInt(String(data.semestre));
 
-    // if (data) {
-    //   this.submitPending = true;
-    //   this.professeurService
-    //     .apiProfesseursPost(data)
-    //     .pipe(
-    //       catchError((error) => {
-    //         this.submitPending = this.submitOk = false;
-    //         this.unknownError = true;
-    //         return throwError(() => null);
-    //       })
-    //     )
-    //     .subscribe(() => {
-    //       setTimeout(() => {
-    //         this.form.reset();
-    //         this.submitPending = false;
-    //         this.submitOk = true;
-    //       }, 500);
-    //     });
-    // }
+    if (data) {
+      this.submitPending = true;
+      this.coursService
+        .apiCoursPost(data)
+        .pipe(
+          catchError((error) => {
+            if (error.status === 422) {
+              const errorData = error.error;
+              this.alreadyExistsError = errorData['hydra:description'];
+            } else this.unknownError = true;
+            this.form.reset();
+            this.submitPending = this.submitOk = false;
+            return throwError(() => null);
+          })
+        )
+        .subscribe(() => {
+          setTimeout(() => {
+            this.form.reset();
+            this.submitPending = false;
+            this.submitOk = true;
+          }, 500);
+        });
+    }
   }
 
   private loadFormData() {

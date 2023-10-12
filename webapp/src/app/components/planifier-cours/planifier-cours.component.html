@@ -1,15 +1,15 @@
 <form class="row p-3" [formGroup]="form" (submit)="onSubmit()">
   <div class="form-group col-4">
-    <label for="annee_scolaire"
+    <label for="anneeScolaire"
       >Année scolaire<span class="text-danger">*</span></label
     >
     <select
-      id="annee_scolaire"
+      id="anneeScolaire"
       class="form-select"
-      formControlName="annee_scolaire"
+      formControlName="anneeScolaire"
     >
       <option [value]="null">Choisir</option>
-      <option [value]="" *ngFor="let annee of anneeScolaires">
+      <option [value]="annee['@id']" *ngFor="let annee of anneeScolaires">
         {{ annee["libelle"] }}
       </option>
     </select>
@@ -18,7 +18,7 @@
     <label for="module">Module<span class="text-danger">*</span></label>
     <select id="module" class="form-select" formControlName="module">
       <option [value]="null">Choisir</option>
-      <option [value]="" *ngFor="let module of modules">
+      <option [value]="module['@id']" *ngFor="let module of modules">
         {{ module["libelle"] }}
       </option>
     </select>
@@ -53,7 +53,14 @@
     class="alert alert-success alert-dismissible fade show"
     role="alert"
   >
-    {{ submitOk ? "Professeur créé avec succès" : "" }}
+    Cours planifié créé avec succès
+  </div>
+  <div
+    *ngIf="alreadyExistsError"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    {{ alreadyExistsError }}
   </div>
 </form>
 <app-loading *ngIf="submitPending"></app-loading>

@@ -4,6 +4,7 @@ api.module.ts
 api/anneeScolaire.service.ts
 api/api.ts
 api/classe.service.ts
+api/cours.service.ts
 api/etudiant.service.ts
 api/filiere.service.ts
 api/inscription.service.ts
@@ -29,6 +30,7 @@ model/apiAnneeScolairesGetCollection200ResponseHydraSearch.ts
 model/apiAnneeScolairesGetCollection200ResponseHydraSearchHydraMappingInner.ts
 model/apiAnneeScolairesGetCollection200ResponseHydraView.ts
 model/apiClassesGetCollection200Response.ts
+model/apiCoursGetCollection200Response.ts
 model/apiEtudiantsGetCollection200Response.ts
 model/apiFilieresGetCollection200Response.ts
 model/apiModulesGetCollection200Response.ts
@@ -39,6 +41,10 @@ model/classeJsonldRead.ts
 model/classeJsonldWrite.ts
 model/classeRead.ts
 model/classeWrite.ts
+model/cours.ts
+model/coursJsonld.ts
+model/coursJsonldRead.ts
+model/coursRead.ts
 model/etudiantJsonldRead.ts
 model/etudiantJsonldWrite.ts
 model/etudiantWrite.ts
