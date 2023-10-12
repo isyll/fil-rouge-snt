@@ -1,0 +1,24 @@
+<div *ngIf="data" class="p-3 row">
+  <ng-container *ngFor="let item of data['hydra:member']; let i = index">
+    <a
+      [routerLink]="item['@id']"
+      class="text-reset text-decoration-none col-4"
+    >
+      <app-item
+        [bg]="colors[i % colors.length]"
+        icon="bi bi-safe text-white"
+        [title]="item.libelle"
+        [body]="'55 élèves'"
+      ></app-item>
+    </a>
+  </ng-container>
+  <a routerLink="creer-module">
+    <div class="card text-light shadow rounded-4">
+      <div class="card-title text-dark d-flex">
+        <i class="bi bi-plus-lg icon"></i>
+        <h5>Nouveau module</h5>
+      </div>
+    </div>
+  </a>
+</div>
+<app-loading *ngIf="requestPending"></app-loading>

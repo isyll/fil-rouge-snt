@@ -52,8 +52,13 @@ const routes: Routes = [
       {
         path: 'salles',
         loadChildren: () =>
-          import('./modules/salles/salles.module').then(
-            (m) => m.SallesModule
+          import('./modules/salles/salles.module').then((m) => m.SallesModule),
+      },
+      {
+        path: 'modules',
+        loadChildren: () =>
+          import('./modules/modules-cours/modules-cours.module').then(
+            (m) => m.ModulesCoursModule
           ),
       },
     ],

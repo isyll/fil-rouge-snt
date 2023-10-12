@@ -7,6 +7,7 @@ api/classe.service.ts
 api/etudiant.service.ts
 api/filiere.service.ts
 api/inscription.service.ts
+api/module.service.ts
 api/niveau.service.ts
 api/ouverture.service.ts
 api/professeur.service.ts
@@ -30,6 +31,7 @@ model/apiAnneeScolairesGetCollection200ResponseHydraView.ts
 model/apiClassesGetCollection200Response.ts
 model/apiEtudiantsGetCollection200Response.ts
 model/apiFilieresGetCollection200Response.ts
+model/apiModulesGetCollection200Response.ts
 model/apiNiveauxGetCollection200Response.ts
 model/apiProfesseursGetCollection200Response.ts
 model/apiSallesGetCollection200Response.ts
@@ -49,6 +51,10 @@ model/inscriptionJsonld.ts
 model/inscriptionJsonldRead.ts
 model/inscriptionRead.ts
 model/models.ts
+model/moduleJsonldRead.ts
+model/moduleJsonldWrite.ts
+model/moduleRead.ts
+model/moduleWrite.ts
 model/niveauJsonldRead.ts
 model/niveauJsonldWrite.ts
 model/niveauRead.ts
