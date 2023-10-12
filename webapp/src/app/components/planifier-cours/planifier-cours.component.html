@@ -1,0 +1,59 @@
+<form class="row p-3" [formGroup]="form" (submit)="onSubmit()">
+  <div class="form-group col-4">
+    <label for="annee_scolaire"
+      >Année scolaire<span class="text-danger">*</span></label
+    >
+    <select
+      id="annee_scolaire"
+      class="form-select"
+      formControlName="annee_scolaire"
+    >
+      <option [value]="null">Choisir</option>
+      <option [value]="" *ngFor="let annee of anneeScolaires">
+        {{ annee["libelle"] }}
+      </option>
+    </select>
+  </div>
+  <div class="form-group col-4">
+    <label for="module">Module<span class="text-danger">*</span></label>
+    <select id="module" class="form-select" formControlName="module">
+      <option [value]="null">Choisir</option>
+      <option [value]="" *ngFor="let module of modules">
+        {{ module["libelle"] }}
+      </option>
+    </select>
+  </div>
+  <div class="w-100"></div>
+
+  <div class="form-group col-4">
+    <label for="heures"
+      >Nombre d'heures<span class="text-danger">*</span></label
+    >
+    <input id="heures" class="form-control" formControlName="heures" />
+  </div>
+  <div class="form-group col-4">
+    <label for="semestre">Semestre<span class="text-danger">*</span></label>
+    <input id="semestre" class="form-control" formControlName="semestre" />
+  </div>
+
+  <div class="p-3">
+    <button class="btn btn-primary p-2" type="submit" [disabled]="!form.valid">
+      Créer
+    </button>
+  </div>
+  <div
+    *ngIf="unknownError"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    <strong> Une erreur inconnue est survenue </strong>
+  </div>
+  <div
+    *ngIf="submitOk"
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+  >
+    {{ submitOk ? "Professeur créé avec succès" : "" }}
+  </div>
+</form>
+<app-loading *ngIf="submitPending"></app-loading>

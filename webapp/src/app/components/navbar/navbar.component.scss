@@ -35,12 +35,20 @@ i.icon {
   }
   .btn {
     padding: 16px;
+    color: var(--bs-light);
     &:hover {
       background-color: white;
+      color: var(--bs-primary);
       i {
         color: var(--bs-primary);
       }
     }
+  }
+}
+a.active {
+  button {
+    border-bottom: 3px solid white;
+    font-weight: bold;
   }
 }
 .overlay {

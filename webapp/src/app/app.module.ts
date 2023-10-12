@@ -9,6 +9,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ApiModule } from './core/openapi';
 import { HttpClientModule } from '@angular/common/http';
+import { PlanifierCoursComponent } from './components/planifier-cours/planifier-cours.component';
+import { InscriptionComponent } from './components/inscription/inscription.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,14 +20,18 @@ import { HttpClientModule } from '@angular/common/http';
     ContentLayoutComponent,
     NavbarComponent,
     SidebarComponent,
+    PlanifierCoursComponent,
+    InscriptionComponent,
   ],
   imports: [
     AppRoutingModule,
     CommonModule,
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     ApiModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent],
