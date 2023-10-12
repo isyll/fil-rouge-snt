@@ -11,12 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProfesseurRepository::class)]
-#[ApiResource(operations: [
-    new Get(normalizationContext: ['groups' => 'read']),
-    new GetCollection(normalizationContext: ['gourps' => 'read']),
-    new Post(denormalizationContext: ['groups' => 'write'])
-])
-]
+#[ApiResource(
+    operations: [new Get, new GetCollection, new Post],
+    denormalizationContext: ['groups' => 'write'],
+    normalizationContext: ['groups' => 'read']
+)]
 class Professeur
 {
     #[ORM\Id]
