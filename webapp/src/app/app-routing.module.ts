@@ -49,6 +49,13 @@ const routes: Routes = [
             (m) => m.ProfesseursModule
           ),
       },
+      {
+        path: 'salles',
+        loadChildren: () =>
+          import('./modules/salles/salles.module').then(
+            (m) => m.SallesModule
+          ),
+      },
     ],
   },
 ];

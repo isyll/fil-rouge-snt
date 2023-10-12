@@ -14,4 +14,6 @@ export * from './ouverture.service';
 import { OuvertureService } from './ouverture.service';
 export * from './professeur.service';
 import { ProfesseurService } from './professeur.service';
-export const APIS = [AnneeScolaireService, ClasseService, EtudiantService, FiliereService, InscriptionService, NiveauService, OuvertureService, ProfesseurService];
+export * from './salle.service';
+import { SalleService } from './salle.service';
+export const APIS = [AnneeScolaireService, ClasseService, EtudiantService, FiliereService, InscriptionService, NiveauService, OuvertureService, ProfesseurService, SalleService];
