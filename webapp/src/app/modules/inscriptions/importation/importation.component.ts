@@ -6,7 +6,8 @@ import {
   EtudiantService,
   InscriptionService,
 } from 'src/app/core/openapi';
-import { handleCsvFile } from 'src/app/core/services/file.service';
+import { handleCsvFile } from 'src/app/core/services';
+import { ParamsService } from 'src/app/core/services';
 
 const nouvelEtudiantFields = [
   'prenom',
@@ -33,6 +34,7 @@ export class ImportationComponent implements OnInit {
   badFileInput = false;
   inscriptions: any[] = [];
   nouveaux = false;
+  noAnneeEnCours = false;
   anneeScolaires: any[] = [];
   selectedAnneeScolaire: any;
   notifyAnneeScolaire = false;
@@ -47,15 +49,25 @@ export class ImportationComponent implements OnInit {
     private classeService: ClasseService,
     private anneeScolaireService: AnneeScolaireService,
     private etudiantService: EtudiantService,
-    private inscriptionService: InscriptionService
+    private inscriptionService: InscriptionService,
+    private paramsService: ParamsService
   ) {}
 
   ngOnInit(): void {
-    this.anneeScolaireService
-      .apiAnneeScolairesGetCollection()
-      .subscribe((response: any) => {
-        this.anneeScolaires = response['hydra:member'];
-      });
+    this.paramsService.getAnneeEnCours(
+      (annee) => {
+        console.log(annee);
+        this.anneeScolaireService
+          .apiAnneeScolairesGetCollection(undefined, annee)
+          .subscribe((response: any) => {
+            this.selectedAnneeScolaire = response['hydra:member'][0];
+          });
+      },
+      () => {
+        this.noAnneeEnCours = true;
+        this.loadAnneesScolaires();
+      }
+    );
   }
 
   onSelectAnneeSColaire(a: any) {
@@ -174,4 +186,12 @@ export class ImportationComponent implements OnInit {
   private setStatutInscription = (index: number, value: any) => {
     this.inscriptions[index].statut = value;
   };
+
+  private loadAnneesScolaires() {
+    this.anneeScolaireService
+      .apiAnneeScolairesGetCollection()
+      .subscribe((response: any) => {
+        this.anneeScolaires = response['hydra:member'];
+      });
+  }
 }

@@ -4,6 +4,7 @@
     dropdown
     #dropdown="bs-dropdown"
     [autoClose]="true"
+    *ngIf="noAnneeEnCours"
   >
     <button
       id="button-basic"
@@ -41,6 +42,16 @@
         {{ a.libelle }}
       </li>
     </ul>
+  </div>
+  <div *ngIf="!noAnneeEnCours && selectedAnneeScolaire">
+    <button
+      type="button"
+      class="btn btn-light"
+      *ngIf="anneeScolaires"
+      [ngClass]="{ 'text-danger': !selectedAnneeScolaire }"
+    >
+      {{ selectedAnneeScolaire.libelle }}
+    </button>
   </div>
   <div class="text-danger" *ngIf="notifyAnneeScolaire">
     Choisissez une année
