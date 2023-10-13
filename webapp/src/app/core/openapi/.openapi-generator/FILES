@@ -1,4 +1,5 @@
 .gitignore
+.openapi-generator-ignore
 README.md
 api.module.ts
 api/anneeScolaire.service.ts
@@ -11,6 +12,7 @@ api/inscription.service.ts
 api/module.service.ts
 api/niveau.service.ts
 api/ouverture.service.ts
+api/param.service.ts
 api/professeur.service.ts
 api/salle.service.ts
 configuration.ts
@@ -35,6 +37,7 @@ model/apiEtudiantsGetCollection200Response.ts
 model/apiFilieresGetCollection200Response.ts
 model/apiModulesGetCollection200Response.ts
 model/apiNiveauxGetCollection200Response.ts
+model/apiParamsGetCollection200Response.ts
 model/apiProfesseursGetCollection200Response.ts
 model/apiSallesGetCollection200Response.ts
 model/classeJsonldRead.ts
@@ -72,6 +75,8 @@ model/ouvertureJsonldRead.ts
 model/ouvertureJsonldWrite.ts
 model/ouvertureRead.ts
 model/ouvertureWrite.ts
+model/paramDefault.ts
+model/paramJsonldDefault.ts
 model/professeurJsonldRead.ts
 model/professeurJsonldWrite.ts
 model/professeurRead.ts
