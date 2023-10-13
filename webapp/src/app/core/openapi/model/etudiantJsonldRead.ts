@@ -24,5 +24,6 @@ export interface EtudiantJsonldRead {
     naissance: string;
     telephone: string;
     email: string;
+    matricule?: string;
 }
 

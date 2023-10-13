@@ -103,18 +103,30 @@ export class EtudiantService {
      * Retrieves the collection of Etudiant resources.
      * Retrieves the collection of Etudiant resources.
      * @param page The collection page number
+     * @param matricule 
+     * @param matricule2 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiEtudiantsGetCollection(page?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<ApiEtudiantsGetCollection200Response>;
-    public apiEtudiantsGetCollection(page?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpResponse<ApiEtudiantsGetCollection200Response>>;
-    public apiEtudiantsGetCollection(page?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpEvent<ApiEtudiantsGetCollection200Response>>;
-    public apiEtudiantsGetCollection(page?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<any> {
+    public apiEtudiantsGetCollection(page?: number, matricule?: string, matricule2?: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<ApiEtudiantsGetCollection200Response>;
+    public apiEtudiantsGetCollection(page?: number, matricule?: string, matricule2?: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpResponse<ApiEtudiantsGetCollection200Response>>;
+    public apiEtudiantsGetCollection(page?: number, matricule?: string, matricule2?: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpEvent<ApiEtudiantsGetCollection200Response>>;
+    public apiEtudiantsGetCollection(page?: number, matricule?: string, matricule2?: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (page !== undefined && page !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>page, 'page');
+        }
+        if (matricule !== undefined && matricule !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>matricule, 'matricule');
+        }
+        if (matricule2) {
+            matricule2.forEach((element) => {
+                localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+                  <any>element, 'matricule[]');
+            })
         }
 
         let localVarHeaders = this.defaultHeaders;

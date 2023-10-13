@@ -20,5 +20,6 @@ export interface EtudiantRead {
     naissance: string;
     telephone: string;
     email: string;
+    matricule?: string;
 }
 

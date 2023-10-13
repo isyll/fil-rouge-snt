@@ -1,0 +1,109 @@
+<div class="row p-3 col-8">
+  <div
+    class="btn-group d-inline-block"
+    dropdown
+    #dropdown="bs-dropdown"
+    [autoClose]="true"
+  >
+    <button
+      id="button-basic"
+      dropdownToggle
+      type="button"
+      class="btn btn-light dropdown-toggle"
+      *ngIf="anneeScolaires"
+    >
+      {{
+        !selectedAnneeScolaire
+          ? "Année scolaire"
+          : selectedAnneeScolaire.libelle
+      }}
+      <span class="caret"></span>
+    </button>
+    <ul
+      id="dropdown-basic"
+      *dropdownMenu
+      class="dropdown-menu shadow"
+      role="menu"
+    >
+      <li
+        role="menuitem"
+        class="dropdown-item"
+        href="#"
+        *ngFor="let a of anneeScolaires"
+        (click)="onSelectAnneeSColaire(a)"
+      >
+        {{ a.libelle }}
+      </li>
+    </ul>
+  </div>
+  <label for="etudiants"
+    ><div
+      class="card shadow rounded-4 d-flex justify-content-center align-items-center"
+    >
+      <div class="card-title">
+        <i class="bi bi-plus-square fs-1"></i>
+      </div>
+      <div class="card-body">
+        <h5 class="text-center">Importer le fichier</h5>
+      </div>
+    </div>
+  </label>
+  <input
+    type="file"
+    id="etudiants"
+    hidden
+    (change)="onUploadEtudiantsFile($event)"
+  />
+  <div class="fw-bold">
+    {{ fileName }}
+  </div>
+  <div class="text-start">
+    <button
+      class="btn btn-primary"
+      type="button"
+      (click)="onSubmit()"
+      [disabled]="
+        !file ||
+        fileInvalid ||
+        !selectedAnneeScolaire ||
+        inscriptions.length === 0
+      "
+    >
+      Enregistrer
+    </button>
+  </div>
+  <div class="alert alert-danger alert-dismissible" *ngIf="file && fileInvalid">
+    Le fichier CSV chargé est invalide
+  </div>
+  <div class="alert alert-danger alert-dismissible" *ngIf="badFileInput">
+    Le fichier chargé n'est pas un fichier CSV
+  </div>
+  <div
+    class="alert alert-danger alert-dismissible"
+    *ngIf="matriculeInexistants.length"
+  >
+    <h4>Ces matricules sont inexistants</h4>
+    <ng-container *ngFor="let error of matriculeInexistants">{{
+      error
+    }}</ng-container>
+  </div>
+  <div
+    class="alert alert-danger alert-dismissible"
+    *ngIf="classeInexistants.length"
+  >
+    <h4>Ces classes sont inexistants</h4>
+    <ng-container *ngFor="let error of dejaInscrits">{{ error }}</ng-container>
+  </div>
+  <div class="alert alert-danger alert-dismissible" *ngIf="dejaInscrits.length">
+    <h4>Ces étudiants sont déjà inscrits</h4>
+    <ng-container *ngFor="let error of dejaInscrits">{{
+      error.prenom + " " + error.nom
+    }}</ng-container>
+  </div>
+  <div class="alert alert-danger alert-dismissible" *ngIf="inscrits.length">
+    <h4>Tous ces étudiants ont été inscrits avec succès</h4>
+    <ng-container *ngFor="let error of classeInexistants">{{
+      error
+    }}</ng-container>
+  </div>
+</div>

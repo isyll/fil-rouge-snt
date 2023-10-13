@@ -19,5 +19,6 @@ export interface ProfesseurRead {
     nom?: string;
     specialite?: string;
     grade?: string;
+    matricule?: string;
 }
 

@@ -23,5 +23,6 @@ export interface ProfesseurJsonldRead {
     nom?: string;
     specialite?: string;
     grade?: string;
+    matricule?: string;
 }
 
