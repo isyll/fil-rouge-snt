@@ -73,6 +73,13 @@ const routes: Routes = [
             (m) => m.ModulesCoursModule
           ),
       },
+      {
+        path: 'sessions',
+        loadChildren: () =>
+          import('./modules/sessions-cours/sessions-cours.module').then(
+            (m) => m.SessionsCoursModule
+          ),
+      },
     ],
   },
 ];
