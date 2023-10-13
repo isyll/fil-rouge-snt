@@ -56,7 +56,6 @@ export class ImportationComponent implements OnInit {
   ngOnInit(): void {
     this.paramsService.getAnneeEnCours(
       (annee) => {
-        console.log(annee);
         this.anneeScolaireService
           .apiAnneeScolairesGetCollection(undefined, annee)
           .subscribe((response: any) => {
@@ -157,7 +156,6 @@ export class ImportationComponent implements OnInit {
                         })
                         .pipe(
                           catchError((error) => {
-                            console.log(error);
                             this.setStatutInscription(
                               index,
                               this.Statuts.DEJA_INSCRIT
@@ -167,8 +165,6 @@ export class ImportationComponent implements OnInit {
                           })
                         )
                         .subscribe((response) => {
-                          console.log(response);
-
                           return this.setStatutInscription(
                             index,
                             this.Statuts.INSCRIT
