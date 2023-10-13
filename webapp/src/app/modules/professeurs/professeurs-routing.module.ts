@@ -10,13 +10,13 @@ const routes: Routes = [
     component: ListeComponent
   },
   {
+    path: 'creer-professeur',
+    component: FormComponent
+  },
+  {
     path: ':id',
     component: DetailsComponent
   },
-  {
-    path: 'creer-professeur',
-    component: FormComponent
-  }
 ];
 
 @NgModule({
