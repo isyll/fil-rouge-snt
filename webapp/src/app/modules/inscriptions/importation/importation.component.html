@@ -11,7 +11,13 @@
       type="button"
       class="btn btn-light dropdown-toggle"
       *ngIf="anneeScolaires"
+      [ngClass]="{ 'text-danger': !selectedAnneeScolaire }"
     >
+      <i
+        class="bi bi-exclamation-circle-fill text-info"
+        [ngClass]="{ 'text-danger': !selectedAnneeScolaire }"
+        *ngIf="!selectedAnneeScolaire"
+      ></i>
       {{
         !selectedAnneeScolaire
           ? "Année scolaire"
@@ -36,41 +42,32 @@
       </li>
     </ul>
   </div>
-  <label for="etudiants"
-    ><div
-      class="card shadow rounded-4 d-flex justify-content-center align-items-center"
-    >
-      <div class="card-title">
-        <i class="bi bi-plus-square fs-1"></i>
+  <div class="text-danger" *ngIf="notifyAnneeScolaire">
+    Choisissez une année
+  </div>
+  <div class="d-inline-block">
+    <label for="etudiants"
+      ><div
+        class="card shadow rounded-4 d-flex justify-content-center align-items-center"
+      >
+        <div class="card-title">
+          <i class="bi bi-plus-square fs-1"></i>
+        </div>
+        <div class="card-body">
+          <h5 class="text-center">Importer le fichier</h5>
+        </div>
       </div>
-      <div class="card-body">
-        <h5 class="text-center">Importer le fichier</h5>
-      </div>
-    </div>
-  </label>
-  <input
-    type="file"
-    id="etudiants"
-    hidden
-    (change)="onUploadEtudiantsFile($event)"
-  />
+    </label>
+    <input
+      type="file"
+      id="etudiants"
+      hidden
+      (change)="onUploadEtudiantsFile($event)"
+    />
+  </div>
+
   <div class="fw-bold">
     {{ fileName }}
-  </div>
-  <div class="text-start">
-    <button
-      class="btn btn-primary"
-      type="button"
-      (click)="onSubmit()"
-      [disabled]="
-        !file ||
-        fileInvalid ||
-        !selectedAnneeScolaire ||
-        inscriptions.length === 0
-      "
-    >
-      Enregistrer
-    </button>
   </div>
   <div class="alert alert-danger alert-dismissible" *ngIf="file && fileInvalid">
     Le fichier CSV chargé est invalide
@@ -79,31 +76,60 @@
     Le fichier chargé n'est pas un fichier CSV
   </div>
   <div
-    class="alert alert-danger alert-dismissible"
-    *ngIf="matriculeInexistants.length"
+    *ngIf="inscriptions.length !== 0 && !fileInvalid && selectedAnneeScolaire"
+    class="col-8"
   >
-    <h4>Ces matricules sont inexistants</h4>
-    <ng-container *ngFor="let error of matriculeInexistants">{{
-      error
-    }}</ng-container>
-  </div>
-  <div
-    class="alert alert-danger alert-dismissible"
-    *ngIf="classeInexistants.length"
-  >
-    <h4>Ces classes sont inexistants</h4>
-    <ng-container *ngFor="let error of dejaInscrits">{{ error }}</ng-container>
-  </div>
-  <div class="alert alert-danger alert-dismissible" *ngIf="dejaInscrits.length">
-    <h4>Ces étudiants sont déjà inscrits</h4>
-    <ng-container *ngFor="let error of dejaInscrits">{{
-      error.prenom + " " + error.nom
-    }}</ng-container>
-  </div>
-  <div class="alert alert-danger alert-dismissible" *ngIf="inscrits.length">
-    <h4>Tous ces étudiants ont été inscrits avec succès</h4>
-    <ng-container *ngFor="let error of classeInexistants">{{
-      error
-    }}</ng-container>
+    <table class="table table-hover table-striped table-light">
+      <thead>
+        <tr>
+          <th scope="col">Étudiant</th>
+          <th scope="col">Classe</th>
+          <th scope="col">Statut</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let inscription of inscriptions">
+          <tr>
+            <!--
+
+               [ngClass]="{
+            'table-danger': inscription.statut === Statuts.MATRICULE_NON_TROUVE
+            || inscription.statut === Statuts.CLASSE_NON_TROUVE,
+            'table-success': inscription.statut === Statuts.INSCRIT,
+            'table-info': inscription.statut === Statuts.DEJA_INSCRIT,
+          }"
+             -->
+            <td>
+              {{
+                !nouveaux
+                  ? inscription.matricule
+                  : inscription.prenom + " " + inscription.nom
+              }}
+            </td>
+            <td>
+              {{ inscription.classe }}
+            </td>
+            <td>
+              <span *ngIf="inscription?.statut == Statuts.INSCRIT">
+                <i class="bi bi-check2-all text-success fs-3"></i>
+                Inscription effecuté
+              </span>
+              <span *ngIf="inscription?.statut == Statuts.DEJA_INSCRIT">
+                <i class="bi bi-exclamation-circle-fill text-info"></i>
+                Déjà inscrit
+              </span>
+              <span *ngIf="inscription?.statut == Statuts.MATRICULE_NON_TROUVE">
+                <i class="bi bi-x-circle-fill text-danger"></i>
+                Matricule invalide
+              </span>
+              <span *ngIf="inscription?.statut == Statuts.CLASSE_NON_TROUVE">
+                <i class="bi bi-x-circle-fill text-danger"></i>
+                Classe invalide
+              </span>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
   </div>
 </div>

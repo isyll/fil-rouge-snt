@@ -35,9 +35,13 @@ export class ImportationComponent implements OnInit {
   nouveaux = false;
   anneeScolaires: any[] = [];
   selectedAnneeScolaire: any;
-  noAnneeScolaires = false;
-  matriculeInexistants: any[] = [];
-  classeInexistants: any[] = [];
+  notifyAnneeScolaire = false;
+  Statuts = {
+    DEJA_INSCRIT: 0,
+    INSCRIT: 1,
+    MATRICULE_NON_TROUVE: 2,
+    CLASSE_NON_TROUVE: 3,
+  };
 
   constructor(
     private classeService: ClasseService,
@@ -51,12 +55,13 @@ export class ImportationComponent implements OnInit {
       .apiAnneeScolairesGetCollection()
       .subscribe((response: any) => {
         this.anneeScolaires = response['hydra:member'];
-        this.noAnneeScolaires = response['hydra:member'] ? true : false;
       });
   }
 
   onSelectAnneeSColaire(a: any) {
     this.selectedAnneeScolaire = a;
+    this.notifyAnneeScolaire = false;
+    if (this.file) this.submitFile();
   }
 
   onUploadEtudiantsFile(event: Event) {
@@ -65,22 +70,9 @@ export class ImportationComponent implements OnInit {
     this.fileName = '';
     const target = event.target as HTMLInputElement;
     this.inscriptions = [];
+    this.notifyAnneeScolaire = false;
+    if (!this.selectedAnneeScolaire) this.notifyAnneeScolaire = true;
     handleCsvFile(target, this.handleEtudiantsFile, this.whenError);
-  }
-
-  onSubmit() {
-    this.matriculeInexistants = [];
-    this.classeInexistants = [];
-    this.inscrits = [];
-    if (!this.nouveaux) {
-      for (const inscription of this.inscriptions) {
-        this.inscrireEtudiant(
-          inscription,
-          (response) => this.inscrits.push(inscription),
-          (etudiant) => this.dejaInscrits.push(etudiant)
-        );
-      }
-    }
   }
 
   private handleEtudiantsFile = (csvContent: string, fileName: string) => {
@@ -102,14 +94,14 @@ export class ImportationComponent implements OnInit {
       this.inscriptions.push(inscription);
     }
 
-    this.validateFile();
+    this.submitFile();
   };
 
   private whenError = () => {
     this.badFileInput = true;
   };
 
-  private validateFile(): void {
+  private submitFile(): void {
     for (const inscription of this.inscriptions) {
       if ('matricule' in inscription) {
         this.nouveaux = false;
@@ -123,50 +115,63 @@ export class ImportationComponent implements OnInit {
         );
       }
     }
-  }
 
-  private inscrireEtudiant(
-    {
-      matricule,
-      classe,
-    }: {
-      matricule: any;
-      classe: any;
-    },
-    insciprionCompleted: (response: any) => void,
-    dejaInscrit: (etudiant: any) => void
-  ) {
-    this.etudiantService
-      .apiEtudiantsGetCollection(undefined, matricule)
-      .subscribe((response: any) => {
-        if (response['hydra:member'].length === 0)
-          this.matriculeInexistants.push(matricule);
-        else {
-          const etudiant = response['hydra:member'][0];
-          this.classeService
-            .apiClassesGetCollection(undefined, classe)
+    if (!this.fileInvalid && this.selectedAnneeScolaire) {
+      if (this.nouveaux == false) {
+        this.inscriptions.forEach((inscription, index) => {
+          this.etudiantService
+            .apiEtudiantsGetCollection(undefined, inscription.matricule)
             .subscribe((response: any) => {
               if (response['hydra:member'].length === 0)
-                this.classeInexistants.push(classe);
+                this.inscriptions[index].statut =
+                  this.Statuts.MATRICULE_NON_TROUVE;
               else {
-                this.inscriptionService
-                  .apiInscriptionsPost({
-                    anneeScolaire: this.selectedAnneeScolaire['@id'],
-                    classe: response['hydra:member'][0]['@id'],
-                    etudiant: etudiant['@id'],
-                  })
-                  .pipe(
-                    catchError((error) => {
-                      dejaInscrit(etudiant);
-                      console.log(error);
+                const etudiant = response['hydra:member'][0];
 
-                      return throwError(() => null);
-                    })
-                  )
-                  .subscribe(insciprionCompleted);
+                this.classeService
+                  .apiClassesGetCollection(undefined, inscription.classe)
+                  .subscribe((response: any) => {
+                    if (response['hydra:member'].length === 0)
+                      this.setStatutInscription(
+                        index,
+                        this.Statuts.CLASSE_NON_TROUVE
+                      );
+                    else {
+                      this.inscriptionService
+                        .apiInscriptionsPost({
+                          anneeScolaire: this.selectedAnneeScolaire['@id'],
+                          classe: response['hydra:member'][0]['@id'],
+                          etudiant: etudiant['@id'],
+                        })
+                        .pipe(
+                          catchError((error) => {
+                            console.log(error);
+                            this.setStatutInscription(
+                              index,
+                              this.Statuts.DEJA_INSCRIT
+                            );
+
+                            return throwError(() => null);
+                          })
+                        )
+                        .subscribe((response) => {
+                          console.log(response);
+
+                          return this.setStatutInscription(
+                            index,
+                            this.Statuts.INSCRIT
+                          );
+                        });
+                    }
+                  });
               }
             });
-        }
-      });
+        });
+      }
+    }
   }
+
+  private setStatutInscription = (index: number, value: any) => {
+    this.inscriptions[index].statut = value;
+  };
 }
