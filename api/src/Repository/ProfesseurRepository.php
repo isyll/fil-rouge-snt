@@ -21,6 +21,24 @@ class ProfesseurRepository extends ServiceEntityRepository
         parent::__construct($registry, Professeur::class);
     }
 
+    public function findOneByMatricule(string $matricule): ?Professeur
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.matricule = :val')
+            ->setParameter('val', $matricule)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function save(Professeur $professeur, $flush = false)
+    {
+        $this->getEntityManager()->persist($professeur);
+
+        if ($flush)
+            $this->getEntityManager()->flush();
+    }
+
 //    /**
 //     * @return Professeur[] Returns an array of Professeur objects
 //     */

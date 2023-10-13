@@ -29,6 +29,16 @@ class EtudiantRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
     }
 
+    public function findOneByMatricule(string $matricule): ?Etudiant
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.matricule = :val')
+            ->setParameter('val', $matricule)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
 //    /**
 //     * @return Etudiant[] Returns an array of Etudiant objects
 //     */

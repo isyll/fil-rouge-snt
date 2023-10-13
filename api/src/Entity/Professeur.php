@@ -7,12 +7,13 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use App\Repository\ProfesseurRepository;
+use App\State\ProfesseurProcessor;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProfesseurRepository::class)]
 #[ApiResource(
-    operations: [new Get, new GetCollection, new Post],
+    operations: [new Get, new GetCollection, new Post(processor: ProfesseurProcessor::class)],
     denormalizationContext: ['groups' => 'write'],
     normalizationContext: ['groups' => 'read']
 )]
@@ -38,6 +39,10 @@ class Professeur
     #[ORM\Column(length: 255)]
     #[Groups(['read', 'write'])]
     private ?string $grade = null;
+
+    #[ORM\Column(length: 255, unique: true)]
+    #[Groups(['read'])]
+    private ?string $matricule = null;
 
     public function getId(): ?int
     {
@@ -88,6 +93,18 @@ class Professeur
     public function setGrade(string $grade): static
     {
         $this->grade = $grade;
+
+        return $this;
+    }
+
+    public function getMatricule(): ?string
+    {
+        return $this->matricule;
+    }
+
+    public function setMatricule(string $matricule): static
+    {
+        $this->matricule = $matricule;
 
         return $this;
     }

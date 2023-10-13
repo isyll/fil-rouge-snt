@@ -62,6 +62,10 @@ class Etudiant
 
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'etudiant')]
     private Collection $inscriptions;
+
+    #[ORM\Column(length: 255, unique: true)]
+    #[Groups(['read'])]
+    private ?string $matricule = null;
     public function __construct()
     {
         $this->classes = new ArrayCollection();
@@ -152,6 +156,18 @@ class Etudiant
     public function removeInscriptions(Inscription $inscription): static
     {
         $this->inscriptions->removeElement($inscription);
+
+        return $this;
+    }
+
+    public function getMatricule(): ?string
+    {
+        return $this->matricule;
+    }
+
+    public function setMatricule(string $matricule): static
+    {
+        $this->matricule = $matricule;
 
         return $this;
     }
