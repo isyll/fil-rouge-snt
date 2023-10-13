@@ -15,14 +15,51 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="navbar-nav ms-4 align-items-center">
         <a routerLink="planifier-cours" routerLinkActive="active">
-          <button type="button" class="btn fs-5">
-            Planifier cours
-          </button>
+          <button type="button" class="btn fs-5">Planifier cours</button>
         </a>
-        <a routerLink="inscriptions" routerLinkActive="active">
-          <button type="button" class="btn fs-5">
-            Inscrire un étudiant
-          </button>
+        <a routerLinkActive="active">
+          <div
+            class="btn-group"
+            dropdown
+            #dropdown="bs-dropdown"
+            [autoClose]="true"
+          >
+            <button
+              id="button-basic"
+              dropdownToggle
+              type="button"
+              class="btn btn-primary dropdown-toggle fs-5"
+              aria-controls="dropdown-basic"
+            >
+              Inscrire un étudiant
+              <span class="caret"></span>
+            </button>
+            <ul
+              id="dropdown-basic"
+              *dropdownMenu
+              class="dropdown-menu"
+              role="menu"
+              aria-labelledby="button-basic"
+            >
+              <li role="menuitem">
+                <a
+                  class="dropdown-item"
+                  routerLink="inscriptions/nouvel-etudiant"
+                  routerLinkActive="active"
+                  >Nouvel étudiant</a
+                >
+              </li>
+              <li class="divider dropdown-divider"></li>
+              <li role="menuitem">
+                <a
+                  class="dropdown-item"
+                  routerLink="inscriptions/etudiant-existant"
+                  routerLinkActive="active"
+                  >Étudiant existant</a
+                >
+              </li>
+            </ul>
+          </div>
         </a>
       </div>
       <div class="navbar-nav ms-4 align-items-end">
