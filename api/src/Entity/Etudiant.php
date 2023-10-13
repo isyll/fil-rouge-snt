@@ -34,29 +34,29 @@ class Etudiant
 
     #[ORM\Column(length: 255)]
     #[Assert\NotNull(message: 'Le prénom est manquant')]
-    #[Groups('write')]
+    #[Groups(['write', 'read'])]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotNull(message: 'Le nom est manquant')]
-    #[Groups('write')]
+    #[Groups(['write', 'read'])]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotNull(message: 'La date de naissance est manquante')]
-    #[Groups('write')]
-    private ?\DateTimeInterface $date_naissance = null;
+    #[Groups(['write', 'read'])]
+    private ?\DateTimeInterface $naissance = null;
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotNull(message: 'Le numéro de téléphone est manquant')]
     #[TelephoneFormat]
-    #[Groups('write')]
+    #[Groups(['write', 'read'])]
     private ?string $telephone = null;
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotNull(message: "L'adresse email est manquante")]
     #[Assert\Email(message: "L'adresse email '{{ value }}' n'est pas valide.")]
-    #[Groups('write')]
+    #[Groups(['write', 'read'])]
     private ?string $email = null;
 
     #[ORM\OneToMany(targetEntity: Inscription::class, mappedBy: 'etudiant')]
@@ -95,14 +95,14 @@ class Etudiant
         return $this;
     }
 
-    public function getDateNaissance(): ?\DateTimeInterface
+    public function getNaissance(): ?\DateTimeInterface
     {
-        return $this->date_naissance;
+        return $this->naissance;
     }
 
-    public function setDateNaissance(\DateTimeInterface $date_naissance): static
+    public function setNaissance(\DateTimeInterface $naissance): static
     {
-        $this->date_naissance = $date_naissance;
+        $this->naissance = $naissance;
 
         return $this;
     }
