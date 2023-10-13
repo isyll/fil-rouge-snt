@@ -47,6 +47,7 @@ model/coursJsonldRead.ts
 model/coursRead.ts
 model/etudiantJsonldRead.ts
 model/etudiantJsonldWrite.ts
+model/etudiantRead.ts
 model/etudiantWrite.ts
 model/filiereJsonldRead.ts
 model/filiereJsonldWrite.ts

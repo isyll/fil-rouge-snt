@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { EtudiantRead } from './etudiantRead';
 import { AnneeScolaireRead } from './anneeScolaireRead';
 import { ClasseRead } from './classeRead';
 
@@ -18,7 +19,7 @@ import { ClasseRead } from './classeRead';
  */
 export interface InscriptionRead { 
     classe?: ClasseRead;
-    etudiant?: string;
+    etudiant?: EtudiantRead;
     annee_scolaire?: AnneeScolaireRead;
 }
 

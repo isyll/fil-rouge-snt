@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { ClasseJsonldRead } from './classeJsonldRead';
+import { EtudiantJsonldRead } from './etudiantJsonldRead';
 import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
 import { AnneeScolaireJsonldRead } from './anneeScolaireJsonldRead';
 
@@ -22,7 +23,7 @@ export interface InscriptionJsonldRead {
     readonly id?: string;
     readonly type?: string;
     classe?: ClasseJsonldRead;
-    etudiant?: string;
+    etudiant?: EtudiantJsonldRead;
     annee_scolaire?: AnneeScolaireJsonldRead;
 }
 

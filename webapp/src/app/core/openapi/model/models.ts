@@ -28,6 +28,7 @@ export * from './coursJsonldRead';
 export * from './coursRead';
 export * from './etudiantJsonldRead';
 export * from './etudiantJsonldWrite';
+export * from './etudiantRead';
 export * from './etudiantWrite';
 export * from './filiereJsonldRead';
 export * from './filiereJsonldWrite';

@@ -25,6 +25,8 @@ import { EtudiantJsonldRead } from '../model/etudiantJsonldRead';
 // @ts-ignore
 import { EtudiantJsonldWrite } from '../model/etudiantJsonldWrite';
 // @ts-ignore
+import { EtudiantRead } from '../model/etudiantRead';
+// @ts-ignore
 import { EtudiantWrite } from '../model/etudiantWrite';
 
 // @ts-ignore

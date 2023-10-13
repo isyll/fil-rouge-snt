@@ -1,0 +1,152 @@
+<form class="row p-3" [formGroup]="form" (submit)="onSubmit()">
+  <div
+    class="btn-group d-inline-block"
+    dropdown
+    #dropdown="bs-dropdown"
+    [autoClose]="true"
+  >
+    <button
+      id="button-basic"
+      dropdownToggle
+      type="button"
+      class="btn btn-light dropdown-toggle"
+      *ngIf="anneeScolaires"
+    >
+      {{!selectedAnneeScolaire ? 'Année scolaire' : selectedAnneeScolaire.libelle}}
+      <span class="caret"></span>
+    </button>
+    <ul
+      id="dropdown-basic"
+      *dropdownMenu
+      class="dropdown-menu shadow"
+      role="menu"
+    >
+      <li
+        role="menuitem"
+        class="dropdown-item"
+        href="#"
+        *ngFor="let a of anneeScolaires"
+        (click)="onSelectAnneeSColaire(a)"
+      >
+        {{ a.libelle }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="form-group col-4">
+    <label for="prenom">Prénom<span class="text-danger">*</span></label>
+    <input
+      type="text"
+      id="prenom"
+      class="form-control"
+      formControlName="prenom"
+      [ngClass]="{
+        'is-invalid': form.get('prenom')?.value && form.get('prenom')?.invalid
+      }"
+    />
+  </div>
+  <div class="form-group col-4">
+    <label for="nom">Nom<span class="text-danger">*</span></label>
+    <input
+      type="text"
+      id="nom"
+      class="form-control"
+      formControlName="nom"
+      [ngClass]="{
+        'is-invalid': form.get('nom')?.value && form.get('nom')?.invalid
+      }"
+    />
+  </div>
+  <div class="w-100"></div>
+
+  <div class="form-group col-4">
+    <label for="naissance"
+      >Date de naissance<span class="text-danger">*</span></label
+    >
+    <input
+      type="date"
+      id="naissance"
+      class="form-control"
+      formControlName="naissance"
+      [ngClass]="{
+        'is-invalid':
+          form.get('naissance')?.value && form.get('naissance')?.invalid
+      }"
+    />
+  </div>
+  <div class="form-group col-4">
+    <label for="telephone"
+      >Numéro de téléphone<span class="text-danger">*</span></label
+    >
+    <input
+      type="tel"
+      id="telephone"
+      class="form-control"
+      formControlName="telephone"
+      [ngClass]="{
+        'is-invalid':
+          form.get('telephone')?.value && form.get('telephone')?.invalid
+      }"
+    />
+  </div>
+  <div class="w-100"></div>
+  <div class="form-group col-4">
+    <label for="email">Adresse email<span class="text-danger">*</span></label>
+    <input
+      type="email"
+      id="email"
+      class="form-control"
+      formControlName="email"
+      [ngClass]="{
+        'is-invalid': form.get('email')?.value && form.get('email')?.invalid
+      }"
+    />
+  </div>
+  <div class="form-group col-4" *ngIf="classes">
+    <label for="classe"
+      >Nom de la classe<span class="text-danger">*</span></label
+    >
+    <select
+      id="classe"
+      class="form-select"
+      formControlName="classe"
+      [ngClass]="{
+        'is-invalid': form.get('classe')?.value && form.get('classe')?.invalid
+      }"
+    >
+      <option [value]="null">Choisir</option>
+      <option [value]="classe['@id']" *ngFor="let classe of classes">
+        {{ classe["libelle"] }}
+      </option>
+    </select>
+  </div>
+  <div class="w-100"></div>
+
+  <div class="p-3">
+    <button class="btn btn-primary p-2" type="submit" [disabled]="!form.valid">
+      Créer
+    </button>
+  </div>
+  <div
+    *ngIf="unknownError"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    <strong> Une erreur inconnue est survenue </strong>
+  </div>
+  <div
+    *ngIf="submitOk"
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+  >
+    Étudiant inscrit avec succès
+  </div>
+  <div
+    *ngIf="alreadyExistsError"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    {{ alreadyExistsError }}
+  </div>
+</form>
+<app-loading *ngIf="submitPending"></app-loading>

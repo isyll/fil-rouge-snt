@@ -17,7 +17,7 @@
 export interface EtudiantWrite { 
     prenom: string;
     nom: string;
-    readonly date_naissance: string;
+    naissance: string;
     telephone: string;
     email: string;
 }

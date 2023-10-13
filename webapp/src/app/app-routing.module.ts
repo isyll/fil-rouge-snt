@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentLayoutComponent } from './components/content-layout/content-layout.component';
 import { PlanifierCoursComponent } from './components/planifier-cours/planifier-cours.component';
-import { InscriptionComponent } from './components/inscription/inscription.component';
 
 const routes: Routes = [
   {
@@ -14,8 +13,11 @@ const routes: Routes = [
         component: PlanifierCoursComponent,
       },
       {
-        path: 'inscription',
-        component: InscriptionComponent,
+        path: 'inscriptions',
+        loadChildren: () =>
+          import('./modules/inscriptions/inscriptions.module').then(
+            (m) => m.InscriptionsModule
+          ),
       },
       {
         path: '',
