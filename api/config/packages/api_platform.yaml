@@ -19,4 +19,5 @@ api_platform:
         ApiPlatform\Validator\Exception\ValidationException: !php/const Symfony\Component\HttpFoundation\Response::HTTP_UNPROCESSABLE_ENTITY
         # Custom mapping
         App\Exception\ExistingInscriptionException: 409
+        App\Exception\PhoneNumberException: 422
         App\Exception\OuvertureAlreadyDoneException: 409
