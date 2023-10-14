@@ -5,6 +5,7 @@ namespace App\State;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\Exception\SalleOccupeException;
+use App\Exception\SalleTropGrandeException;
 use App\Exception\SessionCoursTimeException;
 use App\Repository\SessionCoursRepository;
 
@@ -27,16 +28,24 @@ class SessionCoursProcessor implements ProcessorInterface
 
         if ($sessionCours = $this->sessionCoursRepository->salleOccupes($data->getSalle(), $data->getDate())) {
             $heureDebut = $this->time2number($data->getHeureDebut());
+            $heureFin   = $this->time2number($data->getHeureFin());
 
-            foreach($sessionCours as $sc) {
+            foreach ($sessionCours as $sc) {
                 $heureDebutSessionCours = $this->time2number($sc->getHeureDebut());
-                $heureFinSessionCours = $this->time2number($sc->getHeureFin());
+                $heureFinSessionCours   = $this->time2number($sc->getHeureFin());
 
-                if ($heureDebut >= $heureDebutSessionCours && $heureDebut <= $heureFinSessionCours) {
+                if ($heureDebutSessionCours <= $heureDebut && $heureDebut <= $heureFinSessionCours)
                     throw new SalleOccupeException("La salle n'est pas libre pour le moment que vous indiquez");
-                }
+                if ($heureDebut <= $heureDebutSessionCours && $heureDebutSessionCours <= $heureFin)
+                    throw new SalleOccupeException("La salle n'est pas libre pour le moment que vous indiquez");
             }
         }
+
+        $classe = $data->getCours()->getClasse();
+        $salle  = $data->getSalle();
+
+        if ($classe->getNbEtudiants() > $salle->getPlaces())
+            throw new SalleTropGrandeException('La salle que vous avez choisi est trop grande pour la classe ' + $classe->getLibelle());
 
         $this->sessionCoursRepository->save($data, true);
     }
