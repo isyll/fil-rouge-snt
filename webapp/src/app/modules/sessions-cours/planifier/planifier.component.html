@@ -1,1 +1,226 @@
-<p>planifier works!</p>
+<ng-container *ngIf="noAnneeEnCours !== null">
+  <div *ngIf="selectedAnneeScolaire">
+    <button type="button" class="btn btn-light">
+      {{ selectedAnneeScolaire.libelle }}
+    </button>
+  </div>
+
+  <ng-container *ngIf="cours">
+    <h4 class="p-2">Cours existants</h4>
+    <div>
+      <app-item-card
+        icon="bi bi-back"
+        [title]="c.module.libelle"
+        [data]="c.classe.libelle"
+        [footData1]="'Semestre ' + c.semestre"
+        [footData2]="c.classe.filiere.libelle"
+        (clickItem)="onSelectCours(c)"
+        *ngFor="let c of cours"
+      ></app-item-card>
+    </div>
+  </ng-container>
+  <div class="w-75 border border-1 mx-5 my-3"></div>
+
+  <div
+    class="d-flex justify-content-center"
+    *ngIf="selectedCours && selectedCours.sessionCours.length !== 0"
+  >
+    <table class="table table-hover table-light w-75">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Heure de début</th>
+          <th scope="col">Heure de fin</th>
+          <th scope="col">Durée</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sc of selectedCours.sessionCours">
+          <td>
+            {{ sc.date }}
+          </td>
+          <td>
+            {{ sc.heureDebut }}
+          </td>
+          <td>
+            {{ sc.heureDebut }}
+          </td>
+          <td>
+            {{ sc.duree }}
+          </td>
+        </tr>
+        <ng-container> </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div>
+      <div
+        *ngIf="selectedCours && selectedCours.sessionCours.length === 0"
+        class="opacity-75 py-3 px-5"
+      >
+        <span class="badge rounded-pill text-bg-danger p-2 shadow"
+          >Aucune session n'a été enregistré pour ce cours</span
+        >
+      </div>
+    </div>
+    <div *ngIf="noSalles === true" class="m-3">
+      Vous devez d'abord créer des salles pour planifier une session de cours
+    </div>
+    <ng-container *ngIf="selectedCours && noSalles !== true">
+      <button
+        (click)="openModal(template)"
+        class="btn btn-light d-flex align-items-center justify-content-center me-3 border border-1 shadow"
+      >
+        <i class="bi bi-plus fs-2"></i>
+        <span> Créer une session </span>
+      </button>
+    </ng-container>
+  </div>
+</ng-container>
+<ng-container *ngIf="noAnneeEnCours === true">
+  <div class="alert alert-danger">
+    Aucune année scolaire en cours n'a été trouvé
+  </div>
+</ng-container>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Planifier une session de cours</h4>
+    <button
+      type="button"
+      class="btn-close close pull-right"
+      aria-label="Close"
+      (click)="sessionModal?.hide()"
+    >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="sessionForm">
+      <div class="row">
+        <div class="col-12">
+          <label for="date">Date de la session</label>
+          <input
+            type="text"
+            id="date"
+            placeholder="Date"
+            class="form-control"
+            formControlName="date"
+            bsDatepicker
+            [bsConfig]="{ isAnimated: true }"
+          />
+        </div>
+        <div class="col-12">
+          <label for="salle">Salle</label>
+          <select
+            id="salle"
+            class="form-select"
+            *ngIf="salles"
+            formControlName="salle"
+          >
+            <option [value]="null">Choisir</option>
+            <option [value]="" *ngFor="let salle of salles">
+              {{ salle.nom }}
+            </option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label for="heureDebut">Heure de début</label>
+          <table>
+            <tr>
+              <td class="form-group mb-3">
+                <input
+                  [ngClass]="{
+                    'is-invalid':
+                      sessionForm.get('heureDebut')?.value != '' &&
+                      !sessionForm.get('heureDebut')?.valid
+                  }"
+                  type="text"
+                  maxlength="2"
+                  class="form-control text-center bs-timepicker-field"
+                  placeholder="12"
+                  (input)="setHeure($event, 'hour', 'debut')"
+                />
+              </td>
+              <td>&nbsp;:&nbsp;</td>
+              <td class="form-group mb-3">
+                <input
+                  [ngClass]="{
+                    'is-invalid':
+                      sessionForm.get('heureDebut')?.value != '' &&
+                      !sessionForm.get('heureDebut')?.valid
+                  }"
+                  type="text"
+                  maxlength="2"
+                  class="form-control text-center bs-timepicker-field"
+                  placeholder="00"
+                  (input)="setHeure($event, 'minute', 'debut')"
+                />
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-6">
+          <label for="heureFin">Heure de fin</label>
+          <table>
+            <tr>
+              <td class="form-group mb-3">
+                <input
+                  [ngClass]="{
+                    'is-invalid':
+                      sessionForm.get('heureFin')?.value != '' &&
+                      !sessionForm.get('heureFin')?.valid
+                  }"
+                  type="text"
+                  maxlength="2"
+                  class="form-control text-center bs-timepicker-field"
+                  placeholder="12"
+                  (input)="setHeure($event, 'hour', 'fin')"
+                />
+              </td>
+              <td>&nbsp;:&nbsp;</td>
+              <td class="form-group mb-3">
+                <input
+                  [ngClass]="{
+                    'is-invalid':
+                      sessionForm.get('heureFin')?.value != '' &&
+                      !sessionForm.get('heureFin')?.valid
+                  }"
+                  type="text"
+                  maxlength="2"
+                  class="form-control text-center bs-timepicker-field"
+                  placeholder="00"
+                  (input)="setHeure($event, 'minute', 'fin')"
+                />
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="sessionForm.get('duree')?.hasError('exact')"
+        >
+          Les heures que vous avez choisies sont invalides
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="sessionModal?.hide()"
+    >
+      Annuler
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="sessionForm.invalid"
+      (click)="onCreateSession()"
+    >
+      Enregistrer
+    </button>
+  </div>
+</ng-template>
