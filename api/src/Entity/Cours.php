@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     normalizationContext: ['groups' => ['read']]
 )]
 #[ApiFilter(SearchFilter::class, properties: ['module' => 'exact', 'annee_scolaire' => 'exact', 'semestre' => 'exact'])]
-#[UniqueConstraint(fields: ['module', 'annee_scolaire', 'semestre'])]
+#[UniqueConstraint(fields: ['module', 'annee_scolaire', 'semestre', 'classe'])]
 #[UniqueEntity(['module', 'annee_scolaire', 'semestre'], message: 'Ce cours est déjà planifié dans pour ce semestre pour cette année')]
 class Cours
 {
@@ -47,6 +47,11 @@ class Cours
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read'])]
     private ?AnneeScolaire $annee_scolaire = null;
+
+    #[ORM\ManyToOne(inversedBy: 'cours')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['read'])]
+    private ?Classe $classe = null;
 
     public function getId(): ?int
     {
@@ -97,6 +102,18 @@ class Cours
     public function setAnneeScolaire(?AnneeScolaire $annee_scolaire): static
     {
         $this->annee_scolaire = $annee_scolaire;
+
+        return $this;
+    }
+
+    public function getClasse(): ?Classe
+    {
+        return $this->classe;
+    }
+
+    public function setClasse(?Classe $classe): static
+    {
+        $this->classe = $classe;
 
         return $this;
     }

@@ -51,12 +51,18 @@ class Classe
     private ?Filiere $filiere = null;
 
     #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Ouverture::class)]
+    #[Groups(['read'])]
     private Collection $ouvertures;
+
+    #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Cours::class)]
+    #[Groups(['read'])]
+    private Collection $cours;
 
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
         $this->ouvertures = new ArrayCollection();
+        $this->cours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,6 +154,36 @@ class Classe
             // set the owning side to null (unless already changed)
             if ($ouverture->getClasse() === $this) {
                 $ouverture->setClasse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
+    {
+        return $this->cours;
+    }
+
+    public function addCour(Cours $cour): static
+    {
+        if (!$this->cours->contains($cour)) {
+            $this->cours->add($cour);
+            $cour->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Cours $cour): static
+    {
+        if ($this->cours->removeElement($cour)) {
+            // set the owning side to null (unless already changed)
+            if ($cour->getClasse() === $this) {
+                $cour->setClasse(null);
             }
         }
 
