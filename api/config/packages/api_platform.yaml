@@ -20,4 +20,5 @@ api_platform:
         # Custom mapping
         App\Exception\ExistingInscriptionException: 409
         App\Exception\PhoneNumberException: 422
+        App\Exception\SessionCoursTimeException: 422
         App\Exception\OuvertureAlreadyDoneException: 409

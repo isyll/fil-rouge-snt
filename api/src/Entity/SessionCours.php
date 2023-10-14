@@ -5,12 +5,14 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
 use App\Repository\SessionCoursRepository;
+use App\State\SessionCoursProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
-    operations: [new Post],
+    operations: [new Post(processor: SessionCoursProcessor::class)],
     normalizationContext: ['groups' => 'read']
 )]
 #[ORM\Entity(repositoryClass: SessionCoursRepository::class)]
@@ -25,13 +27,13 @@ class SessionCours
     #[Groups(['read'])]
     private ?Cours $cours = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[ORM\Column]
     #[Groups(['read'])]
-    private ?\DateTimeInterface $heureDebut = null;
+    private ?string $heureDebut = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[ORM\Column]
     #[Groups(['read'])]
-    private ?\DateTimeInterface $heureFin = null;
+    private ?string $heureFin = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Groups(['read'])]
@@ -62,24 +64,24 @@ class SessionCours
         return $this;
     }
 
-    public function getHeureDebut(): ?\DateTimeInterface
+    public function getHeureDebut(): ?string
     {
         return $this->heureDebut;
     }
 
-    public function setHeureDebut(\DateTimeInterface $heureDebut): static
+    public function setHeureDebut(string $heureDebut): static
     {
         $this->heureDebut = $heureDebut;
 
         return $this;
     }
 
-    public function getHeureFin(): ?\DateTimeInterface
+    public function getHeureFin(): ?string
     {
         return $this->heureFin;
     }
 
-    public function setHeureFin(\DateTimeInterface $heureFin): static
+    public function setHeureFin(string $heureFin): static
     {
         $this->heureFin = $heureFin;
 

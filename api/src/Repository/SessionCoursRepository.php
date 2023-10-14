@@ -21,6 +21,14 @@ class SessionCoursRepository extends ServiceEntityRepository
         parent::__construct($registry, SessionCours::class);
     }
 
+    public function save(SessionCours $sessionCours, $flush = false)
+    {
+        $this->getEntityManager()->persist($sessionCours);
+
+        if ($flush)
+            $this->getEntityManager()->flush();
+    }
+
 //    /**
 //     * @return SessionCours[] Returns an array of SessionCours objects
 //     */
