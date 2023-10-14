@@ -6,6 +6,7 @@ import {
   CoursService,
   ModuleService,
   SalleService,
+  SessionCoursService,
 } from 'src/app/core/openapi';
 import { ParamsService, difference, formatDate } from 'src/app/core/services';
 import { validateTime } from 'src/app/core/validators';
@@ -31,6 +32,9 @@ export class PlanifierComponent implements OnInit {
     heureFin: ['', [Validators.required]],
     duree: [''],
   });
+  DOM = {
+    sessionRequestPending: false,
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -39,6 +43,7 @@ export class PlanifierComponent implements OnInit {
     private anneeScolaireService: AnneeScolaireService,
     private moduleService: ModuleService,
     private salleService: SalleService,
+    private sessionCoursService: SessionCoursService,
     private modalService: BsModalService
   ) {
     this.sessionForm.valueChanges.subscribe(this.validateSessionForm);
@@ -51,13 +56,23 @@ export class PlanifierComponent implements OnInit {
 
   onCreateSession() {
     const heureDebut = this.sessionForm.get('heureDebut')?.value ?? '',
-      heureFin = this.sessionForm.get('heureFin')?.value ?? '';
+      heureFin = this.sessionForm.get('heureFin')?.value ?? '',
+      duree = difference(heureDebut, heureFin),
+      date = this.sessionForm.get('date')?.value ?? new Date();
 
-    const duree = difference(heureDebut, heureFin);
+    const data: any = {
+      ...this.sessionForm.value,
+      duree: duree,
+      date: formatDate(date as Date),
+    };
 
-    this.sessionForm.get('duree')?.setValue(duree);
-    const date = this.sessionForm.get('date')?.value ?? new Date();
-    this.sessionForm.get('date')?.setValue(formatDate(date as Date));
+    this.DOM.sessionRequestPending = true;
+    this.sessionCoursService.apiSessionCoursPost(data).subscribe((response) => {
+      console.log(response);
+      this.DOM.sessionRequestPending = false;
+      this.sessionModal?.hide();
+      this.loadSessionCours();
+    });
   }
 
   onSelectCours(cours: any) {
