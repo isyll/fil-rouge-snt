@@ -9,6 +9,8 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use App\Repository\SalleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -39,6 +41,14 @@ class Salle
     #[ORM\Column]
     #[Groups(['write', 'read'])]
     private ?int $places = null;
+
+    #[ORM\OneToMany(mappedBy: 'salle', targetEntity: SessionCours::class)]
+    private Collection $sessionCours;
+
+    public function __construct()
+    {
+        $this->sessionCours = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -77,6 +87,36 @@ class Salle
     public function setPlaces(int $places): static
     {
         $this->places = $places;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SessionCours>
+     */
+    public function getSessionCours(): Collection
+    {
+        return $this->sessionCours;
+    }
+
+    public function addSessionCour(SessionCours $sessionCour): static
+    {
+        if (!$this->sessionCours->contains($sessionCour)) {
+            $this->sessionCours->add($sessionCour);
+            $sessionCour->setSalle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSessionCour(SessionCours $sessionCour): static
+    {
+        if ($this->sessionCours->removeElement($sessionCour)) {
+            // set the owning side to null (unless already changed)
+            if ($sessionCour->getSalle() === $this) {
+                $sessionCour->setSalle(null);
+            }
+        }
 
         return $this;
     }

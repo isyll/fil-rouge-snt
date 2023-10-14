@@ -2,10 +2,17 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Post;
 use App\Repository\SessionCoursRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    operations: [new Post],
+    normalizationContext: ['groups' => 'read']
+)]
 #[ORM\Entity(repositoryClass: SessionCoursRepository::class)]
 class SessionCours
 {
@@ -15,19 +22,28 @@ class SessionCours
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'sessionCours')]
+    #[Groups(['read'])]
     private ?Cours $cours = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Groups(['read'])]
     private ?\DateTimeInterface $heureDebut = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Groups(['read'])]
     private ?\DateTimeInterface $heureFin = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['read'])]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $duree = null;
+    #[ORM\Column(nullable: true)]
+    #[Groups(['read'])]
+    private ?string $duree = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sessionCours')]
+    #[Groups(['read'])]
+    private ?Salle $salle = null;
 
     public function getId(): ?int
     {
@@ -82,14 +98,26 @@ class SessionCours
         return $this;
     }
 
-    public function getDuree(): ?\DateTimeInterface
+    public function getDuree(): ?string
     {
         return $this->duree;
     }
 
-    public function setDuree(?\DateTimeInterface $duree): static
+    public function setDuree(?string $duree): static
     {
         $this->duree = $duree;
+
+        return $this;
+    }
+
+    public function getSalle(): ?Salle
+    {
+        return $this->salle;
+    }
+
+    public function setSalle(?Salle $salle): static
+    {
+        $this->salle = $salle;
 
         return $this;
     }
