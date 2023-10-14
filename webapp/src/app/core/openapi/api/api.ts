@@ -22,4 +22,6 @@ export * from './professeur.service';
 import { ProfesseurService } from './professeur.service';
 export * from './salle.service';
 import { SalleService } from './salle.service';
-export const APIS = [AnneeScolaireService, ClasseService, CoursService, EtudiantService, FiliereService, InscriptionService, ModuleService, NiveauService, OuvertureService, ParamService, ProfesseurService, SalleService];
+export * from './sessionCours.service';
+import { SessionCoursService } from './sessionCours.service';
+export const APIS = [AnneeScolaireService, ClasseService, CoursService, EtudiantService, FiliereService, InscriptionService, ModuleService, NiveauService, OuvertureService, ParamService, ProfesseurService, SalleService, SessionCoursService];

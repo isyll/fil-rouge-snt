@@ -63,3 +63,7 @@ export * from './salleJsonldRead';
 export * from './salleJsonldWrite';
 export * from './salleRead';
 export * from './salleWrite';
+export * from './sessionCours';
+export * from './sessionCoursJsonld';
+export * from './sessionCoursJsonldRead';
+export * from './sessionCoursRead';

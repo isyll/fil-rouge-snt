@@ -9,24 +9,23 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { OuvertureJsonldRead } from './ouvertureJsonldRead';
-import { NiveauJsonldRead } from './niveauJsonldRead';
+import { SalleJsonldRead } from './salleJsonldRead';
 import { CoursJsonldRead } from './coursJsonldRead';
-import { FiliereJsonldRead } from './filiereJsonldRead';
 import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
 
 
 /**
  * 
  */
-export interface ClasseJsonldRead { 
+export interface SessionCoursJsonldRead { 
     context?: AnneeScolaireJsonldItemReadContext;
     readonly id?: string;
     readonly type?: string;
-    libelle: string;
-    niveau?: NiveauJsonldRead | null;
-    filiere?: FiliereJsonldRead | null;
-    ouvertures?: Array<OuvertureJsonldRead>;
-    cours?: Array<CoursJsonldRead>;
+    cours?: CoursJsonldRead | null;
+    heureDebut?: string;
+    heureFin?: string;
+    date?: string;
+    duree?: string | null;
+    salle?: SalleJsonldRead | null;
 }
 

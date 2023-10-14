@@ -10,19 +10,18 @@
  * Do not edit the class manually.
  */
 import { CoursRead } from './coursRead';
-import { FiliereRead } from './filiereRead';
-import { NiveauRead } from './niveauRead';
-import { OuvertureRead } from './ouvertureRead';
+import { SalleRead } from './salleRead';
 
 
 /**
  * 
  */
-export interface ClasseRead { 
-    libelle: string;
-    niveau?: NiveauRead | null;
-    filiere?: FiliereRead | null;
-    ouvertures?: Array<OuvertureRead>;
-    cours?: Array<CoursRead>;
+export interface SessionCoursRead { 
+    cours?: CoursRead | null;
+    heureDebut?: string;
+    heureFin?: string;
+    date?: string;
+    duree?: string | null;
+    salle?: SalleRead | null;
 }
 

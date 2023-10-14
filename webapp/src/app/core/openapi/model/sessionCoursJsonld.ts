@@ -9,20 +9,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { CoursRead } from './coursRead';
-import { FiliereRead } from './filiereRead';
-import { NiveauRead } from './niveauRead';
-import { OuvertureRead } from './ouvertureRead';
 
 
 /**
  * 
  */
-export interface ClasseRead { 
-    libelle: string;
-    niveau?: NiveauRead | null;
-    filiere?: FiliereRead | null;
-    ouvertures?: Array<OuvertureRead>;
-    cours?: Array<CoursRead>;
+export interface SessionCoursJsonld { 
+    readonly id?: number;
+    cours?: string | null;
+    heureDebut?: string;
+    heureFin?: string;
+    date?: string;
+    duree?: string | null;
+    salle?: string | null;
 }
 

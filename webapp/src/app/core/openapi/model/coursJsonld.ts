@@ -20,6 +20,8 @@ export interface CoursJsonld {
     semestre?: number;
     module?: string;
     readonly annee_scolaire?: string;
+    classe?: string;
+    sessionCours?: Array<string>;
     anneeScolaire?: string | null;
 }
 

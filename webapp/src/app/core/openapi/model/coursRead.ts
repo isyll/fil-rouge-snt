@@ -11,6 +11,8 @@
  */
 import { ModuleRead } from './moduleRead';
 import { AnneeScolaireRead } from './anneeScolaireRead';
+import { ClasseRead } from './classeRead';
+import { SessionCoursRead } from './sessionCoursRead';
 
 
 /**
@@ -21,5 +23,7 @@ export interface CoursRead {
     semestre?: number;
     module?: ModuleRead;
     annee_scolaire?: AnneeScolaireRead;
+    classe?: ClasseRead;
+    sessionCours?: Array<SessionCoursRead>;
 }
 

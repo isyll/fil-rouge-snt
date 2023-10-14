@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 api.module.ts
 api/anneeScolaire.service.ts
@@ -15,6 +14,7 @@ api/ouverture.service.ts
 api/param.service.ts
 api/professeur.service.ts
 api/salle.service.ts
+api/sessionCours.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -85,5 +85,9 @@ model/salleJsonldRead.ts
 model/salleJsonldWrite.ts
 model/salleRead.ts
 model/salleWrite.ts
+model/sessionCours.ts
+model/sessionCoursJsonld.ts
+model/sessionCoursJsonldRead.ts
+model/sessionCoursRead.ts
 param.ts
 variables.ts
