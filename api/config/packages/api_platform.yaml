@@ -21,4 +21,5 @@ api_platform:
         App\Exception\ExistingInscriptionException: 409
         App\Exception\PhoneNumberException: 422
         App\Exception\SessionCoursTimeException: 422
+        App\Exception\SalleOccupeException: 422
         App\Exception\OuvertureAlreadyDoneException: 409

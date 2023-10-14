@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Salle;
 use App\Entity\SessionCours;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -27,6 +28,20 @@ class SessionCoursRepository extends ServiceEntityRepository
 
         if ($flush)
             $this->getEntityManager()->flush();
+    }
+
+    public function salleOccupes(Salle $salle, \DateTimeInterface $date): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.salle = :salle')
+            ->andWhere('s.date = :date')
+            ->setParameter('salle', $salle)
+            ->setParameter('date', $date)
+            ->orderBy('s.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
 //    /**
