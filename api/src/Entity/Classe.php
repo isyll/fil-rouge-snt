@@ -58,6 +58,9 @@ class Classe
     #[Groups(['read'])]
     private Collection $cours;
 
+    #[ORM\Column]
+    private ?int $nbEtudiants = null;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
@@ -186,6 +189,18 @@ class Classe
                 $cour->setClasse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNbEtudiants(): ?int
+    {
+        return $this->nbEtudiants;
+    }
+
+    public function setNbEtudiants(int $nbEtudiants): static
+    {
+        $this->nbEtudiants = $nbEtudiants;
 
         return $this;
     }
