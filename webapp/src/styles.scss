@@ -1,102 +1,17 @@
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
+@import "fonts.css";
 
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-Bold.ttf") format("truetype");
-  font-weight: bold;
-  font-style: normal;
-}
+@import "custom-variables";
 
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-Italic.ttf") format("truetype");
-  font-weight: normal;
-  font-style: italic;
-}
+@import "bootstrap-icons/font/bootstrap-icons.css";
 
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-BoldItalic.ttf") format("truetype");
-  font-weight: bold;
-  font-style: italic;
-}
+/* Importing Bootstrap SCSS file. */
+@import "./node_modules/bootstrap/scss/bootstrap";
 
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-MediumItalic.ttf") format("truetype");
-  font-weight: 500;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-Light.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-LightItalic.ttf") format("truetype");
-  font-weight: 300;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-Light.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-LightItalic.ttf") format("truetype");
-  font-weight: 300;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-Thin.ttf") format("truetype");
-  font-weight: 100;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-ThinItalic.ttf") format("truetype");
-  font-weight: 100;
-  font-style: italic;
-}
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-Black.ttf") format("truetype");
-  font-weight: 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("./fonts/Roboto/Roboto-BlackItalic.ttf") format("truetype");
-  font-weight: 900;
-  font-style: italic;
-}
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: "Manrope", "Roboto", sans-serif;
 }
 
 body {
@@ -108,13 +23,3 @@ body {
 .disabled {
   cursor: not-allowed;
 }
-
-@import "custom-variables";
-
-@import "bootstrap-icons/font/bootstrap-icons.css";
-
-/* Importing Bootstrap SCSS file. */
-@import "./node_modules/bootstrap/scss/bootstrap";
-
-/* Importing Datepicker SCSS file. */
-@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
