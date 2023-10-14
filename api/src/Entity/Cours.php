@@ -10,6 +10,8 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Repository\CoursRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -52,6 +54,14 @@ class Cours
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read'])]
     private ?Classe $classe = null;
+
+    #[ORM\OneToMany(mappedBy: 'cours', targetEntity: SessionCours::class)]
+    private Collection $sessionCours;
+
+    public function __construct()
+    {
+        $this->sessionCours = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -114,6 +124,36 @@ class Cours
     public function setClasse(?Classe $classe): static
     {
         $this->classe = $classe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SessionCours>
+     */
+    public function getSessionCours(): Collection
+    {
+        return $this->sessionCours;
+    }
+
+    public function addSessionCour(SessionCours $sessionCour): static
+    {
+        if (!$this->sessionCours->contains($sessionCour)) {
+            $this->sessionCours->add($sessionCour);
+            $sessionCour->setCours($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSessionCour(SessionCours $sessionCour): static
+    {
+        if ($this->sessionCours->removeElement($sessionCour)) {
+            // set the owning side to null (unless already changed)
+            if ($sessionCour->getCours() === $this) {
+                $sessionCour->setCours(null);
+            }
+        }
 
         return $this;
     }
