@@ -34,6 +34,7 @@ export class PlanifierComponent implements OnInit {
   });
   DOM = {
     sessionRequestPending: false,
+    coursRequestPending: false,
   };
 
   constructor(
@@ -77,6 +78,7 @@ export class PlanifierComponent implements OnInit {
 
   onSelectCours(cours: any) {
     this.selectedCours = cours;
+    this.loadSessionCours();
   }
 
   openModal(template: TemplateRef<any>) {
@@ -102,6 +104,7 @@ export class PlanifierComponent implements OnInit {
   }
 
   private loadCours() {
+    this.DOM.coursRequestPending = true;
     this.coursService
       .apiCoursGetCollection(
         undefined,
@@ -109,7 +112,10 @@ export class PlanifierComponent implements OnInit {
         undefined,
         this.selectedAnneeScolaire.libelle
       )
-      .subscribe((response: any) => (this.cours = response['hydra:member']));
+      .subscribe((response: any) => {
+        this.cours = response['hydra:member'];
+        this.DOM.coursRequestPending = false;
+      });
   }
 
   private loadSalles() {
@@ -120,7 +126,17 @@ export class PlanifierComponent implements OnInit {
     });
   }
 
-  private loadSessionCours() {}
+  private loadSessionCours() {
+    this.DOM.sessionRequestPending = true;
+    if (this.selectedCours) {
+      this.sessionCoursService
+        .apiSessionCoursGetCollection(undefined, this.selectedCours['@id'])
+        .subscribe((response: any) => {
+          this.DOM.sessionRequestPending = false;
+          this.selectedCours.sessionCours = response['hydra:member'];
+        });
+    }
+  }
 
   private validateSessionForm = () => {
     const t1 = this.sessionForm.get('heureDebut')?.value ?? '',

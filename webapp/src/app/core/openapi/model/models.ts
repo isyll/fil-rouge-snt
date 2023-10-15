@@ -19,6 +19,7 @@ export * from './apiNiveauxGetCollection200Response';
 export * from './apiParamsGetCollection200Response';
 export * from './apiProfesseursGetCollection200Response';
 export * from './apiSallesGetCollection200Response';
+export * from './apiSessionCoursGetCollection200Response';
 export * from './classeJsonldRead';
 export * from './classeJsonldWrite';
 export * from './classeRead';

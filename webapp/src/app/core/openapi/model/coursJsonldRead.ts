@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SessionCoursJsonldRead } from './sessionCoursJsonldRead';
 import { ClasseJsonldRead } from './classeJsonldRead';
 import { ModuleJsonldRead } from './moduleJsonldRead';
 import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
@@ -28,6 +27,5 @@ export interface CoursJsonldRead {
     module?: ModuleJsonldRead;
     annee_scolaire?: AnneeScolaireJsonldRead;
     classe?: ClasseJsonldRead;
-    sessionCours?: Array<SessionCoursJsonldRead>;
 }
 

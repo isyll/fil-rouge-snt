@@ -40,6 +40,7 @@ model/apiNiveauxGetCollection200Response.ts
 model/apiParamsGetCollection200Response.ts
 model/apiProfesseursGetCollection200Response.ts
 model/apiSallesGetCollection200Response.ts
+model/apiSessionCoursGetCollection200Response.ts
 model/classeJsonldRead.ts
 model/classeJsonldWrite.ts
 model/classeRead.ts

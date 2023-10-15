@@ -2,20 +2,23 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use App\Repository\SessionCoursRepository;
 use App\State\SessionCoursProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
-    operations: [new Post(processor: SessionCoursProcessor::class)],
+    operations: [new GetCollection, new Post(processor: SessionCoursProcessor::class)],
     normalizationContext: ['groups' => 'read']
 )]
 #[ORM\Entity(repositoryClass: SessionCoursRepository::class)]
+#[ApiFilter(SearchFilter::class, properties: ['cours' => 'exact'])]
 class SessionCours
 {
     #[ORM\Id]

@@ -1,3 +1,6 @@
+<app-loading
+  *ngIf="DOM.coursRequestPending || DOM.sessionRequestPending"
+></app-loading>
 <ng-container *ngIf="noAnneeEnCours !== null">
   <div *ngIf="selectedAnneeScolaire">
     <button type="button" class="btn btn-light">
@@ -24,7 +27,11 @@
   <div class="d-flex justify-content-between w-75">
     <div>
       <div
-        *ngIf="selectedCours && selectedCours.sessionCours.length === 0"
+        *ngIf="
+          selectedCours &&
+          selectedCours.sessionCours &&
+          selectedCours.sessionCours.length === 0
+        "
         class="opacity-75 py-3 px-5"
       >
         <span class="badge rounded-pill text-bg-danger p-2 shadow"
@@ -35,7 +42,9 @@
     <div *ngIf="noSalles === true" class="m-3">
       Vous devez d'abord créer des salles pour planifier une session de cours
     </div>
-    <ng-container *ngIf="selectedCours && noSalles !== true">
+    <ng-container
+      *ngIf="selectedCours && selectedCours.sessionCours && noSalles !== true"
+    >
       <button
         (click)="openModal(template)"
         class="btn btn-light d-flex align-items-center justify-content-center me-3 border border-1 shadow"
@@ -45,7 +54,7 @@
       </button>
     </ng-container>
   </div>
-  <div *ngIf="selectedCours && selectedCours.sessionCours.length !== 0">
+  <div *ngIf="selectedCours && selectedCours.sessionCours">
     <table class="table table-hover table-light w-75">
       <thead>
         <tr>

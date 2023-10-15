@@ -19,6 +19,8 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
+import { ApiSessionCoursGetCollection200Response } from '../model/apiSessionCoursGetCollection200Response';
+// @ts-ignore
 import { SessionCours } from '../model/sessionCours';
 // @ts-ignore
 import { SessionCoursJsonld } from '../model/sessionCoursJsonld';
@@ -95,6 +97,83 @@ export class SessionCoursService {
             throw Error("key may not be null if value is not object or array");
         }
         return httpParams;
+    }
+
+    /**
+     * Retrieves the collection of SessionCours resources.
+     * Retrieves the collection of SessionCours resources.
+     * @param page The collection page number
+     * @param cours 
+     * @param cours2 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiSessionCoursGetCollection(page?: number, cours?: string, cours2?: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<ApiSessionCoursGetCollection200Response>;
+    public apiSessionCoursGetCollection(page?: number, cours?: string, cours2?: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpResponse<ApiSessionCoursGetCollection200Response>>;
+    public apiSessionCoursGetCollection(page?: number, cours?: string, cours2?: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<HttpEvent<ApiSessionCoursGetCollection200Response>>;
+    public apiSessionCoursGetCollection(page?: number, cours?: string, cours2?: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json' | 'text/html', context?: HttpContext}): Observable<any> {
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (page !== undefined && page !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>page, 'page');
+        }
+        if (cours !== undefined && cours !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>cours, 'cours');
+        }
+        if (cours2) {
+            cours2.forEach((element) => {
+                localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+                  <any>element, 'cours[]');
+            })
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/ld+json',
+                'application/json',
+                'text/html'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/session_cours`;
+        return this.httpClient.request<ApiSessionCoursGetCollection200Response>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                params: localVarQueryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
     }
 
     /**

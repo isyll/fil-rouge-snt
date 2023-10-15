@@ -56,7 +56,6 @@ class Cours
     private ?Classe $classe = null;
 
     #[ORM\OneToMany(mappedBy: 'cours', targetEntity: SessionCours::class)]
-    #[Groups(['read'])]
     private Collection $sessionCours;
 
     public function __construct()

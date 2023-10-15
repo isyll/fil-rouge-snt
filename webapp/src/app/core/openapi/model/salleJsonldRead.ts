@@ -16,9 +16,9 @@ import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemRea
  * 
  */
 export interface SalleJsonldRead { 
+    context?: AnneeScolaireJsonldItemReadContext;
     readonly id?: string;
     readonly type?: string;
-    context?: AnneeScolaireJsonldItemReadContext;
     nom?: string;
     numero?: string;
     places?: number;
