@@ -68,6 +68,7 @@
           <th scope="col">Heure de début</th>
           <th scope="col">Heure de fin</th>
           <th scope="col">Durée</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -84,8 +85,20 @@
           <td>
             {{ sc.duree }}
           </td>
+          <td>
+            <div class="d-flex" style="gap: 8px">
+              <button class="btn btn-success" (click)="editSessionCours(sc)">
+                <i class="bi bi-pencil-square text-light"></i>
+              </button>
+              <button
+                class="btn btn-danger"
+                (click)="confirmDeleteSessionCours(sc)"
+              >
+                <i class="bi bi-trash3-fill text-light"></i>
+              </button>
+            </div>
+          </td>
         </tr>
-        <ng-container> </ng-container>
       </tbody>
     </table>
   </div>
@@ -150,6 +163,7 @@
                   }"
                   type="text"
                   maxlength="2"
+                  [value]="edit.heureDebutHour"
                   class="form-control text-center bs-timepicker-field"
                   placeholder="12"
                   (input)="setHeure($event, 'hour', 'debut')"
@@ -165,6 +179,7 @@
                   }"
                   type="text"
                   maxlength="2"
+                  [value]="edit.heureDebutMinute"
                   class="form-control text-center bs-timepicker-field"
                   placeholder="00"
                   (input)="setHeure($event, 'minute', 'debut')"
@@ -186,6 +201,7 @@
                   }"
                   type="text"
                   maxlength="2"
+                  [value]="edit.heureFinHour"
                   class="form-control text-center bs-timepicker-field"
                   placeholder="12"
                   (input)="setHeure($event, 'hour', 'fin')"
@@ -201,6 +217,7 @@
                   }"
                   type="text"
                   maxlength="2"
+                  [value]="edit.heureFinMinute"
                   class="form-control text-center bs-timepicker-field"
                   placeholder="00"
                   (input)="setHeure($event, 'minute', 'fin')"

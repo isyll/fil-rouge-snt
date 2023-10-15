@@ -18,6 +18,7 @@ export function difference(time1: string, time2: string, str = false) {
     '0'
   )}`;
 }
+
 export function formatDate(date: Date): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');

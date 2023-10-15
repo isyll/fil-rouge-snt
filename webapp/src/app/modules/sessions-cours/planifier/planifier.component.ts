@@ -1,10 +1,9 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import {
   AnneeScolaireService,
   CoursService,
-  ModuleService,
   SalleService,
   SessionCoursService,
 } from 'src/app/core/openapi';
@@ -18,6 +17,8 @@ import { time2Number } from 'src/app/core/services';
   styleUrls: ['./planifier.component.scss'],
 })
 export class PlanifierComponent implements OnInit {
+  @ViewChild('template', { read: TemplateRef })
+  modalTemplate!: TemplateRef<any>;
   selectedAnneeScolaire: any;
   cours: any[] = [];
   salles: any[] = [];
@@ -36,9 +37,11 @@ export class PlanifierComponent implements OnInit {
     sessionRequestPending: false,
     coursRequestPending: false,
   };
-  validations = {
-    salleOccupe: false,
-    salleTropPetite: false,
+  edit = {
+    heureDebutHour: '',
+    heureDebutMinute: '',
+    heureFinHour: '',
+    heureFinMinute: '',
   };
 
   constructor(
@@ -46,7 +49,6 @@ export class PlanifierComponent implements OnInit {
     private coursService: CoursService,
     private paramsService: ParamsService,
     private anneeScolaireService: AnneeScolaireService,
-    private moduleService: ModuleService,
     private salleService: SalleService,
     private sessionCoursService: SessionCoursService,
     private modalService: BsModalService
@@ -91,6 +93,29 @@ export class PlanifierComponent implements OnInit {
       class: 'modal-md modal-dialog-centered modal custom-modal',
     });
   }
+
+  editSessionCours(sc: any) {
+    console.log(sc);
+
+    this.sessionForm.patchValue({
+      date: new Date(sc.date) as any,
+      salle: sc.salle['@id'],
+      heureDebut: sc.heureDebut,
+      heureFin: sc.heureFin,
+      duree: sc.duree,
+    });
+
+    this.edit = {
+      heureDebutHour: sc.heureDebut.split(':')[0],
+      heureDebutMinute: sc.heureDebut.split(':')[1],
+      heureFinHour: sc.heureFin.split(':')[0],
+      heureFinMinute: sc.heureFin.split(':')[1],
+    };
+
+    this.openModal(this.modalTemplate);
+  }
+
+  confirmDeleteSessionCours(sc: any) {}
 
   private loadAnneeEnCours() {
     this.paramsService.getAnneeEnCours(
