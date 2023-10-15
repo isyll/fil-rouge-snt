@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     normalizationContext: ['groups' => 'read']
 )]
 #[ORM\Entity(repositoryClass: SessionCoursRepository::class)]
-#[ApiFilter(SearchFilter::class, properties: ['cours' => 'exact'])]
+#[ApiFilter(SearchFilter::class, properties: ['cours' => 'exact', 'salle' => 'exact', 'date', 'exact'])]
 class SessionCours
 {
     #[ORM\Id]
@@ -47,6 +47,7 @@ class SessionCours
     private ?string $duree = null;
 
     #[ORM\ManyToOne(inversedBy: 'sessionCours')]
+    #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read'])]
     private ?Salle $salle = null;
 
