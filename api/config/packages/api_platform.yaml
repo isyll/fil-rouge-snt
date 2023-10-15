@@ -1,11 +1,16 @@
 api_platform:
+    swagger:
+        api_keys:
+            JWT:
+                name: Authorization
+                type: header
     title: Fil rouge SNT
     version: 1.0.0
     # Good defaults for REST APIs
     defaults:
         stateless: true
         cache_headers:
-            vary: ['Content-Type', 'Authorization', 'Origin']
+            vary: ["Content-Type", "Authorization", "Origin"]
         extra_properties:
             standard_put: true
 
