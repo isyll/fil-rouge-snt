@@ -15,7 +15,6 @@ export function validateTime(time: string): boolean {
 
   if (hours >= 24 || hours < 0) return false;
   if (minutes >= 60 || minutes < 0) return false;
-  console.log(time);
 
   return true;
 }

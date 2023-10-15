@@ -26,6 +26,6 @@ export interface SessionCoursJsonldRead {
     heureFin?: string;
     date?: string;
     duree?: string | null;
-    salle?: SalleJsonldRead | null;
+    salle?: SalleJsonldRead;
 }
 

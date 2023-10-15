@@ -22,6 +22,6 @@ export interface SessionCoursRead {
     heureFin?: string;
     date?: string;
     duree?: string | null;
-    salle?: SalleRead | null;
+    salle?: SalleRead;
 }
 

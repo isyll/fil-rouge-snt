@@ -36,6 +36,10 @@ export class PlanifierComponent implements OnInit {
     sessionRequestPending: false,
     coursRequestPending: false,
   };
+  validations = {
+    salleOccupe: false,
+    salleTropPetite: false,
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -65,12 +69,13 @@ export class PlanifierComponent implements OnInit {
       ...this.sessionForm.value,
       duree: duree,
       date: formatDate(date as Date),
+      cours: this.selectedCours['@id'],
     };
 
     this.DOM.sessionRequestPending = true;
     this.sessionCoursService.apiSessionCoursPost(data).subscribe((response) => {
-      console.log(response);
       this.DOM.sessionRequestPending = false;
+      this.sessionForm.reset();
       this.sessionModal?.hide();
       this.loadSessionCours();
     });
@@ -155,8 +160,65 @@ export class PlanifierComponent implements OnInit {
       else this.sessionForm.get('duree')?.setErrors(null);
     }
 
-    console.log(this.sessionForm.errors);
+    if (
+      !this.sessionForm.invalid ||
+      this.sessionForm.get('salle')?.hasError('salleOccupe') ||
+      this.sessionForm.get('salle')?.hasError('salleOccupe')
+    ) {
+      this.checkSalleDisponibilite();
+      this.checkTailleSalle();
+    }
   };
+
+  private checkSalleDisponibilite() {
+    const salle = this.sessionForm.get('salle')?.value!,
+      date = formatDate(new Date(this.sessionForm.get('date')?.value!));
+
+    this.sessionForm.get('salle')?.setErrors(null);
+    this.sessionCoursService
+      .apiSessionCoursGetCollection(
+        undefined,
+        undefined,
+        undefined,
+        salle,
+        undefined,
+        date
+      )
+      .subscribe((response: any) => {
+        if (response['hydra:member'].length === 0) return;
+
+        const heureDebut = time2Number(
+            this.sessionForm.get('heureDebut')?.value!
+          ),
+          heureFin = time2Number(this.sessionForm.get('heureFin')?.value!);
+
+        for (const s of response['hydra:member']) {
+          const heureDebutSessionCours = time2Number(s.heureDebut),
+            heureFinSessionCours = time2Number(s.heureFin);
+
+          if (
+            (heureDebutSessionCours <= heureDebut &&
+              heureDebut <= heureFinSessionCours) ||
+            (heureDebut <= heureDebutSessionCours &&
+              heureDebutSessionCours <= heureFin)
+          )
+            this.sessionForm.get('salle')?.setErrors({ salleOccupe: true });
+        }
+      });
+  }
+
+  private checkTailleSalle() {
+    const salle = this.sessionForm.get('salle')?.value!,
+      classe = this.selectedCours.classe;
+    this.sessionForm.get('salle')?.setErrors(null);
+
+    this.salles.forEach((s) => {
+      if (s['@id'] === salle) {
+        if (s['places'] < classe.nbEtudiants)
+          this.sessionForm.get('salle')?.setErrors({ salleTropPetite: true });
+      }
+    });
+  }
 
   setHeure(event: Event, data: 'hour' | 'minute', target: 'debut' | 'fin') {
     const value = (event.target as HTMLInputElement).value;
@@ -180,6 +242,5 @@ export class PlanifierComponent implements OnInit {
     this.sessionForm
       .get(target === 'debut' ? 'heureDebut' : 'heureFin')
       ?.setValue(result);
-    console.log(result);
   }
 }

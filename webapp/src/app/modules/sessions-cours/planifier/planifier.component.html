@@ -54,7 +54,13 @@
       </button>
     </ng-container>
   </div>
-  <div *ngIf="selectedCours && selectedCours.sessionCours">
+  <div
+    *ngIf="
+      selectedCours &&
+      selectedCours.sessionCours &&
+      selectedCours.sessionCours.length !== 0
+    "
+  >
     <table class="table table-hover table-light w-75">
       <thead>
         <tr>
@@ -73,7 +79,7 @@
             {{ sc.heureDebut }}
           </td>
           <td>
-            {{ sc.heureDebut }}
+            {{ sc.heureFin }}
           </td>
           <td>
             {{ sc.duree }}
@@ -126,7 +132,7 @@
             formControlName="salle"
           >
             <option [value]="null">Choisir</option>
-            <option [value]="" *ngFor="let salle of salles">
+            <option [value]="salle['@id']" *ngFor="let salle of salles">
               {{ salle.nom }}
             </option>
           </select>
@@ -208,6 +214,19 @@
           *ngIf="sessionForm.get('duree')?.hasError('exact')"
         >
           Les heures que vous avez choisies sont invalides
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="sessionForm.get('salle')?.hasError('salleOccupe')"
+        >
+          La salle que vous avez choisi n'est pas disponible à cette heure.
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="sessionForm.get('salle')?.hasError('salleTropPetite')"
+        >
+          La salle que vous avez choisi est trop petite pour accueillir la
+          classe.
         </div>
       </div>
     </form>
