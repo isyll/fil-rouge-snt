@@ -2,21 +2,35 @@
 
 namespace App\State;
 
+use ApiPlatform\Doctrine\Common\State\PersistProcessor;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use ApiPlatform\State\ProcessorInterface;
+use App\Entity\SessionCours;
 use App\Exception\SalleOccupeException;
-use App\Exception\SalleTropGrandeException;
+use App\Exception\SalleTropPetiteException;
 use App\Exception\SessionCoursTimeException;
 use App\Repository\SessionCoursRepository;
+use App\Service\SessionCoursService;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class SessionCoursProcessor implements ProcessorInterface
 {
-    public function __construct(private SessionCoursRepository $sessionCoursRepository)
-    {
+    public function __construct(
+        private SessionCoursRepository $sessionCoursRepository,
+        private SessionCoursService $sessionCoursService,
+        #[Autowire(service: PersistProcessor::class)]
+        private ProcessorInterface $processor
+    ) {
     }
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): void
     {
+        $previousData = null;
+        if ($operation instanceof Put)
+            $previousData = $context['previous_data'];
+
         if (!$this->validateTime($data->getHeureDebut()))
             throw new SessionCoursTimeException("L'heure de début est invalide");
         if (!$this->validateTime($data->getHeureFin()))
@@ -26,7 +40,11 @@ class SessionCoursProcessor implements ProcessorInterface
         if ($this->time2number($data->getHeureDebut()) >= $this->time2number($data->getHeureFin()))
             throw new SessionCoursTimeException("Les heures que vous indiquez sont invalides");
 
-        if ($sessionCours = $this->sessionCoursRepository->salleOccupes($data->getSalle(), $data->getDate())) {
+        $sessionCours = $operation instanceof Post
+            ? $this->sessionCoursRepository->salleOccupes($data->getSalle(), $data->getDate())
+            : $this->sessionCoursRepository->autresSalleOccupes($previousData, $previousData->getSalle(), $previousData->getDate());
+
+        if ($sessionCours) {
             $heureDebut = $this->time2number($data->getHeureDebut());
             $heureFin   = $this->time2number($data->getHeureFin());
 
@@ -45,9 +63,18 @@ class SessionCoursProcessor implements ProcessorInterface
         $salle  = $data->getSalle();
 
         if ($classe->getNbEtudiants() > $salle->getPlaces())
-            throw new SalleTropGrandeException('La salle que vous avez choisi est trop grande pour la classe ' + $classe->getLibelle());
+            throw new SalleTropPetiteException('La salle que vous avez choisi est trop petite pour la classe ' + $classe->getLibelle());
+        if ($previousData) {
+            $this->processor->process($data, $operation, $uriVariables, $context);
 
-        $this->sessionCoursRepository->save($data, true);
+            $reflection = new \ReflectionClass(SessionCours::class);
+            $id = $reflection->getProperty('id');
+            $id->setAccessible(true);
+
+            $id->setValue($data, $previousData->getId());
+
+        } else
+            $this->sessionCoursRepository->save($data, true);
     }
 
     private function validateTime(string $time): bool

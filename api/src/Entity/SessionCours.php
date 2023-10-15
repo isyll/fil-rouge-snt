@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\SessionCoursRepository;
 use App\State\SessionCoursProcessor;
 use Doctrine\DBAL\Types\Types;
@@ -14,7 +15,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    operations: [new GetCollection, new Post(processor: SessionCoursProcessor::class)],
+    operations: [
+        new GetCollection,
+        new Post(processor: SessionCoursProcessor::class),
+        new Put(processor: SessionCoursProcessor::class)
+    ],
     normalizationContext: ['groups' => 'read']
 )]
 #[ORM\Entity(repositoryClass: SessionCoursRepository::class)]
@@ -54,6 +59,11 @@ class SessionCours
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     public function getCours(): ?Cours

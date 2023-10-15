@@ -30,6 +30,12 @@ class SessionCoursRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
     }
 
+    public function flush()
+    {
+        $this->getEntityManager()->flush();
+    }
+
+
     public function salleOccupes(Salle $salle, \DateTimeInterface $date): array
     {
         return $this->createQueryBuilder('s')
@@ -44,7 +50,26 @@ class SessionCoursRepository extends ServiceEntityRepository
         ;
     }
 
-//    /**
+    public function autresSalleOccupes(
+        SessionCours $sessionCours,
+        Salle $salle,
+        \DateTimeInterface $date
+    ): array {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.salle = :salle')
+            ->andWhere('s.date = :date')
+            ->andWhere('s.id != :id')
+            ->setParameter('salle', $salle)
+            ->setParameter('date', $date)
+            ->setParameter('id', $sessionCours->getId())
+            ->orderBy('s.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    //    /**
 //     * @return SessionCours[] Returns an array of SessionCours objects
 //     */
 //    public function findByExampleField($value): array
@@ -59,7 +84,7 @@ class SessionCoursRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?SessionCours
+    //    public function findOneBySomeField($value): ?SessionCours
 //    {
 //        return $this->createQueryBuilder('s')
 //            ->andWhere('s.exampleField = :val')
