@@ -2,8 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentLayoutComponent } from './components/content-layout/content-layout.component';
 import { PlanifierCoursComponent } from './components/planifier-cours/planifier-cours.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
   {
     path: '',
     component: ContentLayoutComponent,
