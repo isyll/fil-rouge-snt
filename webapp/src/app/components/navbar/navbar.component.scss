@@ -22,7 +22,7 @@ i.icon {
         cursor: pointer;
         padding: 16px;
         .icon {
-          color: var(--bs-primary);
+          color: var(--bs-dark);
         }
       }
       input.form-control {
@@ -40,15 +40,14 @@ i.icon {
       background-color: white;
       color: var(--bs-primary);
       i {
-        color: var(--bs-primary);
+        color: var(--bs-dark);
       }
     }
   }
 }
 a.active {
-
   button {
-    color: var(--bs-primary) !important;
+    color: var(--bs-dark) !important;
     background-color: white;
   }
 }
