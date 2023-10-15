@@ -10,13 +10,19 @@
   <div
     class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary sidebar-content"
   >
-    <div dropdown>
-      <a
+    <div
+      class="btn-group"
+      dropdown
+      #dropdown="bs-dropdown"
+      [autoClose]="true"
+      [isAnimated]="false"
+    >
+      <button
+        id="button-basic"
         dropdownToggle
-        href="#"
-        class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
+        type="button"
+        class="btn btn-light dropdown-toggle"
+        aria-controls="dropdown-basic"
       >
         <img
           src="assets/user.png"
@@ -26,15 +32,23 @@
           class="rounded-circle me-2"
         />
         <strong>Ibrahima Sylla</strong>
-      </a>
-      <ul class="dropdown-menu text-small shadow" *dropdownMenu role="menu">
+
+        <span class="caret"></span>
+      </button>
+      <ul
+        id="dropdown-basic"
+        *dropdownMenu
+        class="dropdown-menu shadow"
+        role="menu"
+        aria-labelledby="button-basic"
+      >
         <li role="menuitem">
-          <a class="dropdown-item" href="#">New project...</a>
+          <a class="dropdown-item" href="#">Déconnexion</a>
         </li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Settings</a></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Profile</a></li>
-        <li role="menuitem"><hr class="dropdown-divider" /></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">Sign out</a></li>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem">
+          <a class="dropdown-item" href="#">Paramètres du compte</a>
+        </li>
       </ul>
     </div>
     <hr />
