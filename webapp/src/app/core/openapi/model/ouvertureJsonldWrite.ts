@@ -11,17 +11,16 @@
  */
 import { ClasseJsonldWrite } from './classeJsonldWrite';
 import { AnneeScolaireJsonldWrite } from './anneeScolaireJsonldWrite';
-import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
 
 
 /**
  * 
  */
 export interface OuvertureJsonldWrite { 
-    context?: AnneeScolaireJsonldItemReadContext;
+    context?: string | null;
     readonly id?: string;
     readonly type?: string;
     classe?: ClasseJsonldWrite;
-    annee_scolaire?: AnneeScolaireJsonldWrite;
+    readonly annee_scolaire?: AnneeScolaireJsonldWrite;
 }
 

@@ -11,7 +11,6 @@
  */
 import { ClasseJsonldRead } from './classeJsonldRead';
 import { ModuleJsonldRead } from './moduleJsonldRead';
-import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
 import { AnneeScolaireJsonldRead } from './anneeScolaireJsonldRead';
 
 
@@ -19,13 +18,13 @@ import { AnneeScolaireJsonldRead } from './anneeScolaireJsonldRead';
  * 
  */
 export interface CoursJsonldRead { 
-    context?: AnneeScolaireJsonldItemReadContext;
+    context?: string | null;
     readonly id?: string;
     readonly type?: string;
     heures?: number;
     semestre?: number;
     module?: ModuleJsonldRead;
-    annee_scolaire?: AnneeScolaireJsonldRead;
+    readonly annee_scolaire?: AnneeScolaireJsonldRead;
     classe?: ClasseJsonldRead;
 }
 

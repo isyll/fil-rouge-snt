@@ -18,6 +18,6 @@ import { ClasseRead } from './classeRead';
  */
 export interface OuvertureRead { 
     classe?: ClasseRead;
-    annee_scolaire?: AnneeScolaireRead;
+    readonly annee_scolaire?: AnneeScolaireRead;
 }
 

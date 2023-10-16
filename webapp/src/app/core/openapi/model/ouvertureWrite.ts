@@ -18,6 +18,6 @@ import { AnneeScolaireWrite } from './anneeScolaireWrite';
  */
 export interface OuvertureWrite { 
     classe?: ClasseWrite;
-    annee_scolaire?: AnneeScolaireWrite;
+    readonly annee_scolaire?: AnneeScolaireWrite;
 }
 

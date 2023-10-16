@@ -18,21 +18,21 @@ class AppFixtures extends Fixture
     {
         // Création d'un professeur
         $prof = new User();
-        $prof->setEmail("user@sa.sn");
+        $prof->setEmail("prof@sa.sn");
         $prof->setRoles(["ROLE_PROF"]);
         $prof->setPassword($this->userPasswordHasher->hashPassword($prof, "password"));
         $manager->persist($prof);
 
         // Création d'un RP
         $rp = new User();
-        $rp->setEmail("admin@sa.sn");
+        $rp->setEmail("rp@sa.sn");
         $rp->setRoles(["ROLE_RP"]);
         $rp->setPassword($this->userPasswordHasher->hashPassword($rp, "password"));
         $manager->persist($rp);
 
         // Création d'un Attaché
         $attache = new User();
-        $attache->setEmail("attaché@sa.sn");
+        $attache->setEmail("attache@sa.sn");
         $attache->setRoles(["ROLE_ATTACHE"]);
         $attache->setPassword($this->userPasswordHasher->hashPassword($attache, "password"));
         $manager->persist($attache);

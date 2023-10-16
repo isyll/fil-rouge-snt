@@ -13,14 +13,13 @@ import { OuvertureJsonldRead } from './ouvertureJsonldRead';
 import { NiveauJsonldRead } from './niveauJsonldRead';
 import { CoursJsonldRead } from './coursJsonldRead';
 import { FiliereJsonldRead } from './filiereJsonldRead';
-import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
 
 
 /**
  * 
  */
 export interface ClasseJsonldRead { 
-    context?: AnneeScolaireJsonldItemReadContext;
+    context?: string | null;
     readonly id?: string;
     readonly type?: string;
     libelle: string;

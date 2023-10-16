@@ -21,7 +21,7 @@ export interface CoursRead {
     heures?: number;
     semestre?: number;
     module?: ModuleRead;
-    annee_scolaire?: AnneeScolaireRead;
+    readonly annee_scolaire?: AnneeScolaireRead;
     classe?: ClasseRead;
 }
 

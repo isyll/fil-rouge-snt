@@ -20,6 +20,6 @@ import { ClasseRead } from './classeRead';
 export interface InscriptionRead { 
     classe?: ClasseRead;
     etudiant?: EtudiantRead;
-    annee_scolaire?: AnneeScolaireRead;
+    readonly annee_scolaire?: AnneeScolaireRead;
 }
 

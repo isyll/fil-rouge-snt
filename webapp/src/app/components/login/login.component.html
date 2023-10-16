@@ -7,28 +7,40 @@
             <div class="mb-md-5 mt-md-4 pb-5">
               <h2 class="fw-bold mb-2 text-uppercase">Connexion</h2>
               <p class="text-white-50 mb-5">
-                Saisissez votre matricule et votre mot de passe
+                Saisissez votre email et votre mot de passe
               </p>
-              <div class="form-outline form-white mb-4">
-                <input
-                  type="text"
-                  id="matricule"
-                  class="form-control form-control-lg"
-                />
-                <label class="form-label" for="matricule">Matricule</label>
-              </div>
-              <div class="form-outline form-white mb-4">
-                <input
-                  type="password"
-                  id="password"
-                  class="form-control form-control-lg"
-                />
-                <label class="form-label" for="password">Mot de passe</label>
-              </div>
+              <form [formGroup]="form" (submit)="onSubmit()">
+                <div class="form-outline form-white mb-4">
+                  <input
+                    type="text"
+                    id="email"
+                    email
+                    class="form-control form-control-lg"
+                    formControlName="email"
+                  />
+                  <label class="form-label" for="email">Email</label>
+                </div>
+                <div class="form-outline form-white mb-4">
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control form-control-lg"
+                    formControlName="password"
+                  />
+                  <label class="form-label" for="password">Mot de passe</label>
+                </div>
 
-              <button class="btn btn-outline-light btn-lg px-5" type="submit">
-                Se connecter
-              </button>
+                <div class="bg-danger p-3 rounded mb-3" *ngIf="DOM.invalidCredentials">
+                  Email/Mot de passe incorrect(s)
+                </div>
+
+                <button
+                  class="btn btn-outline-light btn-lg px-5"
+                  [disabled]="form.invalid"
+                >
+                  Se connecter
+                </button>
+              </form>
             </div>
           </div>
         </div>

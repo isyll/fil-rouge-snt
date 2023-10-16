@@ -1,7 +1,5 @@
 export * from './anneeScolaireItemRead';
 export * from './anneeScolaireJsonldItemRead';
-export * from './anneeScolaireJsonldItemReadContext';
-export * from './anneeScolaireJsonldItemReadContextOneOf';
 export * from './anneeScolaireJsonldRead';
 export * from './anneeScolaireJsonldWrite';
 export * from './anneeScolaireRead';
@@ -40,6 +38,8 @@ export * from './inscription';
 export * from './inscriptionJsonld';
 export * from './inscriptionJsonldRead';
 export * from './inscriptionRead';
+export * from './loginCheckPost200Response';
+export * from './loginCheckPostRequest';
 export * from './moduleJsonldRead';
 export * from './moduleJsonldWrite';
 export * from './moduleRead';

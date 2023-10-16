@@ -7,13 +7,14 @@ import { ContentLayoutComponent } from './components/content-layout/content-layo
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ApiModule } from './core/openapi';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PlanifierCoursComponent } from './components/planifier-cours/planifier-cours.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { BsDropdownModule, BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
+import { AuthInterceptor } from './core/services/auth-interceptor.service'
 
 @NgModule({
   declarations: [
@@ -33,9 +34,16 @@ import { LoginComponent } from './components/login/login.component';
     ApiModule,
     SharedModule,
     BsDropdownModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
-  providers: [BsDropdownConfig],
+  providers: [BsDropdownConfig,
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

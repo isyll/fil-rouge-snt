@@ -11,14 +11,13 @@
  */
 import { SalleJsonldRead } from './salleJsonldRead';
 import { CoursJsonldRead } from './coursJsonldRead';
-import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
 
 
 /**
  * 
  */
 export interface SessionCoursJsonldRead { 
-    context?: AnneeScolaireJsonldItemReadContext;
+    context?: string | null;
     readonly id?: string;
     readonly type?: string;
     cours?: CoursJsonldRead | null;

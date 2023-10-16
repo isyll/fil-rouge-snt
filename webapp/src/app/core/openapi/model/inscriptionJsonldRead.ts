@@ -11,7 +11,6 @@
  */
 import { ClasseJsonldRead } from './classeJsonldRead';
 import { EtudiantJsonldRead } from './etudiantJsonldRead';
-import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
 import { AnneeScolaireJsonldRead } from './anneeScolaireJsonldRead';
 
 
@@ -19,11 +18,11 @@ import { AnneeScolaireJsonldRead } from './anneeScolaireJsonldRead';
  * 
  */
 export interface InscriptionJsonldRead { 
-    context?: AnneeScolaireJsonldItemReadContext;
+    context?: string | null;
     readonly id?: string;
     readonly type?: string;
     classe?: ClasseJsonldRead;
     etudiant?: EtudiantJsonldRead;
-    annee_scolaire?: AnneeScolaireJsonldRead;
+    readonly annee_scolaire?: AnneeScolaireJsonldRead;
 }
 

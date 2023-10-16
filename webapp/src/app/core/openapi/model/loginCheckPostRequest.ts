@@ -11,13 +11,8 @@
  */
 
 
-/**
- * 
- */
-export interface AnneeScolaireJsonldRead { 
-    context?: string | null;
-    readonly id?: string;
-    readonly type?: string;
-    libelle: string;
+export interface LoginCheckPostRequest { 
+    email: string;
+    password: string;
 }
 

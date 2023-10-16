@@ -10,14 +10,13 @@
  * Do not edit the class manually.
  */
 import { ClasseJsonldRead } from './classeJsonldRead';
-import { AnneeScolaireJsonldItemReadContext } from './anneeScolaireJsonldItemReadContext';
 
 
 /**
  * 
  */
 export interface FiliereJsonldRead { 
-    context?: AnneeScolaireJsonldItemReadContext;
+    context?: string | null;
     readonly id?: string;
     readonly type?: string;
     libelle: string;

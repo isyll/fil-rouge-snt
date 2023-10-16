@@ -86,6 +86,17 @@ export class Configuration {
         else {
             this.credentials = {};
         }
+
+        // init default JWT credential
+        if (!this.credentials['JWT']) {
+            this.credentials['JWT'] = () => {
+                if (this.apiKeys === null || this.apiKeys === undefined) {
+                    return undefined;
+                } else {
+                    return this.apiKeys['JWT'] || this.apiKeys['Authorization'];
+                }
+            };
+        }
     }
 
     /**

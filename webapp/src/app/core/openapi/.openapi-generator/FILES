@@ -8,6 +8,7 @@ api/cours.service.ts
 api/etudiant.service.ts
 api/filiere.service.ts
 api/inscription.service.ts
+api/loginCheck.service.ts
 api/module.service.ts
 api/niveau.service.ts
 api/ouverture.service.ts
@@ -21,8 +22,6 @@ git_push.sh
 index.ts
 model/anneeScolaireItemRead.ts
 model/anneeScolaireJsonldItemRead.ts
-model/anneeScolaireJsonldItemReadContext.ts
-model/anneeScolaireJsonldItemReadContextOneOf.ts
 model/anneeScolaireJsonldRead.ts
 model/anneeScolaireJsonldWrite.ts
 model/anneeScolaireRead.ts
@@ -61,6 +60,8 @@ model/inscription.ts
 model/inscriptionJsonld.ts
 model/inscriptionJsonldRead.ts
 model/inscriptionRead.ts
+model/loginCheckPost200Response.ts
+model/loginCheckPostRequest.ts
 model/models.ts
 model/moduleJsonldRead.ts
 model/moduleJsonldWrite.ts
