@@ -25,10 +25,8 @@ export class FilieresComponent implements OnInit {
     this.filiereService
       .apiFilieresGetCollection()
       .subscribe((response: any) => {
-        setTimeout(() => {
-          this.data = response;
-          this.requestPending = false;
-        }, 500);
+        this.data = response;
+        this.requestPending = false;
       });
   }
 }
