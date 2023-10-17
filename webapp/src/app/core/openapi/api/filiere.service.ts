@@ -103,18 +103,30 @@ export class FiliereService {
      * Retrieves the collection of Filiere resources.
      * Retrieves the collection of Filiere resources.
      * @param page The collection page number
+     * @param libelle 
+     * @param libelle2 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiFilieresGetCollection(page?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<ApiFilieresGetCollection200Response>;
-    public apiFilieresGetCollection(page?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiFilieresGetCollection200Response>>;
-    public apiFilieresGetCollection(page?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiFilieresGetCollection200Response>>;
-    public apiFilieresGetCollection(page?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
+    public apiFilieresGetCollection(page?: number, libelle?: string, libelle2?: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<ApiFilieresGetCollection200Response>;
+    public apiFilieresGetCollection(page?: number, libelle?: string, libelle2?: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiFilieresGetCollection200Response>>;
+    public apiFilieresGetCollection(page?: number, libelle?: string, libelle2?: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiFilieresGetCollection200Response>>;
+    public apiFilieresGetCollection(page?: number, libelle?: string, libelle2?: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (page !== undefined && page !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>page, 'page');
+        }
+        if (libelle !== undefined && libelle !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>libelle, 'libelle');
+        }
+        if (libelle2) {
+            libelle2.forEach((element) => {
+                localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+                  <any>element, 'libelle[]');
+            })
         }
 
         let localVarHeaders = this.defaultHeaders;

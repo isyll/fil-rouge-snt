@@ -27,5 +27,6 @@ export interface ClasseJsonldRead {
     filiere?: FiliereJsonldRead | null;
     ouvertures?: Array<OuvertureJsonldRead>;
     cours?: Array<CoursJsonldRead>;
+    nbEtudiants?: number | null;
 }
 

@@ -16,6 +16,5 @@
  */
 export interface FiliereWrite { 
     libelle: string;
-    semestres: number;
 }
 

@@ -20,7 +20,6 @@ export interface FiliereJsonldRead {
     readonly id?: string;
     readonly type?: string;
     libelle: string;
-    semestres: number;
     classes?: Array<ClasseJsonldRead>;
 }
 

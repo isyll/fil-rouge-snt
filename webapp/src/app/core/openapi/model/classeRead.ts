@@ -24,5 +24,6 @@ export interface ClasseRead {
     filiere?: FiliereRead | null;
     ouvertures?: Array<OuvertureRead>;
     cours?: Array<CoursRead>;
+    nbEtudiants?: number | null;
 }
 

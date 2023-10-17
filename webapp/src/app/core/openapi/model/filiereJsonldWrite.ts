@@ -16,6 +16,5 @@
  */
 export interface FiliereJsonldWrite { 
     libelle: string;
-    semestres: number;
 }
 

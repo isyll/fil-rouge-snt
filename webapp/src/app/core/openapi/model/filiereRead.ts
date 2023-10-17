@@ -17,7 +17,6 @@ import { ClasseRead } from './classeRead';
  */
 export interface FiliereRead { 
     libelle: string;
-    semestres: number;
     classes?: Array<ClasseRead>;
 }
 
