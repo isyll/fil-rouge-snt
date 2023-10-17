@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import {
-  ClasseService,
   ProfesseurJsonldWrite,
   ProfesseurService,
 } from '../../../core/openapi';
@@ -33,6 +32,7 @@ export class FormComponent {
       '',
       [Validators.required, Validators.minLength(2), Validators.maxLength(255)],
     ],
+    email: ['', [Validators.required, Validators.email]],
   });
 
   constructor(
@@ -55,11 +55,9 @@ export class FormComponent {
           })
         )
         .subscribe(() => {
-          setTimeout(() => {
-            this.form.reset();
-            this.submitPending = false;
-            this.submitOk = true;
-          }, 500);
+          this.form.reset();
+          this.submitPending = false;
+          this.submitOk = true;
         });
     }
   }
