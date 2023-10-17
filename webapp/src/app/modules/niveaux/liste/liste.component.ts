@@ -23,10 +23,8 @@ export class NiveauxComponent {
     this.requestPending = true;
 
     this.niveauService.apiNiveauxGetCollection().subscribe((response: any) => {
-      setTimeout(() => {
-        this.data = response;
-        this.requestPending = false;
-      }, 500);
+      this.data = response;
+      this.requestPending = false;
     });
   }
 }
