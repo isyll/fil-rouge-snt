@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
+import { UserService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,4 +16,10 @@ import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 })
 export class SidebarComponent {
   appName = environment.appName;
+
+  constructor(private userService: UserService) {}
+
+  logout() {
+    this.userService.logout();
+  }
 }
