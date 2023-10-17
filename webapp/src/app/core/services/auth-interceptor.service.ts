@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserService } from './user.service';
+import { UserTokenService } from './user.service';
 import {
   HttpInterceptor,
   HttpRequest,
@@ -12,13 +12,16 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private UserTokenService: UserTokenService,
+    private router: Router
+  ) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = this.userService.getToken();
+    const token = this.UserTokenService.getToken();
     let headers: any;
 
     if (request.url.endsWith('/login') || request.url.endsWith('/login/'))
