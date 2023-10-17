@@ -23,10 +23,8 @@ export class ListeComponent {
     this.requestPending = true;
 
     this.moduleService.apiModulesGetCollection().subscribe((response: any) => {
-      setTimeout(() => {
-        this.data = response;
-        this.requestPending = false;
-      }, 500);
+      this.data = response;
+      this.requestPending = false;
     });
   }
 }

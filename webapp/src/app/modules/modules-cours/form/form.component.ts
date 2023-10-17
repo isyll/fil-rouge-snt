@@ -7,7 +7,7 @@ import { catchError, throwError } from 'rxjs';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  styleUrls: ['./form.component.scss'],
 })
 export class FormComponent {
   alreadyExists = false;
@@ -46,12 +46,9 @@ export class FormComponent {
           })
         )
         .subscribe(() => {
-          setTimeout(() => {
-            this.form.reset();
-            this.submitPending = false;
-            this.submitOk = true;
-          }, 500);
+          this.form.reset();
+          this.submitPending = false;
+          this.submitOk = true;
         });
   }
-
 }
