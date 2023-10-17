@@ -58,7 +58,8 @@ class Classe
     #[Groups(['read'])]
     private Collection $cours;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
+    #[Groups(['read'])]
     private ?int $nbEtudiants = null;
 
     public function __construct()
