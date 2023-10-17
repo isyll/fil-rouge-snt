@@ -102,6 +102,7 @@ export class DetailsComponent implements OnInit {
             return { id: extractId(ouv), content: '' };
           });
           this.loadClassesOuvertes();
+          this.touched = false;
         });
     });
   }
