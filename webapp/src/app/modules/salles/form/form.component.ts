@@ -63,7 +63,7 @@ export class FormComponent {
 
   onSubmit() {
     const data = this.form.value as SalleJsonldWrite;
-    data.places = parseInt(String(data.places));
+    data.places = +data.places!;
 
     if (data) {
       this.submitPending = true;
@@ -77,12 +77,15 @@ export class FormComponent {
           })
         )
         .subscribe(() => {
-          setTimeout(() => {
-            this.form.reset(undefined, { emitEvent: true });
-            this.submitPending = false;
-            this.submitOk = true;
-          }, 500);
+          this.resetForm();
+          this.submitPending = false;
+          this.submitOk = true;
         });
     }
+  }
+
+  resetForm() {
+    this.form.reset();
+    for (const name in this.form.controls) this.form.get(name)!.setErrors(null);
   }
 }
