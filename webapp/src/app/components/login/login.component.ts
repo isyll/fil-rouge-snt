@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { LoginCheckPostRequest, LoginCheckService } from 'src/app/core/openapi';
-import { UserService } from 'src/app/core/services';
+import { UserTokenService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private router: Router,
     private loginCheckService: LoginCheckService,
-    private userService: UserService,
+    private UserTokenService: UserTokenService,
     private http: HttpClient
   ) {}
 
@@ -46,9 +46,7 @@ export class LoginComponent {
         })
       )
       .subscribe((response) => {
-        this.userService.setToken(response.token);
-        this.router.navigateByUrl('/');
-
+        this.UserTokenService.setUserInfos(response.token, this.credentials.email);
         this.DOM.isLoading = false;
       });
   }
