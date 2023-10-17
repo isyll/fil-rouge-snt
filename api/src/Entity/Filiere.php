@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -22,6 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     denormalizationContext: ['groups' => ['write']],
     normalizationContext: ['groups' => ['read']]
 )]
+#[ApiFilter(SearchFilter::class, properties: ['libelle' => 'exact'])]
 class Filiere
 {
     #[ORM\Id]
@@ -33,11 +36,6 @@ class Filiere
     #[Assert\NotNull(message: 'Le libellé est manquant')]
     #[Groups(['write', 'read'])]
     private ?string $libelle = null;
-
-    #[ORM\Column]
-    #[Assert\NotNull(message: 'Le nombre de semestres est manquant')]
-    #[Groups(['write', 'read'])]
-    private ?int $semestres = null;
 
     #[ORM\OneToMany(mappedBy: 'filiere', targetEntity: Classe::class)]
     #[Groups(['read'])]
@@ -61,18 +59,6 @@ class Filiere
     public function setLibelle(string $libelle): static
     {
         $this->libelle = $libelle;
-
-        return $this;
-    }
-
-    public function getSemestres(): ?int
-    {
-        return $this->semestres;
-    }
-
-    public function setSemestres(int $semestres): static
-    {
-        $this->semestres = $semestres;
 
         return $this;
     }
