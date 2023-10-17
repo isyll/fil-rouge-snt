@@ -8,17 +8,19 @@ import { UserService } from '../openapi';
 export class UserTokenService {
   constructor(private router: Router, private userService: UserService) {}
 
-  loadUserInfos(email: string) {
+  setUserInfos(token: string, email: string) {
+    window.localStorage.setItem('token', token);
+
     this.userService
       .apiUsersGetCollection(undefined, email)
       .subscribe((response: any) => {
-        console.log(response);
-        this.setUser(response['hydra:member'][0]);
-      });
-  }
+        const user = response['hydra:member'][0];
 
-  setToken(token: string) {
-    window.localStorage.setItem('token', token);
+        window.localStorage.setItem('userId', user['@id']);
+        window.localStorage.setItem('userEmail', user['email']);
+        window.localStorage.setItem('userRoles', JSON.stringify(user['roles']));
+        this.router.navigateByUrl('/');
+      });
   }
 
   getToken() {
@@ -37,13 +39,7 @@ export class UserTokenService {
     return JSON.parse(window.localStorage.getItem('userRoles')!);
   }
 
-  email() {
+  get email() {
     return window.localStorage.getItem('userEmail');
-  }
-
-  private setUser(user: any) {
-    window.localStorage.setItem('userId', user['@id']);
-    window.localStorage.setItem('userEmail', user['email']);
-    window.localStorage.setItem('userRoles', JSON.stringify(user['roles']));
   }
 }
