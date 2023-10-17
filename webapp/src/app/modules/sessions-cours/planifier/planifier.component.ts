@@ -4,10 +4,11 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import {
   AnneeScolaireService,
   CoursService,
+  ProfesseurService,
   SalleService,
   SessionCoursService,
 } from 'src/app/core/openapi';
-import { ParamsService, difference, formatDate } from 'src/app/core/services';
+import { ParamsService, UserTokenService, difference, formatDate } from 'src/app/core/services';
 import { validateTime } from 'src/app/core/validators';
 import { time2Number } from 'src/app/core/services';
 
@@ -22,6 +23,7 @@ export class PlanifierComponent implements OnInit {
   selectedAnneeScolaire: any;
   cours: any[] = [];
   salles: any[] = [];
+  professeurs: any = null;
   noSalles: any;
   noAnneeEnCours: any = null;
   selectedCours: any = false;
@@ -31,6 +33,7 @@ export class PlanifierComponent implements OnInit {
     salle: [null, [Validators.required]],
     heureDebut: ['', [Validators.required]],
     heureFin: ['', [Validators.required]],
+    professeur: [null, [Validators.required]],
     duree: [''],
   });
   DOM = {
@@ -51,7 +54,9 @@ export class PlanifierComponent implements OnInit {
     private anneeScolaireService: AnneeScolaireService,
     private salleService: SalleService,
     private sessionCoursService: SessionCoursService,
-    private modalService: BsModalService
+    private professeurService: ProfesseurService,
+    private modalService: BsModalService,
+    private userTokenService: UserTokenService
   ) {
     this.sessionForm.valueChanges.subscribe(this.validateSessionForm);
   }
@@ -59,6 +64,7 @@ export class PlanifierComponent implements OnInit {
   ngOnInit(): void {
     this.loadAnneeEnCours();
     this.loadSalles();
+    this.loadProfesseurs();
   }
 
   onCreateSession() {
@@ -73,6 +79,7 @@ export class PlanifierComponent implements OnInit {
       date: formatDate(date as Date),
       cours: this.selectedCours['@id'],
     };
+
 
     this.DOM.sessionRequestPending = true;
     this.sessionCoursService.apiSessionCoursPost(data).subscribe((response) => {
@@ -166,6 +173,14 @@ export class PlanifierComponent implements OnInit {
           this.selectedCours.sessionCours = response['hydra:member'];
         });
     }
+  }
+
+  private loadProfesseurs() {
+    this.professeurService
+      .apiProfesseursGetCollection()
+      .subscribe((response: any) => {
+        this.professeurs = response['hydra:member'];
+      });
   }
 
   private validateSessionForm = () => {

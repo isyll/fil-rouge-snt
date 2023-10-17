@@ -2,7 +2,11 @@
   *ngIf="DOM.coursRequestPending || DOM.sessionRequestPending"
 ></app-loading>
 
-<ng-container *ngIf="noAnneeEnCours !== null">
+<ng-container
+  *ngIf="
+    noAnneeEnCours !== null && professeurs !== null && professeurs.length !== 0
+  "
+>
   <div *ngIf="selectedAnneeScolaire">
     <button type="button" class="btn btn-light">
       {{ selectedAnneeScolaire.libelle }}
@@ -20,16 +24,17 @@
 
   <ng-container *ngIf="cours.length">
     <h4 class="p-2">Cours existants</h4>
-    <div>
-      <app-item-card
-        icon="bi bi-back"
-        [title]="c.module.libelle"
-        [data]="c.classe.libelle"
-        [footData1]="'Semestre ' + c.semestre"
-        [footData2]="c.classe.filiere.libelle"
-        (clickItem)="onSelectCours(c)"
-        *ngFor="let c of cours"
-      ></app-item-card>
+    <div class="w-75 row">
+      <div *ngFor="let c of cours" class="col-4">
+        <app-item-card
+          [title]="c.module.libelle"
+          icon="bi bi-back"
+          [data]="c.classe.libelle"
+          [footData1]="'Semestre ' + c.semestre"
+          [footData2]="''"
+          (clickItem)="onSelectCours(c)"
+        ></app-item-card>
+      </div>
     </div>
   </ng-container>
   <div class="w-75 border border-1 mx-5 my-3"></div>
@@ -78,7 +83,8 @@
           <th scope="col">Heure de début</th>
           <th scope="col">Heure de fin</th>
           <th scope="col">Durée</th>
-          <th scope="col">Actions</th>
+          <th scope="col">Professeur</th>
+          <!-- <th scope="col">Actions</th> -->
         </tr>
       </thead>
       <tbody>
@@ -94,8 +100,10 @@
           </td>
           <td>
             {{ sc.duree }}
+          </td>          <td>
+            {{ sc.professeur.prenom + ' ' + sc.professeur.nom | titlecase }}
           </td>
-          <td>
+          <!-- <td>
             <div class="d-flex" style="gap: 8px">
               <button class="btn btn-success" (click)="editSessionCours(sc)">
                 <i class="bi bi-pencil-square text-light"></i>
@@ -107,14 +115,21 @@
                 <i class="bi bi-trash3-fill text-light"></i>
               </button>
             </div>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
   </div>
 </ng-container>
 
-<div class="w-50">
+<div
+  class="alert alert-danger w-50"
+  *ngIf="professeurs !== null && professeurs.length === 0"
+>
+  Veuillez créer d'abord des professeurs afin de créer des sessions
+</div>
+
+<div class="w-50" *ngIf="cours.length === 0">
   <div class="alert alert-dark">Aucun cours trouvé</div>
 </div>
 
@@ -162,6 +177,20 @@
             <option [value]="null">Choisir</option>
             <option [value]="salle['@id']" *ngFor="let salle of salles">
               {{ salle.nom }}
+            </option>
+          </select>
+        </div>
+        <div class="col-12">
+          <label for="salle">Professeur</label>
+          <select
+            id="professeur"
+            class="form-select"
+            *ngIf="professeurs"
+            formControlName="professeur"
+          >
+            <option [value]="null">Choisir</option>
+            <option [value]="prof['@id']" *ngFor="let prof of professeurs">
+              {{ prof.prenom + " " + prof.nom }}
             </option>
           </select>
         </div>
