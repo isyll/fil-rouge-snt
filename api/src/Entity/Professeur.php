@@ -50,6 +50,10 @@ class Professeur
     #[Groups(['read'])]
     private Collection $sessionCours;
 
+    #[ORM\Column(length: 255)]
+    #[Groups(['read', 'write'])]
+    private ?string $email = null;
+
     public function __construct()
     {
         $this->sessionCours = new ArrayCollection();
@@ -146,6 +150,18 @@ class Professeur
                 $sessionCour->setProfesseur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
 
         return $this;
     }
