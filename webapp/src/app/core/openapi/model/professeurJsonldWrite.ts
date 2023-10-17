@@ -19,5 +19,6 @@ export interface ProfesseurJsonldWrite {
     nom?: string;
     specialite?: string;
     grade?: string;
+    email?: string;
 }
 

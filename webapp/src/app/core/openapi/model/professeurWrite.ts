@@ -19,5 +19,6 @@ export interface ProfesseurWrite {
     nom?: string;
     specialite?: string;
     grade?: string;
+    email?: string;
 }
 

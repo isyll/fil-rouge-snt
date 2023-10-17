@@ -9,22 +9,25 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SessionCoursJsonldRead } from './sessionCoursJsonldRead';
 
 
 /**
  * 
  */
-export interface ProfesseurJsonldRead { 
-    context?: string | null;
+export interface UserJsonld { 
     readonly id?: string;
     readonly type?: string;
-    prenom?: string;
-    nom?: string;
-    specialite?: string;
-    grade?: string;
-    matricule?: string;
-    sessionCours?: Array<SessionCoursJsonldRead>;
+    readonly id?: number;
     email?: string;
+    roles?: Array<string>;
+    /**
+     * The hashed password
+     */
+    password?: string;
+    readonly username?: string;
+    /**
+     * A visual identifier that represents this user.
+     */
+    readonly userIdentifier?: string;
 }
 

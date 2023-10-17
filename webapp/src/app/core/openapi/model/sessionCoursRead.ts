@@ -11,6 +11,7 @@
  */
 import { CoursRead } from './coursRead';
 import { SalleRead } from './salleRead';
+import { ProfesseurRead } from './professeurRead';
 
 
 /**
@@ -23,5 +24,6 @@ export interface SessionCoursRead {
     date?: string;
     duree?: string | null;
     salle?: SalleRead;
+    professeur?: ProfesseurRead | null;
 }
 

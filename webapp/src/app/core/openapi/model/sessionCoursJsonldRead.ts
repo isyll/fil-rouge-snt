@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { SalleJsonldRead } from './salleJsonldRead';
+import { ProfesseurJsonldRead } from './professeurJsonldRead';
 import { CoursJsonldRead } from './coursJsonldRead';
 
 
@@ -26,5 +27,6 @@ export interface SessionCoursJsonldRead {
     date?: string;
     duree?: string | null;
     salle?: SalleJsonldRead;
+    professeur?: ProfesseurJsonldRead | null;
 }
 

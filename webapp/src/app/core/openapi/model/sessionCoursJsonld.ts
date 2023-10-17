@@ -22,5 +22,6 @@ export interface SessionCoursJsonld {
     date?: string;
     duree?: string | null;
     salle?: string;
+    professeur?: string | null;
 }
 

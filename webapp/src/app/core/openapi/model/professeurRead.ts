@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { SessionCoursRead } from './sessionCoursRead';
 
 
 /**
@@ -20,5 +21,7 @@ export interface ProfesseurRead {
     specialite?: string;
     grade?: string;
     matricule?: string;
+    sessionCours?: Array<SessionCoursRead>;
+    email?: string;
 }
 

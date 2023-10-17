@@ -16,6 +16,7 @@ api/param.service.ts
 api/professeur.service.ts
 api/salle.service.ts
 api/sessionCours.service.ts
+api/user.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -40,6 +41,7 @@ model/apiParamsGetCollection200Response.ts
 model/apiProfesseursGetCollection200Response.ts
 model/apiSallesGetCollection200Response.ts
 model/apiSessionCoursGetCollection200Response.ts
+model/apiUsersGetCollection200Response.ts
 model/classeJsonldRead.ts
 model/classeJsonldWrite.ts
 model/classeRead.ts
@@ -91,5 +93,7 @@ model/sessionCours.ts
 model/sessionCoursJsonld.ts
 model/sessionCoursJsonldRead.ts
 model/sessionCoursRead.ts
+model/userJsonldRead.ts
+model/userRead.ts
 param.ts
 variables.ts
