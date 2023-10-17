@@ -56,6 +56,10 @@ class SessionCours
     #[Groups(['read'])]
     private ?Salle $salle = null;
 
+    #[ORM\ManyToOne(inversedBy: 'sessionCours')]
+    #[Groups(['read'])]
+    private ?Professeur $professeur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,6 +138,18 @@ class SessionCours
     public function setSalle(?Salle $salle): static
     {
         $this->salle = $salle;
+
+        return $this;
+    }
+
+    public function getProfesseur(): ?Professeur
+    {
+        return $this->professeur;
+    }
+
+    public function setProfesseur(?Professeur $professeur): static
+    {
+        $this->professeur = $professeur;
 
         return $this;
     }
