@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { UserTokenService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-navbar',
@@ -8,8 +9,17 @@ import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 export class NavbarComponent implements OnInit {
   searchBox!: any;
   overlay!: any;
+  isRP = false;
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  constructor(
+    private el: ElementRef,
+    private renderer: Renderer2,
+    private userTokenService: UserTokenService
+  ) {
+    this.userTokenService.roles.forEach((role) => {
+      if (role === 'ROLE_RP') this.isRP = true;
+    });
+  }
 
   ngOnInit(): void {
     this.searchBox = this.el.nativeElement.querySelector('.search-box');

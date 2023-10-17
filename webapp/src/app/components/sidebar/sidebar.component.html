@@ -31,7 +31,7 @@
           height="32"
           class="rounded-circle me-2"
         />
-        <strong>Ibrahima Sylla</strong>
+        <strong>Compte</strong>
 
         <span class="caret"></span>
       </button>
@@ -65,19 +65,25 @@
           Accueil
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isProf">
         <a href="#" class="nav-link">
           <i class="bi bi-duffle sidebar-item-icon"></i>
           Mes cours
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isProf">
         <a href="#" class="nav-link">
           <i class="bi bi-people sidebar-item-icon"></i>
           Mes élèves
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isProf">
+        <a href="#" class="nav-link">
+          <i class="bi bi-people sidebar-item-icon"></i>
+          Mes cours
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="isRP">
         <a
           href="#"
           class="nav-link"
@@ -88,7 +94,7 @@
           Classes
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isRP">
         <a
           href="#"
           class="nav-link"
@@ -99,7 +105,7 @@
           Filières
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isRP">
         <a
           href="#"
           class="nav-link"
@@ -110,7 +116,7 @@
           Niveaux
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isRP">
         <a
           href="#"
           class="nav-link"
@@ -121,7 +127,7 @@
           Années scolaires
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isRP">
         <a
           href="#"
           class="nav-link"
@@ -132,7 +138,7 @@
           Professeurs
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isRP">
         <a
           href="#"
           class="nav-link"
@@ -143,7 +149,7 @@
           Salles
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isRP">
         <a
           href="#"
           class="nav-link"
@@ -152,12 +158,6 @@
         >
           <i class="bi bi-file-earmark sidebar-item-icon"></i>
           Modules
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="bi bi-file-earmark sidebar-item-icon"></i>
-          Demandes
         </a>
       </li>
     </ul>

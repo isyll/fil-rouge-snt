@@ -12,63 +12,31 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+    <div
+      class="collapse navbar-collapse justify-content-between"
+      id="navbarSupportedContent"
+    >
       <div class="navbar-nav ms-4 align-items-center">
-        <a routerLink="planifier-cours" routerLinkActive="active">
+        <a routerLink="planifier-cours" routerLinkActive="active" *ngIf="isRP">
           <button type="button" class="btn fs-5">Planifier cours</button>
         </a>
-        <a routerLinkActive="active">
-          <div
-            class="btn-group"
-            dropdown
-            #dropdown="bs-dropdown"
-            [autoClose]="true"
-          >
-            <button
-              id="button-basic"
-              dropdownToggle
-              type="button"
-              class="btn btn-dark dropdown-toggle fs-5"
-              aria-controls="dropdown-basic"
-            >
-              Inscrire un étudiant
-              <span class="caret"></span>
-            </button>
-            <ul
-              id="dropdown-basic"
-              *dropdownMenu
-              class="dropdown-menu"
-              role="menu"
-              aria-labelledby="button-basic"
-            >
-              <li role="menuitem">
-                <a
-                  class="dropdown-item"
-                  routerLink="inscriptions/nouvel-etudiant"
-                  routerLinkActive="active"
-                  >Nouvel étudiant</a
-                >
-              </li>
-              <li class="divider dropdown-divider"></li>
-              <li role="menuitem">
-                <a
-                  class="dropdown-item"
-                  routerLink="inscriptions/etudiant-existant"
-                  routerLinkActive="active"
-                  >Étudiant existant</a
-                >
-              </li>
-            </ul>
-          </div>
+        <a
+          routerLinkActive="active"
+          routerLink="inscriptions/nouvel-etudiant"
+          *ngIf="isRP"
+        >
+          <button type="button" class="btn fs-5">Inscrire un étudiant</button>
         </a>
-        <a routerLink="inscriptions/importer" routerLinkActive="active">
-          <button type="button" class="btn fs-5">Importer un fichier étudiant</button>
+        <a routerLink="inscriptions/importer" routerLinkActive="active" *ngIf="isRP">
+          <button type="button" class="btn fs-5">
+            Importer un fichier étudiant
+          </button>
         </a>
         <a routerLink="sessions" routerLinkActive="active">
-          <button type="button" class="btn fs-5">Sessions de cours</button>
+          <button type="button" class="btn fs-5" *ngIf="isRP">Sessions de cours</button>
         </a>
       </div>
-      <div class="navbar-nav ms-4 align-items-end">
+      <!-- <div class="navbar-nav ms-4 align-items-end d-none" >
         <form class="d-flex" role="search">
           <div class="search-box">
             <div class="input-group mb-3">
@@ -89,7 +57,7 @@
             <i class="bi bi-search icon"></i>
           </button>
         </form>
-      </div>
+      </div> -->
     </div>
   </div>
 </nav>

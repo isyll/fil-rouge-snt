@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
-import { UserService } from 'src/app/core/services';
+import { UserTokenService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,10 +16,17 @@ import { UserService } from 'src/app/core/services';
 })
 export class SidebarComponent {
   appName = environment.appName;
+  isRP = false;
+  isProf = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private userTokenService: UserTokenService) {
+    this.userTokenService.roles.forEach((role) => {
+      if (role === 'ROLE_RP') this.isRP = true;
+      if (role === 'ROLE_PROF') this.isProf = true;
+    });
+  }
 
   logout() {
-    this.userService.logout();
+    this.userTokenService.logout();
   }
 }
