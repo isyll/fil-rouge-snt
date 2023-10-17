@@ -22,10 +22,8 @@ export class AnneesScolairesComponent implements OnInit {
     this.requestPending = true;
 
     this.service.apiAnneeScolairesGetCollection().subscribe((response: any) => {
-      setTimeout(() => {
-        this.anneesScolaires = response;
-        this.requestPending = false;
-      }, 500);
+      this.anneesScolaires = response;
+      this.requestPending = false;
     });
   }
 }

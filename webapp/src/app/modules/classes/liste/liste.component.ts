@@ -23,10 +23,8 @@ export class ClassesComponent implements OnInit {
     this.requestPending = true;
 
     this.classeService.apiClassesGetCollection().subscribe((response: any) => {
-      setTimeout(() => {
-        this.data = response;
-        this.requestPending = false;
-      }, 500);
+      this.data = response;
+      this.requestPending = false;
     });
   }
 }
