@@ -1,16 +1,54 @@
-<form class="row p-3" [formGroup]="form" (submit)="onSubmit()">
-  <div class="form-group col-3">
-    <label for="libelle">Libellé<span class="text-danger">*</span></label>
-    <input
-      id="libelle"
-      type="text"
-      class="form-control"
-      formControlName="libelle"
-    />
-    <div class="text-warning">(2 caractères minimum)</div>
+<form
+  class="row p-3"
+  [formGroup]="form"
+  (submit)="onSubmit()"
+  *ngIf="
+    filieres !== null &&
+    filieres.length !== 0 &&
+    niveaux !== null && niveaux.length !== 0
+  "
+>
+  <div class="row">
+    <div class="col-8">
+      <label for="libelle">Libellé<span class="text-danger">*</span></label>
+      <input
+        id="libelle"
+        type="text"
+        class="form-control"
+        formControlName="libelle"
+      />
+      <div class="text-warning">(2 caractères minimum)</div>
+    </div>
+    <div class="w-100"></div>
+    <div class="col-4">
+      <label for="niveau">Niveau<span class="text-danger">*</span></label>
+      <select
+        formControlName="niveau"
+        id="niveau"
+        class="form-select"
+        *ngIf="niveaux !== null"
+      >
+        <option [value]="null">Choisir</option>
+        <option [value]="niveau['@id']" *ngFor="let niveau of niveaux">
+          {{ niveau["libelle"] }}
+        </option>
+      </select>
+    </div>
+    <div class="col-4">
+      <label for="filiere">Filière<span class="text-danger">*</span></label>
+      <select
+        formControlName="filiere"
+        id="filiere"
+        class="form-select"
+        *ngIf="filieres !== null"
+      >
+        <option [value]="null">Choisir</option>
+        <option [value]="filieres['@id']" *ngFor="let filieres of filieres">
+          {{ filieres["libelle"] }}
+        </option>
+      </select>
+    </div>
   </div>
-  <div class="w-100"></div>
-
   <div class="p-3">
     <button class="btn btn-primary p-2" type="submit" [disabled]="!form.valid">
       Créer
@@ -39,4 +77,19 @@
     {{ submitOk ? "Classe créée avec succès" : "" }}
   </div>
 </form>
+<div
+  class="alert alert-danger"
+  *ngIf="
+    (filieres !== null && filieres.length === 0) ||
+    (niveaux !== null && niveaux.length === 0)
+  "
+>
+  {{
+    filieres !== null && filieres.length === 0
+      ? "Veuillez d'abord créer une filière pour pouvoir créer une classe."
+      : niveaux !== null && niveaux.length === 0
+      ? "Veuillez d'abord créer un niveau pour pouvoir créer une classe."
+      : ""
+  }}
+</div>
 <app-loading *ngIf="submitPending"></app-loading>
