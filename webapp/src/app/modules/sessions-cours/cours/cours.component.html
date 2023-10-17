@@ -1,0 +1,119 @@
+<ng-container *ngIf="!noAnneeEnCours">
+  <div *ngIf="selectedAnnee">
+    <button type="button" class="btn btn-light">
+      {{ selectedAnnee.libelle }}
+    </button>
+  </div>
+
+  <form class="row p-3" [formGroup]="form" (submit)="onSubmit()">
+    <div class="form-group col-4">
+      <label for="classe">Classe<span class="text-danger">*</span></label>
+      <select
+        *ngIf="classes"
+        id="classe"
+        type="text"
+        class="form-select"
+        formControlName="classe"
+        [ngClass]="{
+          'is-invalid':
+            form.get('classe')?.value !== null && form.get('classe')?.invalid
+        }"
+      >
+        <option [value]="null">Choisir</option>
+        <option [value]="classe['@id']" *ngFor="let classe of classes">
+          {{ classe["libelle"] }}
+        </option>
+      </select>
+    </div>
+    <div class="w-100"></div>
+    <div class="form-group col-4">
+      <label for="module">Module<span class="text-danger">*</span></label>
+      <select
+        *ngIf="modules"
+        id="module"
+        type="text"
+        class="form-select"
+        formControlName="module"
+        [ngClass]="{
+          'is-invalid':
+            form.get('module')?.value !== null && form.get('module')?.invalid
+        }"
+      >
+        <option [value]="null">Choisir</option>
+        <option [value]="module['@id']" *ngFor="let module of modules">
+          {{ module["libelle"] }}
+        </option>
+      </select>
+    </div>
+    <div class="w-100"></div>
+
+    <div class="form-group col-4">
+      <label for="semestre">Semestres<span class="text-danger">*</span></label>
+      <input
+        id="semestre"
+        type="text"
+        class="form-control"
+        formControlName="semestre"
+        [ngClass]="{
+          'is-invalid':
+            form.get('semestre')?.value !== null &&
+            form.get('semestre')?.invalid
+        }"
+      />
+    </div>
+    <div class="w-100"></div>
+
+    <div class="form-group col-4">
+      <label for="heures"
+        >Nombre d'heures<span class="text-danger">*</span></label
+      >
+      <input
+        id="heures"
+        type="text"
+        class="form-control"
+        formControlName="heures"
+        [ngClass]="{
+          'is-invalid':
+            form.get('heures')?.value !== null && form.get('heures')?.invalid
+        }"
+      />
+    </div>
+    <div class="p-3">
+      <button
+        class="btn btn-primary p-2"
+        type="submit"
+        [disabled]="!form.valid"
+      >
+        Créer
+      </button>
+    </div>
+    <div
+      *ngIf="unknownError"
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+    >
+      <strong> Une erreur inconnue est survenue </strong>
+    </div>
+    <div
+      *ngIf="coursImpossible"
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+    >
+      <strong> Un cours pour ce module est déjà créé dans cette classe et pour ce semestre </strong>
+    </div>
+    <div
+      *ngIf="submitOk"
+      class="alert alert-success alert-dismissible fade show"
+      role="alert"
+    >
+      Cours créé avec succès
+    </div>
+  </form>
+  <app-loading *ngIf="submitPending"></app-loading>
+</ng-container>
+<ng-container *ngIf="noAnneeEnCours">
+  <div class="alert alert-danger w-50">
+    Veuillez d'abord activer une année scolaire en cours avant de créer des
+    cours
+  </div>
+</ng-container>

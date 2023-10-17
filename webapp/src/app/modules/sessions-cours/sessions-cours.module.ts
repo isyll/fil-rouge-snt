@@ -10,9 +10,10 @@ import {
 } from 'ngx-bootstrap/datepicker';
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { CoursComponent } from './cours/cours.component';
 
 @NgModule({
-  declarations: [PlanifierComponent],
+  declarations: [PlanifierComponent, CoursComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

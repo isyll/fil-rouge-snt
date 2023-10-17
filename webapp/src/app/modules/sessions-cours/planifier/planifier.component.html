@@ -1,6 +1,7 @@
 <app-loading
   *ngIf="DOM.coursRequestPending || DOM.sessionRequestPending"
 ></app-loading>
+
 <ng-container *ngIf="noAnneeEnCours !== null">
   <div *ngIf="selectedAnneeScolaire">
     <button type="button" class="btn btn-light">
@@ -8,7 +9,16 @@
     </button>
   </div>
 
-  <ng-container *ngIf="cours">
+  <a routerLink="cours">
+    <div class="card text-light shadow rounded-4">
+      <div class="card-title text-dark d-flex">
+        <i class="bi bi-plus-lg icon"></i>
+        <h5>Crer un cours</h5>
+      </div>
+    </div>
+  </a>
+
+  <ng-container *ngIf="cours.length">
     <h4 class="p-2">Cours existants</h4>
     <div>
       <app-item-card
@@ -103,6 +113,11 @@
     </table>
   </div>
 </ng-container>
+
+<div class="w-50">
+  <div class="alert alert-dark">Aucun cours trouvé</div>
+</div>
+
 <ng-container *ngIf="noAnneeEnCours === true">
   <div class="alert alert-danger">
     Aucune année scolaire en cours n'a été trouvé
