@@ -4,6 +4,7 @@ import { ContentLayoutComponent } from './components/content-layout/content-layo
 import { PlanifierCoursComponent } from './components/planifier-cours/planifier-cours.component';
 import { LoginComponent } from './components/login/login.component';
 import { MesCoursComponent } from './components/mes-cours/mes-cours.component';
+import { MesElevesComponent } from './components/mes-eleves/mes-eleves.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'mes-cours',
         component: MesCoursComponent,
+      },
+      {
+        path: 'mes-eleves',
+        component: MesElevesComponent,
       },
       {
         path: 'planifier-cours',
