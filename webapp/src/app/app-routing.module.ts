@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContentLayoutComponent } from './components/content-layout/content-layout.component';
 import { PlanifierCoursComponent } from './components/planifier-cours/planifier-cours.component';
 import { LoginComponent } from './components/login/login.component';
+import { MesCoursComponent } from './components/mes-cours/mes-cours.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
     path: '',
     component: ContentLayoutComponent,
     children: [
+      {
+        path: 'mes-cours',
+        component: MesCoursComponent,
+      },
       {
         path: 'planifier-cours',
         component: PlanifierCoursComponent,

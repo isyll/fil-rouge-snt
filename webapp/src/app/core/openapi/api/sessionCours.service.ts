@@ -107,15 +107,15 @@ export class SessionCoursService {
      * @param cours2 
      * @param salle 
      * @param salle2 
-     * @param date 
-     * @param date2 
+     * @param professeur 
+     * @param professeur2 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiSessionCoursGetCollection(page?: number, cours?: string, cours2?: Array<string>, salle?: string, salle2?: Array<string>, date?: string, date2?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<ApiSessionCoursGetCollection200Response>;
-    public apiSessionCoursGetCollection(page?: number, cours?: string, cours2?: Array<string>, salle?: string, salle2?: Array<string>, date?: string, date2?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiSessionCoursGetCollection200Response>>;
-    public apiSessionCoursGetCollection(page?: number, cours?: string, cours2?: Array<string>, salle?: string, salle2?: Array<string>, date?: string, date2?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiSessionCoursGetCollection200Response>>;
-    public apiSessionCoursGetCollection(page?: number, cours?: string, cours2?: Array<string>, salle?: string, salle2?: Array<string>, date?: string, date2?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
+    public apiSessionCoursGetCollection(page?: number, cours?: string, cours2?: Array<string>, salle?: string, salle2?: Array<string>, professeur?: string, professeur2?: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<ApiSessionCoursGetCollection200Response>;
+    public apiSessionCoursGetCollection(page?: number, cours?: string, cours2?: Array<string>, salle?: string, salle2?: Array<string>, professeur?: string, professeur2?: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiSessionCoursGetCollection200Response>>;
+    public apiSessionCoursGetCollection(page?: number, cours?: string, cours2?: Array<string>, salle?: string, salle2?: Array<string>, professeur?: string, professeur2?: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiSessionCoursGetCollection200Response>>;
+    public apiSessionCoursGetCollection(page?: number, cours?: string, cours2?: Array<string>, salle?: string, salle2?: Array<string>, professeur?: string, professeur2?: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (page !== undefined && page !== null) {
@@ -142,13 +142,15 @@ export class SessionCoursService {
                   <any>element, 'salle[]');
             })
         }
-        if (date !== undefined && date !== null) {
+        if (professeur !== undefined && professeur !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>date, 'date');
+            <any>professeur, 'professeur');
         }
-        if (date2 !== undefined && date2 !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>date2, 'date[]');
+        if (professeur2) {
+            professeur2.forEach((element) => {
+                localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+                  <any>element, 'professeur[]');
+            })
         }
 
         let localVarHeaders = this.defaultHeaders;

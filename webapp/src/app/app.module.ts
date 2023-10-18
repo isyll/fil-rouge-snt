@@ -14,7 +14,10 @@ import { SharedModule } from './shared/shared.module';
 import { BsDropdownModule, BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
-import { AuthInterceptor } from './core/services/auth-interceptor.service'
+import { AuthInterceptor } from './core/services/auth-interceptor.service';
+import { MesCoursComponent } from './components/mes-cours/mes-cours.component';
+import { MesElevesComponent } from './components/mes-eleves/mes-eleves.component';
+import { MesClassesComponent } from './components/mes-classes/mes-classes.component'
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { AuthInterceptor } from './core/services/auth-interceptor.service'
     SidebarComponent,
     PlanifierCoursComponent,
     LoginComponent,
+    MesCoursComponent,
+    MesElevesComponent,
+    MesClassesComponent,
   ],
   imports: [
     AppRoutingModule,

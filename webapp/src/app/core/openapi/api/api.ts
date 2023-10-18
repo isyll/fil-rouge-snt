@@ -28,20 +28,4 @@ export * from './sessionCours.service';
 import { SessionCoursService } from './sessionCours.service';
 export * from './user.service';
 import { UserService } from './user.service';
-export const APIS = [
-  AnneeScolaireService,
-  ClasseService,
-  CoursService,
-  EtudiantService,
-  FiliereService,
-  InscriptionService,
-  LoginCheckService,
-  ModuleService,
-  NiveauService,
-  OuvertureService,
-  ParamService,
-  ProfesseurService,
-  SalleService,
-  SessionCoursService,
-  UserService,
-];
+export const APIS = [AnneeScolaireService, ClasseService, CoursService, EtudiantService, FiliereService, InscriptionService, LoginCheckService, ModuleService, NiveauService, OuvertureService, ParamService, ProfesseurService, SalleService, SessionCoursService, UserService];

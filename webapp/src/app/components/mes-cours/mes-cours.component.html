@@ -1,0 +1,36 @@
+<div class="alert alert-info w-75" *ngIf="cours !== null && cours.length === 0">
+  Vous n'avez aucun cous
+</div>
+
+<ng-container *ngIf="cours !== null && cours.length !== 0">
+  <table class="table table-hover table-light w-75">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Heure de début</th>
+        <th scope="col">Heure de fin</th>
+        <th scope="col">Durée</th>
+        <th scope="col">État</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sc of cours">
+        <td>
+          {{ sc.date | date }}
+        </td>
+        <td>
+          {{ sc.heureDebut }}
+        </td>
+        <td>
+          {{ sc.heureFin }}
+        </td>
+        <td>
+          {{ sc.duree }}
+        </td>
+        <td>
+          En cours
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

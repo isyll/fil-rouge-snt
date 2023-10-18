@@ -42,4 +42,8 @@ export class UserTokenService {
   get email() {
     return window.localStorage.getItem('userEmail');
   }
+
+  get id() {
+    return window.localStorage.getItem('userId');
+  }
 }
