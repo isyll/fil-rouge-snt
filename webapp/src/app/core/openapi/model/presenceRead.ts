@@ -14,15 +14,7 @@
 /**
  * 
  */
-export interface SessionCours { 
-    readonly id?: number;
-    cours?: string | null;
-    heureDebut?: string;
-    heureFin?: string;
-    date?: string;
-    duree?: string | null;
-    salle?: string;
-    professeur?: string | null;
-    presences?: Array<string>;
+export interface PresenceRead { 
+    present?: boolean;
 }
 

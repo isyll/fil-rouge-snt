@@ -21,13 +21,13 @@ import { Observable }                                        from 'rxjs';
 // @ts-ignore
 import { ApiClassesGetCollection200Response } from '../model/apiClassesGetCollection200Response';
 // @ts-ignore
+import { Classe } from '../model/classe';
+// @ts-ignore
+import { ClasseJsonld } from '../model/classeJsonld';
+// @ts-ignore
 import { ClasseJsonldRead } from '../model/classeJsonldRead';
 // @ts-ignore
-import { ClasseJsonldWrite } from '../model/classeJsonldWrite';
-// @ts-ignore
 import { ClasseRead } from '../model/classeRead';
-// @ts-ignore
-import { ClasseWrite } from '../model/classeWrite';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -253,19 +253,19 @@ export class ClasseService {
      * Replaces the Classe resource.
      * Replaces the Classe resource.
      * @param id Classe identifier
-     * @param classeJsonldWrite The updated Classe resource
+     * @param classeJsonld The updated Classe resource
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiClassesIdPut(id: string, classeJsonldWrite: ClasseJsonldWrite, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<ClasseJsonldRead>;
-    public apiClassesIdPut(id: string, classeJsonldWrite: ClasseJsonldWrite, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<ClasseJsonldRead>>;
-    public apiClassesIdPut(id: string, classeJsonldWrite: ClasseJsonldWrite, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<ClasseJsonldRead>>;
-    public apiClassesIdPut(id: string, classeJsonldWrite: ClasseJsonldWrite, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
+    public apiClassesIdPut(id: string, classeJsonld: ClasseJsonld, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<ClasseJsonldRead>;
+    public apiClassesIdPut(id: string, classeJsonld: ClasseJsonld, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<ClasseJsonldRead>>;
+    public apiClassesIdPut(id: string, classeJsonld: ClasseJsonld, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<ClasseJsonldRead>>;
+    public apiClassesIdPut(id: string, classeJsonld: ClasseJsonld, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling apiClassesIdPut.');
         }
-        if (classeJsonldWrite === null || classeJsonldWrite === undefined) {
-            throw new Error('Required parameter classeJsonldWrite was null or undefined when calling apiClassesIdPut.');
+        if (classeJsonld === null || classeJsonld === undefined) {
+            throw new Error('Required parameter classeJsonld was null or undefined when calling apiClassesIdPut.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -321,7 +321,7 @@ export class ClasseService {
         return this.httpClient.request<ClasseJsonldRead>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: classeJsonldWrite,
+                body: classeJsonld,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -334,16 +334,16 @@ export class ClasseService {
     /**
      * Creates a Classe resource.
      * Creates a Classe resource.
-     * @param classeJsonldWrite The new Classe resource
+     * @param classeJsonld The new Classe resource
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiClassesPost(classeJsonldWrite: ClasseJsonldWrite, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<ClasseJsonldRead>;
-    public apiClassesPost(classeJsonldWrite: ClasseJsonldWrite, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<ClasseJsonldRead>>;
-    public apiClassesPost(classeJsonldWrite: ClasseJsonldWrite, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<ClasseJsonldRead>>;
-    public apiClassesPost(classeJsonldWrite: ClasseJsonldWrite, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
-        if (classeJsonldWrite === null || classeJsonldWrite === undefined) {
-            throw new Error('Required parameter classeJsonldWrite was null or undefined when calling apiClassesPost.');
+    public apiClassesPost(classeJsonld: ClasseJsonld, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<ClasseJsonldRead>;
+    public apiClassesPost(classeJsonld: ClasseJsonld, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<ClasseJsonldRead>>;
+    public apiClassesPost(classeJsonld: ClasseJsonld, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<ClasseJsonldRead>>;
+    public apiClassesPost(classeJsonld: ClasseJsonld, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
+        if (classeJsonld === null || classeJsonld === undefined) {
+            throw new Error('Required parameter classeJsonld was null or undefined when calling apiClassesPost.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -399,7 +399,7 @@ export class ClasseService {
         return this.httpClient.request<ClasseJsonldRead>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: classeJsonldWrite,
+                body: classeJsonld,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

@@ -14,15 +14,10 @@
 /**
  * 
  */
-export interface SessionCours { 
+export interface PresenceJsonld { 
     readonly id?: number;
-    cours?: string | null;
-    heureDebut?: string;
-    heureFin?: string;
-    date?: string;
-    duree?: string | null;
-    salle?: string;
-    professeur?: string | null;
-    presences?: Array<string>;
+    sessionCours?: string | null;
+    etudiant?: string | null;
+    present?: boolean;
 }
 

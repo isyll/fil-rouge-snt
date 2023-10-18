@@ -13,6 +13,7 @@ api/module.service.ts
 api/niveau.service.ts
 api/ouverture.service.ts
 api/param.service.ts
+api/presence.service.ts
 api/professeur.service.ts
 api/salle.service.ts
 api/sessionCours.service.ts
@@ -35,13 +36,17 @@ model/apiClassesGetCollection200Response.ts
 model/apiCoursGetCollection200Response.ts
 model/apiEtudiantsGetCollection200Response.ts
 model/apiFilieresGetCollection200Response.ts
+model/apiInscriptionsGetCollection200Response.ts
 model/apiModulesGetCollection200Response.ts
 model/apiNiveauxGetCollection200Response.ts
 model/apiParamsGetCollection200Response.ts
+model/apiPresencesGetCollection200Response.ts
 model/apiProfesseursGetCollection200Response.ts
 model/apiSallesGetCollection200Response.ts
 model/apiSessionCoursGetCollection200Response.ts
 model/apiUsersGetCollection200Response.ts
+model/classe.ts
+model/classeJsonld.ts
 model/classeJsonldRead.ts
 model/classeJsonldWrite.ts
 model/classeRead.ts
@@ -81,6 +86,10 @@ model/ouvertureRead.ts
 model/ouvertureWrite.ts
 model/paramDefault.ts
 model/paramJsonldDefault.ts
+model/presence.ts
+model/presenceJsonld.ts
+model/presenceJsonldRead.ts
+model/presenceRead.ts
 model/professeurJsonldRead.ts
 model/professeurJsonldWrite.ts
 model/professeurRead.ts

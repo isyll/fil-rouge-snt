@@ -9,20 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ClasseJsonldRead } from './classeJsonldRead';
-import { EtudiantJsonldRead } from './etudiantJsonldRead';
-import { AnneeScolaireJsonldRead } from './anneeScolaireJsonldRead';
 
 
 /**
  * 
  */
-export interface InscriptionJsonldRead { 
+export interface PresenceJsonldRead { 
     readonly id?: string;
     readonly type?: string;
     context?: string | null;
-    classe?: ClasseJsonldRead;
-    etudiant?: EtudiantJsonldRead;
-    readonly annee_scolaire?: AnneeScolaireJsonldRead;
+    present?: boolean;
 }
 

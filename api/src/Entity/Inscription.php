@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use App\Repository\InscriptionRepository;
 use App\State\InscriptionProcessor;
@@ -12,9 +15,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: InscriptionRepository::class)]
 #[ApiResource(
-    operations: [new Post(processor: InscriptionProcessor::class), new Get],
+    operations: [new Post(processor: InscriptionProcessor::class), new Get, new GetCollection],
     normalizationContext: ['groups' => ['read']]
 )]
+#[ApiFilter(SearchFilter::class, properties: ['annee_scolaire' => 'exact', 'classe' => 'exact'])]
 class Inscription
 {
     #[ORM\Id]

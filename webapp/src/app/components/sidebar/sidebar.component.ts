@@ -18,11 +18,13 @@ export class SidebarComponent {
   appName = environment.appName;
   isRP = false;
   isProf = false;
+  isAttache = false;
 
   constructor(private userTokenService: UserTokenService) {
     this.userTokenService.roles.forEach((role) => {
       if (role === 'ROLE_RP') this.isRP = true;
       if (role === 'ROLE_PROF') this.isProf = true;
+      if (role === 'ROLE_ATTACHE') this.isAttache = true;
     });
   }
 

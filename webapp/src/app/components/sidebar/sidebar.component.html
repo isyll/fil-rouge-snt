@@ -65,6 +65,18 @@
           Accueil
         </a>
       </li>
+      <li class="nav-item" *ngIf="isAttache">
+        <a
+          href="#"
+          class="nav-link"
+          routerLink="/absences"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="bi bi-duffle sidebar-item-icon"></i>
+          Absences
+        </a>
+      </li>
       <li class="nav-item" *ngIf="isProf">
         <a
           href="#"

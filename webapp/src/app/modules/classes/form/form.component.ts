@@ -50,11 +50,12 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit() {
-    const value = this.form.get('libelle')!.value;
+    const value: any = this.form.value;
+
     this.submitPending = true;
     if (value)
       this.classeService
-        .apiClassesPost({ libelle: value })
+        .apiClassesPost(value)
         .pipe(
           catchError((error) => {
             this.submitPending = this.submitOk = false;

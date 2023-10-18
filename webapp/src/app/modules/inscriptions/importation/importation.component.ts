@@ -175,6 +175,51 @@ export class ImportationComponent implements OnInit {
               }
             });
         });
+      } else {
+        this.inscriptions.forEach((etudiant, index) => {
+          this.etudiantService
+            .apiEtudiantsPost(etudiant)
+            .subscribe((response: any) => {
+              const inscription = response;
+
+              this.classeService
+                .apiClassesGetCollection(undefined, etudiant['classe'])
+                .subscribe((response: any) => {
+                  if (response['hydra:member'].length === 0) {
+                    this.setStatutInscription(
+                      index,
+                      this.Statuts.CLASSE_NON_TROUVE
+                    );
+                  } else {
+                    const classe = response['hydra:member'][0];
+                    this.inscriptionService
+                      .apiInscriptionsPost({
+                        anneeScolaire: this.selectedAnneeScolaire['@id'],
+                        classe: classe['@id'],
+                        etudiant: inscription['@id'],
+                      })
+                      .pipe(
+                        catchError((error) => {
+                          this.setStatutInscription(
+                            index,
+                            this.Statuts.DEJA_INSCRIT
+                          );
+
+                          return throwError(() => null);
+                        })
+                      )
+                      .subscribe((response) => {
+                        console.log(response);
+
+                        return this.setStatutInscription(
+                          index,
+                          this.Statuts.INSCRIT
+                        );
+                      });
+                  }
+                });
+            });
+        });
       }
     }
   }

@@ -14,15 +14,14 @@
 /**
  * 
  */
-export interface SessionCours { 
+export interface Classe { 
     readonly id?: number;
-    cours?: string | null;
-    heureDebut?: string;
-    heureFin?: string;
-    date?: string;
-    duree?: string | null;
-    salle?: string;
-    professeur?: string | null;
-    presences?: Array<string>;
+    libelle: string;
+    inscriptions?: Array<string>;
+    niveau?: string | null;
+    filiere?: string | null;
+    ouvertures?: Array<string>;
+    cours?: Array<string>;
+    nbEtudiants?: number | null;
 }
 

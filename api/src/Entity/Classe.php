@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity('libelle', message: 'Le libellé existe déjà')]
 #[ApiResource(
     operations: [new Get, new GetCollection, new Put, new Post],
-    denormalizationContext: ['groups' => ['write']],
+    // denormalizationContext: ['groups' => ['write']],
     normalizationContext: ['groups' => ['read']]
 )]
 #[ApiFilter(SearchFilter::class, properties: ['libelle' => 'exact'])]

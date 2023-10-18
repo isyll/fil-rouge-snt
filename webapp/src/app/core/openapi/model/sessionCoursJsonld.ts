@@ -23,5 +23,6 @@ export interface SessionCoursJsonld {
     duree?: string | null;
     salle?: string;
     professeur?: string | null;
+    presences?: Array<string>;
 }
 

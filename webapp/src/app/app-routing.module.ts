@@ -35,6 +35,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'absences',
+        loadChildren: () =>
+          import('./modules/absences/absences.module').then(
+            (m) => m.AbsencesModule
+          ),
+      },
+      {
         path: '',
         loadChildren: () =>
           import('./modules/accueil/accueil.module').then(

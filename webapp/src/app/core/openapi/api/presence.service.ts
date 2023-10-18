@@ -19,15 +19,15 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { ApiInscriptionsGetCollection200Response } from '../model/apiInscriptionsGetCollection200Response';
+import { ApiPresencesGetCollection200Response } from '../model/apiPresencesGetCollection200Response';
 // @ts-ignore
-import { Inscription } from '../model/inscription';
+import { Presence } from '../model/presence';
 // @ts-ignore
-import { InscriptionJsonld } from '../model/inscriptionJsonld';
+import { PresenceJsonld } from '../model/presenceJsonld';
 // @ts-ignore
-import { InscriptionJsonldRead } from '../model/inscriptionJsonldRead';
+import { PresenceJsonldRead } from '../model/presenceJsonldRead';
 // @ts-ignore
-import { InscriptionRead } from '../model/inscriptionRead';
+import { PresenceRead } from '../model/presenceRead';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -38,7 +38,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class InscriptionService {
+export class PresenceService {
 
     protected basePath = 'http://fil-rouge-snt';
     public defaultHeaders = new HttpHeaders();
@@ -100,44 +100,44 @@ export class InscriptionService {
     }
 
     /**
-     * Retrieves the collection of Inscription resources.
-     * Retrieves the collection of Inscription resources.
+     * Retrieves the collection of Presence resources.
+     * Retrieves the collection of Presence resources.
      * @param page The collection page number
-     * @param anneeScolaire 
-     * @param anneeScolaire2 
-     * @param classe 
-     * @param classe2 
+     * @param sessionCours 
+     * @param sessionCours2 
+     * @param etudiant 
+     * @param etudiant2 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiInscriptionsGetCollection(page?: number, anneeScolaire?: string, anneeScolaire2?: Array<string>, classe?: string, classe2?: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<ApiInscriptionsGetCollection200Response>;
-    public apiInscriptionsGetCollection(page?: number, anneeScolaire?: string, anneeScolaire2?: Array<string>, classe?: string, classe2?: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiInscriptionsGetCollection200Response>>;
-    public apiInscriptionsGetCollection(page?: number, anneeScolaire?: string, anneeScolaire2?: Array<string>, classe?: string, classe2?: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiInscriptionsGetCollection200Response>>;
-    public apiInscriptionsGetCollection(page?: number, anneeScolaire?: string, anneeScolaire2?: Array<string>, classe?: string, classe2?: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
+    public apiPresencesGetCollection(page?: number, sessionCours?: string, sessionCours2?: Array<string>, etudiant?: string, etudiant2?: Array<string>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<ApiPresencesGetCollection200Response>;
+    public apiPresencesGetCollection(page?: number, sessionCours?: string, sessionCours2?: Array<string>, etudiant?: string, etudiant2?: Array<string>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<ApiPresencesGetCollection200Response>>;
+    public apiPresencesGetCollection(page?: number, sessionCours?: string, sessionCours2?: Array<string>, etudiant?: string, etudiant2?: Array<string>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<ApiPresencesGetCollection200Response>>;
+    public apiPresencesGetCollection(page?: number, sessionCours?: string, sessionCours2?: Array<string>, etudiant?: string, etudiant2?: Array<string>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (page !== undefined && page !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>page, 'page');
         }
-        if (anneeScolaire !== undefined && anneeScolaire !== null) {
+        if (sessionCours !== undefined && sessionCours !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>anneeScolaire, 'annee_scolaire');
+            <any>sessionCours, 'sessionCours');
         }
-        if (anneeScolaire2) {
-            anneeScolaire2.forEach((element) => {
+        if (sessionCours2) {
+            sessionCours2.forEach((element) => {
                 localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-                  <any>element, 'annee_scolaire[]');
+                  <any>element, 'sessionCours[]');
             })
         }
-        if (classe !== undefined && classe !== null) {
+        if (etudiant !== undefined && etudiant !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>classe, 'classe');
+            <any>etudiant, 'etudiant');
         }
-        if (classe2) {
-            classe2.forEach((element) => {
+        if (etudiant2) {
+            etudiant2.forEach((element) => {
                 localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-                  <any>element, 'classe[]');
+                  <any>element, 'etudiant[]');
             })
         }
 
@@ -180,8 +180,8 @@ export class InscriptionService {
             }
         }
 
-        let localVarPath = `/inscriptions`;
-        return this.httpClient.request<ApiInscriptionsGetCollection200Response>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/presences`;
+        return this.httpClient.request<ApiPresencesGetCollection200Response>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
@@ -195,85 +195,22 @@ export class InscriptionService {
     }
 
     /**
-     * Retrieves a Inscription resource.
-     * Retrieves a Inscription resource.
-     * @param id Inscription identifier
+     * Replaces the Presence resource.
+     * Replaces the Presence resource.
+     * @param id Presence identifier
+     * @param presenceJsonld The updated Presence resource
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiInscriptionsIdGet(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<InscriptionJsonldRead>;
-    public apiInscriptionsIdGet(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<InscriptionJsonldRead>>;
-    public apiInscriptionsIdGet(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<InscriptionJsonldRead>>;
-    public apiInscriptionsIdGet(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
+    public apiPresencesIdPut(id: string, presenceJsonld: PresenceJsonld, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<PresenceJsonldRead>;
+    public apiPresencesIdPut(id: string, presenceJsonld: PresenceJsonld, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<PresenceJsonldRead>>;
+    public apiPresencesIdPut(id: string, presenceJsonld: PresenceJsonld, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<PresenceJsonldRead>>;
+    public apiPresencesIdPut(id: string, presenceJsonld: PresenceJsonld, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling apiInscriptionsIdGet.');
+            throw new Error('Required parameter id was null or undefined when calling apiPresencesIdPut.');
         }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarCredential: string | undefined;
-        // authentication (JWT) required
-        localVarCredential = this.configuration.lookupCredential('JWT');
-        if (localVarCredential) {
-            localVarHeaders = localVarHeaders.set('Authorization', localVarCredential);
-        }
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/ld+json',
-                'application/json'
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/inscriptions/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<InscriptionJsonldRead>('get', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Creates a Inscription resource.
-     * Creates a Inscription resource.
-     * @param inscriptionJsonld The new Inscription resource
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public apiInscriptionsPost(inscriptionJsonld: InscriptionJsonld, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<InscriptionJsonldRead>;
-    public apiInscriptionsPost(inscriptionJsonld: InscriptionJsonld, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<InscriptionJsonldRead>>;
-    public apiInscriptionsPost(inscriptionJsonld: InscriptionJsonld, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<InscriptionJsonldRead>>;
-    public apiInscriptionsPost(inscriptionJsonld: InscriptionJsonld, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
-        if (inscriptionJsonld === null || inscriptionJsonld === undefined) {
-            throw new Error('Required parameter inscriptionJsonld was null or undefined when calling apiInscriptionsPost.');
+        if (presenceJsonld === null || presenceJsonld === undefined) {
+            throw new Error('Required parameter presenceJsonld was null or undefined when calling apiPresencesIdPut.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -325,11 +262,89 @@ export class InscriptionService {
             }
         }
 
-        let localVarPath = `/inscriptions`;
-        return this.httpClient.request<InscriptionJsonldRead>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/presences/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<PresenceJsonldRead>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: inscriptionJsonld,
+                body: presenceJsonld,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Creates a Presence resource.
+     * Creates a Presence resource.
+     * @param presenceJsonld The new Presence resource
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiPresencesPost(presenceJsonld: PresenceJsonld, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<PresenceJsonldRead>;
+    public apiPresencesPost(presenceJsonld: PresenceJsonld, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpResponse<PresenceJsonldRead>>;
+    public apiPresencesPost(presenceJsonld: PresenceJsonld, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<HttpEvent<PresenceJsonldRead>>;
+    public apiPresencesPost(presenceJsonld: PresenceJsonld, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/ld+json' | 'application/json', context?: HttpContext}): Observable<any> {
+        if (presenceJsonld === null || presenceJsonld === undefined) {
+            throw new Error('Required parameter presenceJsonld was null or undefined when calling apiPresencesPost.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarCredential: string | undefined;
+        // authentication (JWT) required
+        localVarCredential = this.configuration.lookupCredential('JWT');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('Authorization', localVarCredential);
+        }
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/ld+json',
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/ld+json',
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/presences`;
+        return this.httpClient.request<PresenceJsonldRead>('post', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                body: presenceJsonld,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

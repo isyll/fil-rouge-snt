@@ -69,9 +69,13 @@ class Etudiant
     #[ORM\Column(length: 255, unique: true)]
     #[Groups(['read'])]
     private ?string $matricule = null;
+
+    #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Presence::class)]
+    private Collection $presences;
     public function __construct()
     {
         $this->classes = new ArrayCollection();
+        $this->presences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -171,6 +175,36 @@ class Etudiant
     public function setMatricule(string $matricule): static
     {
         $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Presence>
+     */
+    public function getPresences(): Collection
+    {
+        return $this->presences;
+    }
+
+    public function addPresence(Presence $presence): static
+    {
+        if (!$this->presences->contains($presence)) {
+            $this->presences->add($presence);
+            $presence->setEtudiant($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresence(Presence $presence): static
+    {
+        if ($this->presences->removeElement($presence)) {
+            // set the owning side to null (unless already changed)
+            if ($presence->getEtudiant() === $this) {
+                $presence->setEtudiant(null);
+            }
+        }
 
         return $this;
     }

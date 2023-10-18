@@ -10,6 +10,8 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Repository\SessionCoursRepository;
 use App\State\SessionCoursProcessor;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -59,6 +61,14 @@ class SessionCours
     #[ORM\ManyToOne(inversedBy: 'sessionCours')]
     #[Groups(['read'])]
     private ?Professeur $professeur = null;
+
+    #[ORM\OneToMany(mappedBy: 'sessionCours', targetEntity: Presence::class)]
+    private Collection $presences;
+
+    public function __construct()
+    {
+        $this->presences = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -150,6 +160,36 @@ class SessionCours
     public function setProfesseur(?Professeur $professeur): static
     {
         $this->professeur = $professeur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Presence>
+     */
+    public function getPresences(): Collection
+    {
+        return $this->presences;
+    }
+
+    public function addPresence(Presence $presence): static
+    {
+        if (!$this->presences->contains($presence)) {
+            $this->presences->add($presence);
+            $presence->setSessionCours($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresence(Presence $presence): static
+    {
+        if ($this->presences->removeElement($presence)) {
+            // set the owning side to null (unless already changed)
+            if ($presence->getSessionCours() === $this) {
+                $presence->setSessionCours(null);
+            }
+        }
 
         return $this;
     }
