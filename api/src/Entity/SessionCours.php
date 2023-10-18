@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     normalizationContext: ['groups' => 'read']
 )]
 #[ORM\Entity(repositoryClass: SessionCoursRepository::class)]
-#[ApiFilter(SearchFilter::class, properties: ['cours' => 'exact', 'salle' => 'exact', 'date', 'exact'])]
+#[ApiFilter(SearchFilter::class, properties: ['cours' => 'exact', 'salle' => 'exact', 'professeur' => 'exact'])]
 class SessionCours
 {
     #[ORM\Id]
