@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\State\ProcessorInterface;
 use App\Entity\SessionCours;
+use App\Exception\ProfesseurPrisException;
 use App\Exception\SalleOccupeException;
 use App\Exception\SalleTropPetiteException;
 use App\Exception\SessionCoursTimeException;
@@ -40,30 +41,44 @@ class SessionCoursProcessor implements ProcessorInterface
         if ($this->time2number($data->getHeureDebut()) >= $this->time2number($data->getHeureFin()))
             throw new SessionCoursTimeException("Les heures que vous indiquez sont invalides");
 
-        $sessionCours = $operation instanceof Post
-            ? $this->sessionCoursRepository->salleOccupes($data->getSalle(), $data->getDate())
-            : $this->sessionCoursRepository->autresSalleOccupes($previousData, $previousData->getSalle(), $previousData->getDate());
-
-        if ($sessionCours) {
-            $heureDebut = $this->time2number($data->getHeureDebut());
-            $heureFin   = $this->time2number($data->getHeureFin());
-
-            foreach ($sessionCours as $sc) {
-                $heureDebutSessionCours = $this->time2number($sc->getHeureDebut());
-                $heureFinSessionCours   = $this->time2number($sc->getHeureFin());
-
-                if ($heureDebutSessionCours <= $heureDebut && $heureDebut <= $heureFinSessionCours)
-                    throw new SalleOccupeException("La salle n'est pas libre pour le moment que vous indiquez");
-                if ($heureDebut <= $heureDebutSessionCours && $heureDebutSessionCours <= $heureFin)
-                    throw new SalleOccupeException("La salle n'est pas libre pour le moment que vous indiquez");
+        $heureDebut = $this->time2number($data->getHeureDebut());
+        $heureFin = $this->time2number($data->getHeureFin());
+        if ($data->isPresentiel()) {
+            $sessionCours = $operation instanceof Post
+                ? $this->sessionCoursRepository->salleOccupes($data->getSalle(), $data->getDate())
+                : $this->sessionCoursRepository->autresSalleOccupes($previousData, $previousData->getSalle(), $previousData->getDate());
+            if ($sessionCours) {
+                foreach ($sessionCours as $sc) {
+                    $heureDebutSessionCours = $this->time2number($sc->getHeureDebut());
+                    $heureFinSessionCours = $this->time2number($sc->getHeureFin());
+                    if (
+                        ($heureDebutSessionCours <= $heureDebut && $heureDebut <= $heureFinSessionCours) ||
+                        ($heureDebut <= $heureDebutSessionCours && $heureDebutSessionCours <= $heureFin)
+                    )
+                        throw new SalleOccupeException("La salle n'est pas libre pour le moment que vous indiquez");
+                }
             }
+
+            $classe = $data->getCours()->getClasse();
+            $salle = $data->getSalle();
+
+            if ($classe->getNbEtudiants() > $salle->getPlaces())
+                throw new SalleTropPetiteException('La salle que vous avez choisi est trop petite pour la classe ' + $classe->getLibelle());
+        } else $data->setSalle(null);
+
+        $professeurSessionCours = $operation instanceof Post
+            ? $this->sessionCoursRepository->getProfesseurSessionCours($data->getProfesseur(), $data->getDate())
+            : $this->sessionCoursRepository->getProfesseurAutresSessionCours($data, $data->getProfesseur(), $data->getDate());
+        foreach ($professeurSessionCours as $sc) {
+            $heureDebutSessionCours = $this->time2number($sc->getHeureDebut());
+            $heureFinSessionCours = $this->time2number($sc->getHeureFin());
+            if (
+                ($heureDebutSessionCours <= $heureDebut && $heureDebut <= $heureFinSessionCours) ||
+                ($heureDebut <= $heureDebutSessionCours && $heureDebutSessionCours <= $heureFin)
+            )
+                throw new ProfesseurPrisException("Le professeur n'est pas libre pour cette session");
         }
 
-        $classe = $data->getCours()->getClasse();
-        $salle  = $data->getSalle();
-
-        if ($classe->getNbEtudiants() > $salle->getPlaces())
-            throw new SalleTropPetiteException('La salle que vous avez choisi est trop petite pour la classe ' + $classe->getLibelle());
         if ($previousData) {
             $this->processor->process($data, $operation, $uriVariables, $context);
 

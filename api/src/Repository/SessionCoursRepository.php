@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Professeur;
 use App\Entity\Salle;
 use App\Entity\SessionCours;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -43,18 +44,12 @@ class SessionCoursRepository extends ServiceEntityRepository
             ->andWhere('s.date = :date')
             ->setParameter('salle', $salle)
             ->setParameter('date', $date)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function autresSalleOccupes(
-        SessionCours $sessionCours,
-        Salle $salle,
-        \DateTimeInterface $date
-    ): array {
+    public function autresSalleOccupes(SessionCours $sessionCours, Salle $salle, \DateTimeInterface $date): array {
         return $this->createQueryBuilder('s')
             ->andWhere('s.salle = :salle')
             ->andWhere('s.date = :date')
@@ -62,14 +57,38 @@ class SessionCoursRepository extends ServiceEntityRepository
             ->setParameter('salle', $salle)
             ->setParameter('date', $date)
             ->setParameter('id', $sessionCours->getId())
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
 
-    //    /**
+    public function getProfesseurSessionCours(Professeur $professeur, \DateTimeInterface $date): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.date = :date')
+            ->andWhere('s.professeur = :professeur')
+            ->setParameter('date', $date)
+            ->setParameter('professeur', $professeur)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getProfesseurAutresSessionCours(SessionCours $sessionCours, Professeur $professeur, \DateTimeInterface $date): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.date = :date')
+            ->andWhere('s.professeur = :professeur')
+            ->andWhere('s.id != :id')
+            ->setParameter('date', $date)
+            ->setParameter('professeur', $professeur)
+            ->setParameter('id', $sessionCours->getId())
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+//    /**
 //     * @return SessionCours[] Returns an array of SessionCours objects
 //     */
 //    public function findByExampleField($value): array

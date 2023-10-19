@@ -54,7 +54,7 @@ class SessionCours
     private ?string $duree = null;
 
     #[ORM\ManyToOne(inversedBy: 'sessionCours')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     #[Groups(['read'])]
     private ?Salle $salle = null;
 
@@ -64,6 +64,10 @@ class SessionCours
 
     #[ORM\OneToMany(mappedBy: 'sessionCours', targetEntity: Presence::class)]
     private Collection $presences;
+
+    #[ORM\Column]
+    #[Groups(['read'])]
+    private ?bool $presentiel = null;
 
     public function __construct()
     {
@@ -190,6 +194,18 @@ class SessionCours
                 $presence->setSessionCours(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isPresentiel(): ?bool
+    {
+        return $this->presentiel;
+    }
+
+    public function setPresentiel(bool $presentiel): static
+    {
+        $this->presentiel = $presentiel;
 
         return $this;
     }

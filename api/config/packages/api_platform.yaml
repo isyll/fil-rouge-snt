@@ -27,4 +27,5 @@ api_platform:
         App\Exception\PhoneNumberException: 422
         App\Exception\SessionCoursTimeException: 422
         App\Exception\SalleOccupeException: 422
+        App\Exception\ProfesseurPrisException: 422
         App\Exception\OuvertureAlreadyDoneException: 409
