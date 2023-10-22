@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
       title: 'Sanatel Academy',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('GS Sonatel Academy'),
+          title: const Text('Gestion Scolaire'),
         ),
         body: const Center(
-          child: Text('Hello World'),
+          child: Text('Ibrahima Sylla'),
         ),
       ),
     );
