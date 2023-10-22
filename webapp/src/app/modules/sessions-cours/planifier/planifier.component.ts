@@ -8,9 +8,15 @@ import {
   SalleService,
   SessionCoursService,
 } from 'src/app/core/openapi';
-import { ParamsService, UserTokenService, difference, formatDate } from 'src/app/core/services';
+import {
+  ParamsService,
+  UserTokenService,
+  difference,
+  formatDate,
+} from 'src/app/core/services';
 import { validateTime } from 'src/app/core/validators';
 import { time2Number } from 'src/app/core/services';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-planifier',
@@ -35,7 +41,9 @@ export class PlanifierComponent implements OnInit {
     heureFin: ['', [Validators.required]],
     professeur: [null, [Validators.required]],
     duree: [''],
+    presentiel: [true, [Validators.required]],
   });
+  professeurPris = false;
   DOM = {
     sessionRequestPending: false,
     coursRequestPending: false,
@@ -59,6 +67,11 @@ export class PlanifierComponent implements OnInit {
     private userTokenService: UserTokenService
   ) {
     this.sessionForm.valueChanges.subscribe(this.validateSessionForm);
+    this.sessionForm.get('presentiel')?.valueChanges.subscribe((value) => {
+      // if (value)
+      //   this.sessionForm.get('salle')?.setValidators(Validators.required);
+      // else this.sessionForm.get('salle')?.setValidators(null);
+    });
   }
 
   ngOnInit(): void {
@@ -80,14 +93,23 @@ export class PlanifierComponent implements OnInit {
       cours: this.selectedCours['@id'],
     };
 
-
     this.DOM.sessionRequestPending = true;
-    this.sessionCoursService.apiSessionCoursPost(data).subscribe((response) => {
-      this.DOM.sessionRequestPending = false;
-      this.sessionForm.reset();
-      this.sessionModal?.hide();
-      this.loadSessionCours();
-    });
+    this.sessionCoursService
+      .apiSessionCoursPost(data)
+      .pipe(
+        catchError((error) => {
+          this.DOM.sessionRequestPending = false;
+          this.professeurPris = true;
+
+          return throwError(() => null);
+        })
+      )
+      .subscribe((response) => {
+        this.DOM.sessionRequestPending = false;
+        this.sessionForm.reset();
+        this.sessionModal?.hide();
+        this.loadSessionCours();
+      });
   }
 
   onSelectCours(cours: any) {

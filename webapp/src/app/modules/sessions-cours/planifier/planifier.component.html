@@ -167,7 +167,16 @@
             [bsConfig]="{ isAnimated: true }"
           />
         </div>
-        <div class="col-12">
+        <div class="col-12 d-flex" style="gap: 25px">
+          <label for="presentiel" class="form-check-label">Présentiel</label>
+          <input
+            type="checkbox"
+            formControlName="presentiel"
+            id="presentiel"
+            class="form-check-input"
+          />
+        </div>
+        <div class="col-12" *ngIf="sessionForm.get('presentiel')?.value">
           <label for="salle">Salle</label>
           <select
             id="salle"
@@ -275,7 +284,10 @@
           class="text-danger"
           *ngIf="sessionForm.get('duree')?.hasError('exact')"
         >
-          Les heures que vous avez choisies sont invalides
+          Les heures que vous avez choisies sont invalides.
+        </div>
+        <div class="text-danger" *ngIf="professeurPris">
+          Le professeur n'est pas libre pour ce cours.
         </div>
         <div
           class="text-danger"
