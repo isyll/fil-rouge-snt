@@ -76,6 +76,7 @@ class SessionCours
     private ?bool $presentiel = null;
 
     #[ORM\Column]
+    #[Groups(['read'])]
     private ?bool $valide = null;
 
     public function __construct()
