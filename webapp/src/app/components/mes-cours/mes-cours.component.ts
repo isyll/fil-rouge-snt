@@ -29,8 +29,6 @@ export class MesCoursComponent implements OnInit {
       .apiProfesseursGetCollection(undefined, this.userTokenService.email!)
       .subscribe((response: any) => {
         this.professeur = response['hydra:member'][0];
-        console.log(this.professeur);
-
         this.loadAnnee();
       });
   }
@@ -57,7 +55,6 @@ export class MesCoursComponent implements OnInit {
       )
       .subscribe((response: any) => {
         this.cours = response['hydra:member'];
-        console.log(response);
       });
   }
 }
