@@ -77,7 +77,11 @@ class SessionCours
 
     #[ORM\Column]
     #[Groups(['read'])]
-    private ?bool $valide = null;
+    private ?bool $valide = false;
+
+    #[ORM\Column]
+    #[Groups(['read'])]
+    private ?bool $annule = false;
 
     public function __construct()
     {
@@ -228,6 +232,18 @@ class SessionCours
     public function setValide(bool $valide): static
     {
         $this->valide = $valide;
+
+        return $this;
+    }
+
+    public function isAnnule(): ?bool
+    {
+        return $this->annule;
+    }
+
+    public function setAnnule(bool $annule): static
+    {
+        $this->annule = $annule;
 
         return $this;
     }
