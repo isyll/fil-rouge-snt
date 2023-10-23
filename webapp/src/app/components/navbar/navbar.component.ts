@@ -10,6 +10,7 @@ export class NavbarComponent implements OnInit {
   searchBox!: any;
   overlay!: any;
   isRP = false;
+  isProf = false;
 
   constructor(
     private el: ElementRef,
@@ -18,6 +19,7 @@ export class NavbarComponent implements OnInit {
   ) {
     this.userTokenService.roles.forEach((role) => {
       if (role === 'ROLE_RP') this.isRP = true;
+      if (role === 'ROLE_PROF') this.isProf = true;
     });
   }
 

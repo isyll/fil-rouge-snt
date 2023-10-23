@@ -21,19 +21,34 @@
           <button type="button" class="btn fs-5">Planifier cours</button>
         </a>
         <a
+          routerLink="demande-annulation"
+          routerLinkActive="active"
+          *ngIf="isProf"
+        >
+          <button type="button" class="btn fs-5">
+            Demander annulation de cours
+          </button>
+        </a>
+        <a
           routerLinkActive="active"
           routerLink="inscriptions/nouvel-etudiant"
           *ngIf="isRP"
         >
           <button type="button" class="btn fs-5">Inscrire un étudiant</button>
         </a>
-        <a routerLink="inscriptions/importer" routerLinkActive="active" *ngIf="isRP">
+        <a
+          routerLink="inscriptions/importer"
+          routerLinkActive="active"
+          *ngIf="isRP"
+        >
           <button type="button" class="btn fs-5">
             Importer un fichier étudiant
           </button>
         </a>
         <a routerLink="sessions" routerLinkActive="active">
-          <button type="button" class="btn fs-5" *ngIf="isRP">Sessions de cours</button>
+          <button type="button" class="btn fs-5" *ngIf="isRP">
+            Sessions de cours
+          </button>
         </a>
       </div>
       <!-- <div class="navbar-nav ms-4 align-items-end d-none" >

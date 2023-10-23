@@ -5,6 +5,7 @@ import { PlanifierCoursComponent } from './components/planifier-cours/planifier-
 import { LoginComponent } from './components/login/login.component';
 import { MesCoursComponent } from './components/mes-cours/mes-cours.component';
 import { MesElevesComponent } from './components/mes-eleves/mes-eleves.component';
+import { AnnulationComponent } from './components/annulation/annulation.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
     path: '',
     component: ContentLayoutComponent,
     children: [
+      {
+        path: 'demande-annulation',
+        component: AnnulationComponent,
+      },
       {
         path: 'mes-cours',
         component: MesCoursComponent,

@@ -17,7 +17,8 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from './core/services/auth-interceptor.service';
 import { MesCoursComponent } from './components/mes-cours/mes-cours.component';
 import { MesElevesComponent } from './components/mes-eleves/mes-eleves.component';
-import { MesClassesComponent } from './components/mes-classes/mes-classes.component'
+import { MesClassesComponent } from './components/mes-classes/mes-classes.component';
+import { AnnulationComponent } from './components/annulation/annulation.component'
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MesClassesComponent } from './components/mes-classes/mes-classes.compon
     MesCoursComponent,
     MesElevesComponent,
     MesClassesComponent,
+    AnnulationComponent,
   ],
   imports: [
     AppRoutingModule,
