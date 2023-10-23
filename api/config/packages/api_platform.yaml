@@ -29,3 +29,5 @@ api_platform:
         App\Exception\SalleOccupeException: 422
         App\Exception\ProfesseurPrisException: 422
         App\Exception\OuvertureAlreadyDoneException: 409
+        App\Exception\SessionCoursInexistantException: 404
+

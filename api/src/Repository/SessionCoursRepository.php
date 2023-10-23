@@ -88,6 +88,13 @@ class SessionCoursRepository extends ServiceEntityRepository
         ;
     }
 
+    public function updateAndSaveValidation(SessionCours $sc, bool $value)
+    {
+        $sc->setValide($value);
+        $this->getEntityManager()->persist($sc);
+        $this->getEntityManager()->flush();
+    }
+
 //    /**
 //     * @return SessionCours[] Returns an array of SessionCours objects
 //     */

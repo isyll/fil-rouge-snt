@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use App\Controller\SessionCoursValidationController;
 use App\Repository\SessionCoursRepository;
 use App\State\SessionCoursProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -20,7 +21,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new GetCollection,
         new Post(processor: SessionCoursProcessor::class),
-        new Put(processor: SessionCoursProcessor::class)
+        new Put(processor: SessionCoursProcessor::class),
+        new Post(
+            name: 'validation session',
+            uriTemplate: '/session_cours/{id}/validation',
+            controller: SessionCoursValidationController::class
+        )
     ],
     normalizationContext: ['groups' => 'read']
 )]
@@ -68,6 +74,9 @@ class SessionCours
     #[ORM\Column]
     #[Groups(['read'])]
     private ?bool $presentiel = null;
+
+    #[ORM\Column]
+    private ?bool $valide = null;
 
     public function __construct()
     {
@@ -206,6 +215,18 @@ class SessionCours
     public function setPresentiel(bool $presentiel): static
     {
         $this->presentiel = $presentiel;
+
+        return $this;
+    }
+
+    public function isValide(): ?bool
+    {
+        return $this->valide;
+    }
+
+    public function setValide(bool $valide): static
+    {
+        $this->valide = $valide;
 
         return $this;
     }
