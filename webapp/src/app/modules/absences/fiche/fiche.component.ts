@@ -115,8 +115,6 @@ export class FicheComponent implements OnInit {
               this.sessionCours.push(sessionCours);
             }
           }
-          console.log(this.sessionCours);
-
         });
 
         // this.sessionCoursService
