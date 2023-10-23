@@ -27,5 +27,6 @@ export interface SessionCoursRead {
     professeur?: ProfesseurRead | null;
     presentiel?: boolean;
     valide?: boolean;
+    annule?: boolean;
 }
 

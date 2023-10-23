@@ -26,5 +26,6 @@ export interface SessionCours {
     presences?: Array<string>;
     presentiel?: boolean;
     valide?: boolean;
+    annule?: boolean;
 }
 

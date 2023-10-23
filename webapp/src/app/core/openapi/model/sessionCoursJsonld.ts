@@ -26,5 +26,6 @@ export interface SessionCoursJsonld {
     presences?: Array<string>;
     presentiel?: boolean;
     valide?: boolean;
+    annule?: boolean;
 }
 

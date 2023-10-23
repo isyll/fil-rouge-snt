@@ -91,6 +91,7 @@ export class PlanifierComponent implements OnInit {
       duree: duree,
       date: formatDate(date as Date),
       cours: this.selectedCours['@id'],
+      valide: false
     };
 
     this.DOM.sessionRequestPending = true;

@@ -30,5 +30,6 @@ export interface SessionCoursJsonldRead {
     professeur?: ProfesseurJsonldRead | null;
     presentiel?: boolean;
     valide?: boolean;
+    annule?: boolean;
 }
 
