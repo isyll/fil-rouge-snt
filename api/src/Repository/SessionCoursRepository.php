@@ -95,6 +95,13 @@ class SessionCoursRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
+    public function updateAndSaveAnnulation(SessionCours $sc, bool $value)
+    {
+        $sc->setAnnule($value);
+        $this->getEntityManager()->persist($sc);
+        $this->getEntityManager()->flush();
+    }
+
 //    /**
 //     * @return SessionCours[] Returns an array of SessionCours objects
 //     */

@@ -26,6 +26,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             name: 'validation session',
             uriTemplate: '/session_cours/{id}/validation',
             controller: SessionCoursValidationController::class
+        ),
+        new Post(
+            name: 'annulation session',
+            uriTemplate: '/session_cours/{id}/annulation',
+            controller: SessionCoursValidationController::class
         )
     ],
     normalizationContext: ['groups' => 'read']
