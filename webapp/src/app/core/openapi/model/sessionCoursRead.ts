@@ -23,7 +23,9 @@ export interface SessionCoursRead {
     heureFin?: string;
     date?: string;
     duree?: string | null;
-    salle?: SalleRead;
+    salle?: SalleRead | null;
     professeur?: ProfesseurRead | null;
+    presentiel?: boolean;
+    valide?: boolean;
 }
 

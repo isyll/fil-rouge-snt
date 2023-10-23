@@ -13,6 +13,19 @@
     </div>
   </div>
   <div class="w-75" *ngIf="etudiants !== null">
+    <div class="m-3" *ngIf="selectedSessionCours">
+      <div class="alert alert-success" *ngIf="selectedSessionCours.valide">
+        Session de cours validé
+      </div>
+
+      <button
+        *ngIf="!selectedSessionCours.valide"
+        (click)="validateSessionCours()"
+        class="btn btn-light"
+      >
+        Valider la session de cours
+      </button>
+    </div>
     <table class="table table-hover">
       <thead>
         <tr>

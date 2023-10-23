@@ -72,6 +72,18 @@ export class FicheComponent implements OnInit {
       });
   }
 
+  validateSessionCours() {
+    this.sessionCoursService
+      .validationSession(extractId(this.selectedSessionCours['@id']), {
+        valide: true,
+      })
+      .subscribe((response) => {
+        this.selectedSessionCours.valide = true;
+        this.sessionCours = [];
+        this.loadData();
+      });
+  }
+
   private loadData() {
     this.paramsService.getAnneeEnCours(
       (annee) => {
@@ -96,7 +108,7 @@ export class FicheComponent implements OnInit {
       )
       .subscribe((response: any) => {
         const obs$ = [];
-        const cours =  response['hydra:member']
+        const cours = response['hydra:member'];
 
         for (const c of cours) {
           obs$.push(
@@ -116,16 +128,6 @@ export class FicheComponent implements OnInit {
             }
           }
         });
-
-        // this.sessionCoursService
-        //   .apiSessionCoursGetCollection(undefined, cours['@id'])
-        //   .subscribe((response: any) => {
-        //     for (const sessionCours of response['hydra:member']) {
-        //       sessionCours.classe = cours.classe;
-        //       this.sessionCours.push(sessionCours);
-        //     }
-        //     console.log(this.sessionCours);
-        //   });
       });
   }
 

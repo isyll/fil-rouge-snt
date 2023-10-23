@@ -21,8 +21,10 @@ export interface SessionCoursJsonld {
     heureFin?: string;
     date?: string;
     duree?: string | null;
-    salle?: string;
+    salle?: string | null;
     professeur?: string | null;
     presences?: Array<string>;
+    presentiel?: boolean;
+    valide?: boolean;
 }
 
