@@ -95,16 +95,39 @@ export class FicheComponent implements OnInit {
         this.anneeScolaire['@id']
       )
       .subscribe((response: any) => {
-        for (const cours of response['hydra:member']) {
-          this.sessionCoursService
-            .apiSessionCoursGetCollection(undefined, cours['@id'])
-            .subscribe((response: any) => {
-              for (const sessionCours of response['hydra:member']) {
-                sessionCours.classe = cours.classe;
-                this.sessionCours.push(sessionCours);
-              }
-            });
+        const obs$ = [];
+        const cours =  response['hydra:member']
+
+        for (const c of cours) {
+          obs$.push(
+            this.sessionCoursService.apiSessionCoursGetCollection(
+              undefined,
+              c['@id']
+            )
+          );
         }
+
+        forkJoin(obs$).subscribe((responses: any) => {
+          for (let i = 0; i < responses.length; i++) {
+            const response = responses[i];
+            for (const sessionCours of response['hydra:member']) {
+              sessionCours.classe = cours[i].classe;
+              this.sessionCours.push(sessionCours);
+            }
+          }
+          console.log(this.sessionCours);
+
+        });
+
+        // this.sessionCoursService
+        //   .apiSessionCoursGetCollection(undefined, cours['@id'])
+        //   .subscribe((response: any) => {
+        //     for (const sessionCours of response['hydra:member']) {
+        //       sessionCours.classe = cours.classe;
+        //       this.sessionCours.push(sessionCours);
+        //     }
+        //     console.log(this.sessionCours);
+        //   });
       });
   }
 

@@ -3,7 +3,7 @@
   <div class="w-75 row">
     <div *ngFor="let c of sessionCours" class="col-4">
       <app-item-card
-        [title]="c.salle.nom"
+        [title]="c.salle ? c.salle.nom : 'En ligne'"
         icon="bi bi-back"
         [data]="c.classe.libelle"
         [footData1]="c.professeur.prenom + ' ' + c.professeur.nom"
